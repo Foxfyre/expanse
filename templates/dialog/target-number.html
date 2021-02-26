@@ -1,0 +1,76 @@
+<form class="{{cssClass}} target-number" autocomplete="off">
+
+    <div class="tn-box">
+        <div class="tn-header-box">
+            <div class="tn-header-block">
+                <span>TEST TARGET NUMBER</span>
+            </div>
+        </div>
+
+        <div class="tn-block">
+            <div class="box-header">
+                <span class="">{{localize "EXPANSE.TargetNumber"}}</span>
+                <span class="">Test Difficulty</span>
+            </div>
+
+            <div class="tn-detail-box">
+                <div class="tn-row light">
+                    <span>7</span>
+                    <span>Routine</span>
+                </div>
+                <div class="tn-row">
+                    <span>9</span>
+                    <span>Easy</span>
+                </div>
+                <div class="tn-row light">
+                    <span>11</span>
+                    <span>Average</span>
+                </div>
+                <div class="tn-row">
+                    <span>13</span>
+                    <span>Challenging</span>
+                </div>
+                <div class="tn-row light">
+                    <span>15</span>
+                    <span>Hard</span>
+                </div>
+                <div class="tn-row">
+                    <span>17</span>
+                    <span>Formidable</span>
+                </div>
+                <div class="tn-row light">
+                    <span>19</span>
+                    <span>Imposing</span>
+                </div>
+                <div class="tn-row">
+                    <span>21</span>
+                    <span>Nigh Impossible</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tn-input-box">
+            <label for="targetInput">{{localize "EXPANSE.TargetNumber"}}</label>
+            <input name="targetInput" class="targetInput" value="" data-dtype="Number" placeholder="Target Number" />
+        </div>
+    </div>
+
+</form>
+
+<script>
+    textContainer = document.querySelectorAll('.app.window-app.dialog');
+    length = textContainer.length;
+  
+    for (i = 0; i < length; i++) {
+      if (textContainer[i].children[1].children[0].children[0].className.includes("target-number")) {
+        new_red = textContainer[i].id;
+        
+        if (document.getElementById(new_red).className.includes("target-number-dialog")) {
+          continue;
+        } 
+        else {
+          document.getElementById(new_red).className += " target-number-dialog";
+        }
+      } else {}
+    }
+  </script>

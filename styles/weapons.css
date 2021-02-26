@@ -1,0 +1,101 @@
+.weapons .weapons-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 650px;
+    margin: 0px 5px 0px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #f3f3f3;
+}
+
+.weapons .weapons-header-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #D6E7ED;
+}
+
+.weapons .weapons-header-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 5px;
+    background-color: #005971;
+    border-top-left-radius: 10px;
+    color: whitesmoke;
+}
+
+.weapons .weapons-header-block input[type=text] {
+    font-size: 100%;
+    line-height: 100%;
+    color: whitesmoke;
+    border: none;
+}
+
+.weapons .weapons-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #D6E7ED;
+}
+
+.weapons .weapons-detail-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+}
+
+.weapons .weapons-detail-box input[type=text], select {
+    display: flex;
+    height: 27px;
+    border: none;
+}
+
+.weapons .weapons-attribute {
+    display: flex;
+    justify-content: center; 
+    width: 23%;
+}
+
+.weapons .weapons-desc-block {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-height:100px;
+    border-bottom-right-radius: 10px;
+}
+
+.weapons .weapons-desc-box {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+}
+
+.weapons .weapons-desc-box .editor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: transparent;
+    font-family: inherit;
+    text-align: left;
+}
+
+.weapons .weapons-desc-box .editor-content {
+padding: 5px;
+}
+
+
+

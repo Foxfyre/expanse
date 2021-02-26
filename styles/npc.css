@@ -1,0 +1,307 @@
+/*ul {
+    margin: 0;
+    padding: 0;
+}*/
+
+.npc .npc-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-width: 450px;
+    min-height: 450px;
+    max-height: none !important;
+    margin: 0px 5px 0px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #f3f3f3;
+}
+
+/*.app.window-app.actor.npc .window-resizable-handle {
+    display: none !important;
+  }*/
+
+.npc .npc-header-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    min-height: 50px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #D6E7ED;
+} 
+
+.npc .npc-header-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #005971;
+    border-top-left-radius: 10px;
+    color: whitesmoke;
+}
+
+.npc .npc-header-block > span {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    line-height: 25px;
+}
+
+.npc .npc-header-block input[type=text] {
+    color: whitesmoke;
+    font-stretch: condensed;
+    line-height: 25px;
+    font-size: 1em;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.npc .box-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .9);
+    height: 15px;
+}
+  
+.npc .box-header > span {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    font-size: 12px;
+    color: whitesmoke;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.npc .npc-ability-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 0px 5px 0px;
+    background-color: #D6E7ED;
+}
+
+.npc .npc-ability {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+}
+
+.npc .npc-ability > span {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-size: .8em;
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.npc .npc-ability-name {
+    margin: 0 5px 0 5px;
+}
+
+.npc .npc-ability-value input[type=text] {
+    display: flex;
+    width: 15px;
+    height: 20px;
+}
+
+.npc .npc-ability-focus { 
+    display: flex;
+    width: 100%;
+}
+
+.npc .npc-ability-focus input[type=text] {
+    height: 20px;
+    min-width: 30px;
+    font-size: .8em;
+    color: black;
+    text-align: left;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+}
+
+.npc .npc-attribute-block {
+    margin-bottom: 5px;
+}
+
+.npc .npc-attributes-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px 0 5px 0;
+    background-color: #D6E7ED;
+}
+
+.npc .npc-attribute-value {
+    display: flex;
+    justify-content: center;
+    width: 25%;
+}
+
+.npc .npc-attribute-value input[type=text] {
+    display: flex;
+    width: 15px;
+    height: 20px;
+}
+/****************/
+
+.npc .npc-weapon-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    margin: 0px 0px 5px 0px;
+    background-color: #f3f3f3;
+}
+
+.npc .npc-weapon {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.npc .npc-weapon-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.npc .npc-weapon-list-item {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.npc .npc-weapon-row .item-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.npc .npc-weapon-row a:first-child {
+    margin-right: 5px;
+}
+/*****************************/
+
+
+.npc .npc-specials-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 100px;
+    background-color: #f3f3f3;
+}
+
+.npc .npc-special-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.npc .npc-special-rows {
+    display: flex;
+    flex-direction: row;
+    padding: 0 5px 0 5px;
+    margin: 3px 0;
+}
+
+.npc .npc-special-rows span {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 5px;
+}
+
+.npc .npc-special-rows input[type=text] {
+    height: 20px;
+    font-size: .8em;
+    color: black;
+    text-align: left;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.npc .npc-image-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 150px;
+    
+    background-color: #D6E7ED;
+}
+
+.npc .npc-images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 5px 0;
+}
+
+
+.npc .npc-notes-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    min-height:100px;
+    margin: 0px 0px 10px 0px;
+    background-color: #f3f3f3;
+}
+
+.npc .npc-notes-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.npc .npc-notes-container .editor {
+    width: 100%;
+    min-height: 100px;
+    background-color: transparent;
+    text-align: justify;
+    font-family: 'Montserrat', sans-serif;
+    padding: 5px;
+}
+
+.npc .npc-threat-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    background-color: #005971;
+    border-bottom-right-radius: 10px;
+    color: whitesmoke;
+    font-style: normal;
+}
+
+.npc .npc-threat-footer input[type=text] {
+    width: 25%;
+    color: whitesmoke;
+    font-stretch: condensed;
+    line-height: 25px;
+    font-size: 1em;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+}

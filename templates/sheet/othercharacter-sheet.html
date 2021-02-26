@@ -1,0 +1,397 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    {{!-- Sheet Header --}}
+    <div class="sheet">
+      <header>
+        <div class="top-section ">
+          <div class="top-left">
+            <div class="player-header">
+              <div class="char-image">
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="50"
+                  width="50" />
+              </div>
+              <div class="expanse-title">
+                <img class="title-img" src="../systems/expanse/ui/the-expanse.png" />
+              </div>
+            </div>
+  
+            <!--This should be the iteration for the info section-->
+  
+            <div class="char-information">
+  
+              {{#each data.info as |information key|}}
+  
+              <div class="information">
+  
+                <label for="data.info.{{key}}.value" class="info-label">{{key}}</label>
+  
+                <input class="info-input" type="text" name="data.info.{{key}}.value" value="{{information.value}}"
+                  data-dtype="String" />
+  
+              </div>
+  
+              {{/each}}
+  
+            </div>
+  
+            <div class="char-abilities">
+  
+              {{#each data.abilities as |ability key|}}
+  
+              <div class="age-abilities">
+  
+                <div class="ability-field">
+  
+                  <div class="ability-name">
+  
+                    <span>{{key}}</span>
+  
+                    <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
+                      {{checked ability.useFocus}}>
+  
+                  </div>
+  
+                  <input class="age-focus" type="text" name="data.abilities.{{key}}.focus" value="{{ability.focus}}"
+                    data-dtype="String" />
+  
+                </div>
+  
+                <div class="rating-box">
+  
+                  <input class="age-ability" type="number" placeholder="RATING" name="data.abilities.{{key}}.rating"
+                    value="{{ability.rating}}" data-dtype="Number" />
+  
+                  <div class="ability-btn rollable" data-roll="3d6+@abilities.{{key}}.rating" data-label="{{key}}">Roll
+                  </div>
+  
+                </div>
+              </div>
+  
+              {{/each}}
+  
+            </div>
+  
+          </div>
+  
+          <div class="top-right">
+  
+            <div class="phys-row">
+  
+              <!-- top row // physical/move/run -->
+  
+              <div class="physical-box">
+  
+                <!-- Physical Appearance -->
+  
+                <div class="box-header">
+  
+                  <!-- Header -->
+  
+                  <span>Physical Appearance</span>
+  
+                </div>
+  
+                <input type="text" name="data.physical.value" value="{{data.physical.value}}" data-dtype="String" />
+  
+              </div>
+  
+              <div class="move-box">
+  
+                <!-- Move -->
+  
+                <div class="box-header">
+  
+                  <span>Move</span>
+  
+                </div>
+  
+                <input type="text" name="data.move.value" value="{{data.move.value}}" data-dtype="Number" />
+  
+              </div>
+  
+              <div class="run-box">
+  
+                <!-- Run -->
+  
+                <div class="box-header">
+  
+                  <span>Run</span>
+  
+                </div>
+  
+                <input type="text" name="data.run.value" value="{{data.run.value}}" data-dtype="Number" />
+  
+              </div>
+  
+            </div>
+  
+            <div class="speed-lvl-col">
+  
+              <!-- lower block - 2 columns 80/20 -->
+  
+              <div class="speed-col">
+  
+                <!-- speed etc. column -->
+  
+                <div class="attribute-row">
+  
+                  <!-- atributes row -->
+  
+                  {{#each data.attributes as |attribute key|}}
+  
+                  <div class="attribute-box">
+  
+                    <div class="box-header">
+  
+                      <span>{{key}}</span>
+  
+                    </div>
+  
+                    <input type="text" name="data.attributes.{{key}}.value" value="{{attribute.value}}" />
+  
+                  </div>
+  
+                  {{/each}}
+  
+                </div>
+  
+                <div class="armor-row">
+  
+                  <!-- Armor Type Row -->
+  
+                  <input type="text" name="data.armor.value" value="{{data.armor.value}}" placeholder="Armor Type" />
+  
+                </div>
+  
+                <div class="talents-box">
+  
+                  <!-- Physical Appearance -->
+  
+                  <div class="box-header">
+  
+                    <!-- Header -->
+  
+                    <span>talents & specializations</span>
+  
+                  </div>
+  
+                  <div class="talents-edit">
+                    {{editor content=data.talents.value target="data.talents.value" button=true owner=owner editable=editable}}
+                  </div>
+  
+                </div>
+  
+                <div class="relationships-box">
+  
+                  <!-- Relationships Row -->
+  
+                  <div class="box-header">
+  
+                    <!-- Header -->
+  
+                    <span>relationships</span>
+  
+                  </div>
+  
+                  <div class="relationship-edit">
+  
+                    {{editor content=data.relationship.value target="data.relationship.value" button=true owner=owner editable=editable}}
+  
+                  </div>
+  
+                </div>
+  
+                <div class="conditions-box">
+  
+                  <!-- Conditions Row -->
+  
+                  <div class="box-header">
+  
+                    <!-- Header -->
+  
+                    <span>conditions</span>
+  
+                  </div>
+  
+                  <div class="condition-container">
+  
+                    {{#each data.conditions as |condition key|}}
+  
+                    <div class="condition">
+  
+                      <input type="checkbox">
+  
+                      <span>{{key}}</span>
+  
+                    </div>
+  
+                    {{/each}}
+  
+                  </div>
+  
+                </div>
+  
+              </div>
+  
+              <div class="lvl-col">
+  
+                <!-- level/fortune column -->
+  
+                <div class="level-box">
+  
+                  <!-- Level -->
+  
+                  <div class="box-header">
+  
+                    <span>Level</span>
+  
+                  </div>
+  
+                  <input type="text" />
+  
+                </div>
+  
+                <div class="fortune-box">
+  
+                  <!-- Level -->
+  
+                  <div class="box-header">
+  
+                    <span>fortune</span>
+  
+                  </div>
+  
+                  <input type="text" />
+  
+                </div>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+        </div>
+  
+        <div class="btm-section ">
+  
+          <div class="equipment-row">
+  
+            <div class="equip-exp-col">
+  
+              <div class="equipment-box">
+  
+                <div class="box-header">
+  
+                  <!-- Equipment -->
+  
+                  <span>equipment</span>
+  
+                </div>
+  
+                <textarea type="text" name="equipment textarea"></textarea>
+  
+              </div>
+  
+              <div class="experience-box">
+  
+                <div class="exp-inc-field">
+  
+                  <div class="ability-name">
+  
+                    <span>experience</span>
+  
+                  </div>
+  
+                  <input class="" type="text" name="" value="" />
+  
+                </div>
+  
+              </div>
+  
+              <div class="income-box">
+  
+                <div class="exp-inc-field">
+  
+                  <div class="ability-name">
+  
+                    <span>income</span>
+  
+                  </div>
+  
+                  <input class="" type="text" name="" value="" />
+  
+                </div>
+  
+              </div>
+  
+            </div>
+  
+            <div class="goals-col">
+  
+              <div class="box-header">
+  
+                <!-- Equipment -->
+  
+                <span>goals</span>
+  
+              </div>
+  
+              <textarea type="text" name="goals textarea"></textarea>
+  
+            </div>
+  
+          </div>
+  
+          <div class="weapon-stunt-row">
+  
+            <div class="weapons-box">
+  
+              <div class="weapon-header">
+  
+                <div class="box-header">
+  
+                  <span>weapon</span>
+                  <span>attack roll</span>
+                  <span>damage</span>
+  
+                </div>
+  
+              </div>
+  
+              <table class="weapon-table">
+                <tr>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                </tr>
+                <tr>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                </tr>
+                <tr>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                  <td><input class="" type="text" name="" value="" /></td>
+                </tr>
+              </table>
+  
+            </div>
+  
+            <div class="stunts-box">
+  
+              <div class="box-header">
+  
+                <!-- Stunts -->
+  
+                <span>stunts</span>
+  
+              </div>
+  
+              <textarea type="text" name="stunts textarea"></textarea>
+  
+            </div>
+          </div>
+        </div>
+    </div>
+  </form>

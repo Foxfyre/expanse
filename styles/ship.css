@@ -1,0 +1,101 @@
+/*ul {
+    margin: 0;
+    padding: 0;
+}*/
+
+.ship .ship-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    min-height: 450px;
+    max-height: none !important;
+    margin: 0px 5px 0px 5px;
+    background-color: rgba(116,189,220, 0.5);
+}
+
+.ship .ship-image {
+    display: flex;
+    height: 300px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+}
+
+.ship .ship-image img {
+    width: 600px;
+    height: 300px;
+}
+
+.ship .ship-block {
+    padding: 10px;
+}
+
+.ship .ship-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.ship .ship-input {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+}
+
+.ship .ship-name {
+    
+    width: 40%;
+}
+.ship .ship-type {
+    width: 30%;
+}
+
+.ship .ship-drive {
+    width: 28%;
+}
+
+.ship .ship-row > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    background-color: black;
+    white-space: nowrap;
+    padding: 5px;
+}
+  
+.ship .ship-row input[type=text] {
+    font-weight: bold;
+    text-align: start;
+    border: none;
+    background-color: #f3f3f3;
+    height: 100%;
+    padding-left: 5px;
+    border-bottom-right-radius: 10px;
+}
+
+.ship .ship-senhulcre {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26%;
+    height: 100px;
+}
+
+.ship .ship-weapons {
+    display: flex;
+    flex-direction: row;
+    width: 73%;
+    height: 100px;
+}
+
+.ship .ship-crewrole {
+    display: flex;
+    flex-direction: row;
+    width: 38%;
+}
+
+.ship .ship-roletest {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+}

@@ -1,0 +1,68 @@
+<form class="{{cssClass}}" autocomplete="off">
+    
+    <header class="sheet-header">
+
+        <div class="info-row">
+            <img class="profile-img" src="{{actor.img}}" date-edit="img" title="{{actor.name}}"/>
+        </div>
+        
+        <div class="header-fields">
+            <hl class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Yo Mama"/></hl>
+        </div>
+        <div class="header-fields">
+            <label class="resource-label"> Resource 1 </label>
+            <input type="text" name="data.header.resource1.value" value="{{data.header.resource1.value}}" data-dtype="Number"/>
+        </div>
+        <div class="header-fields">
+            <label class="resource-label"> Resource 2 </label>
+            <input type="text" name="data.header.resource2.value" value="{{data.header.resource2.value}}" data-dtype="Number"/>
+        </div>
+    </header>
+    
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="attributes">Attributes</a>
+        <a class="item" data-tab="items">Items</a>
+        <a class="item" data-tab="notes">Notes</a>
+    </nav>
+     
+    <section class="sheet-body">
+        
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+            
+            <label class="attribute-label">Text:</label>
+            <input class="attribute-text-input" type="text" name="data.attributes.text.value" value="{{data.attributes.text.value}}" data-dtype="String"/>
+            
+            <br><br>
+            
+            <label class="attribute-label">Number:</label>
+            <input class="attribute-number-input" type="number" name="data.attributes.number.value" value="{{data.attributes.number.value}}" data-dtype="Number"/>
+            <button class="roll-button" value="{{data.attributes.number.value}}">Roll</button>
+            
+           <br><br>
+            
+            <label class="attribute-label">Boolean:</label>
+            <input class="attribute-boolean-input" type="checkbox" name="data.attributes.boolean.value" value="{{data.attributes.boolean.value}}" data-dtype="Boolean"/>
+            
+        </div>
+        
+        <div class="tab items" data-group="primary" data-tab="items">
+            <ol class="items-list">
+            {{#each actor.items as |item id|}}
+                <li class="item flexrow" data-item-id="{{item._id}}">
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                    <h4 class="item-name">{{item.name}}</h4>
+                    <div class="item-controls">
+                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+            {{/each}}
+            </ol>
+        </div>
+    
+        <div class="tab notes active" data-group="primary" data-tab="notes">
+            {{editor content=data.notes.notes target="data.notes.notes" button=true owner=owner editable=editable}}
+        </div>
+        
+    </section>
+</form>

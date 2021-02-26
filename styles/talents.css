@@ -1,0 +1,233 @@
+/*
+* Start of the CSS Section on the 
+*/
+
+.sheet .talent-stunt {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.sheet .talent-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 40%;
+    margin: 0px 5px 10px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    border-bottom-right-radius: 10px;
+    background-color: #f3f3f3;
+}
+
+.sheet .talent-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .9);
+    height: 15px;
+}
+  
+.sheet .talent-header > span {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    font-size: .8em;
+    color: whitesmoke;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.sheet .talent-header-name {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: 10px;
+}
+
+.sheet .talent-header-degree {
+    justify-content: row;
+    width: 40%;
+    margin-right: 10px;
+}
+
+.sheet .talent-header-effect {
+    width: 55%;
+}
+
+.sheet .talent {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: left;
+    margin-bottom: 10px;
+}
+
+.sheet .talent-column {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.sheet .talent-item-control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+}
+
+.sheet .talent-list-name {
+    display: flex;
+    flex-direction: column;
+    width: 90% ;
+    height: 30px;
+    margin-right: 25px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    justify-content: center;
+    margin-bottom: 3px;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-top-left-radius: 10px;
+    border: 2px solid #74bddc;
+}
+
+.sheet .talent-list-degree {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 30px;
+    margin-right: 30px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-bottom-right-radius: 10px;
+    border: 2px solid #74bddc;
+}
+
+.sheet .talent-list-effect {
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid #74bddc;
+}
+
+.talents .talent-list {
+    margin: 5px;
+}
+
+.talents .talents-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    margin: 0px 5px 10px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    border-bottom-right-radius: 10px;
+    background-color: #f3f3f3;
+}
+
+.talents .talents-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    min-height: 50px;
+    margin: 5px 5px 10px 5px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #D6E7ED;
+}
+
+.talents .talents-name-block {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 20px;
+    background-color: #005971;
+    border-top-left-radius: 10px;
+    color: whitesmoke;
+}
+
+.talents .talents-titles {
+    margin: 0 5px 0 5px;
+}
+
+.talents .margin-l-5 {
+    margin-left: 5px;
+}
+
+.talents .talents-requirement-block {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 75px;
+    background-color: #D6E7ED;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.talents .talents-requirements {
+    display: flex;
+    text-align: start;
+    height: 75px;
+    width: 100%;
+    background-color: transparent;
+    font-family: inherit;
+}
+  
+.talents .talents-requirements .editor {
+    height: 100%;
+    background-color: transparent;
+    font-family: inherit;
+}
+
+.talents .editor-content > p {
+    margin-top: 0;
+}
+
+.talents .talents-degree-block {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 130px;
+    background-color: #D6E7ED;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.talents .talents-degree-titles {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 120px;
+    padding: 1px;
+    background-color: black;
+    color: whitesmoke;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.talents .talents-effect {
+    display: flex;
+    text-align: start;
+    height: 150px;
+    width: 100%;
+    background-color: transparent;
+    font-family: inherit;
+}
+  
+.talents .talents-effect .editor {
+    height: 100%;
+    background-color: transparent;
+    font-family: inherit;
+}

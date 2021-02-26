@@ -1,0 +1,79 @@
+<form class="{{cssClass}} item" autocomplete="off">
+
+    <div class="ship-box">
+
+        <div class="ship-image">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+        </div>
+
+        <div class="ship-block">
+
+            <div class="ship-row">
+                <div class="ship-name ship-input">
+                    <label for="name" class="info-label">Name</label>
+                    <input class="info-input" type="text" name="name" value="{{actor.name}}" data-dtype="String" />
+                </div>
+                <div class="ship-type ship-input">
+                    <label for="data.type" class="info-label">Type</label>
+                    <input class="info-input" type="text" name="data.type" value="{{actor.data.type}}"
+                        data-dtype="String" />
+                </div>
+                <div class="ship-drive ship-input">
+                    <label for="data.drive" class="info-label">Drive</label>
+                    <input class="info-input" type="text" name="data.drive" value="{{actor.data.drive}}"
+                        data-dtype="String" />
+                </div>
+            </div>
+
+            <div class="ship-row">
+                <div class="ship-senhulcre">
+                    <div class="ship-input">
+                        <label for="data.sensors" class="info-label">Sensors</label>
+                        <input class="info-input" type="text" name="data.sensors" value="{{actor.data.sensors}}"
+                            data-dtype="String" />
+                    </div>
+                    <div class="ship-input">
+                        <label for="data.hull" class="info-label">Hull</label>
+                        <input class="info-input" type="text" name="data.hull" value="{{actor.data.hull}}"
+                            data-dtype="String" />
+                    </div>
+                    <div class="ship-input">
+                        <label for="data.crew" class="info-label">Crew</label>
+                        <input class="info-input" type="text" name="data.crew" value="{{actor.data.crew}}"
+                            data-dtype="Number" />
+                    </div>
+                </div>
+                <div class="ship-weapons ship-input">
+                    <label for="data.weapons" class="info-label">Weapons</label>
+                    <input class="info-input" type="text" name="data.weapons" value="{{actor.data.weapons}}"
+                        data-dtype="String" />
+                </div>
+            </div>
+
+            <div class="ship-row ship-input">
+                <label for="data.quality" class="info-label">Qualities</label>
+                <input class="info-input" type="text" name="data.quality" value="{{actor.data.quality}}"
+                    data-dtype="String" />
+            </div>
+            <div class="ship-row ship-input">
+                <label for="data.flaw" class="info-label">Flaw</label>
+                <input class="info-input" type="text" name="data.flaw" value="{{actor.data.flaw}}"
+                    data-dtype="String" />
+            </div>
+            <div class="ship-row ship-crew-row">
+                <div class="ship-input ship-crewrole">
+                    <label for="data.crewrole" class="info-label">Crew Role</label>
+                    <input class="info-input" type="text" name="data.crewrole" value="{{actor.data.crewrole}}"
+                        data-dtype="String" />
+                </div class="ship-input">
+                <div class="ship-input ship-roletest">
+                    <label for="data.roletest" class="info-label">Role Test</label>
+                    <input class="info-input" type="text" name="data.roletest" value="{{actor.data.roletest}}"
+                        data-dtype="String" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

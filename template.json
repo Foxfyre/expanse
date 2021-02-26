@@ -1,0 +1,345 @@
+{
+    "Actor": {
+        "types": [
+            "character",
+            "npc",
+            "ship"
+        ],
+        "character": {
+            "info": {
+                "name": "",
+                "origin": "",
+                "background": "",
+                "social-class": "",
+                "profession": "",
+                "drive": "",
+                "income": 0,
+                "equipment": ""
+            },
+            "attributes": {
+                "speed": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Speed",
+                    "type": "number"
+                },
+                "defense": {
+                    "value": 0,
+                    "modified": 0,
+                    "bonus": 0,
+                    "label": "Defense",
+                    "type": "number"
+                },
+                "toughness": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Toughness",
+                    "type": "number"
+                },
+                "armor": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Armor",
+                    "type": "number"
+                },
+                "penalty": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Penalty",
+                    "type": "number"
+                },
+                "move": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Move",
+                    "type": "number"
+                },
+                "run": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Run",
+                    "type": "number"
+                },
+                "level": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Level",
+                    "type": "number"
+                },
+                "fortune": {
+                    "value": 0,
+                    "modified": 0,
+                    "max": 0,
+                    "label": "Fortune",
+                    "type": "number"
+                }
+            },
+            "abilities": {
+                "accuracy": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "communication": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "constitution": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "dexterity": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "fighting": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "intelligence": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "perception": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "strength": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "willpower": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                }
+            },
+            "bio": {
+                "appearance": "",
+                "relationships": "",
+                "goals": "",
+                "notes": ""
+            },
+            "templates": [
+                "base"
+            ],
+            "conditions": {
+                "blinded": false,
+                "deafened": false,
+                "dying": false,
+                "exhausted": false,
+                "fatigued": false,
+                "freefall": false,
+                "helpless": false,
+                "hindered": false,
+                "injured": false,
+                "prone": false,
+                "restrained": false,
+                "unconscious": false,
+                "wounded": false
+            }
+        },
+        "npc": {
+            "abilities": {
+                "accuracy": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "communication": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "constitution": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "dexterity": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "fighting": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "intelligence": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "perception": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "strength": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                },
+                "willpower": {
+                    "rating": 0,
+                    "focus": "",
+                    "useFocus": false
+                }
+            },
+            "attributes": {
+                "speed": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "Speed",
+                    "type": "number"
+                },
+                "fortune": {
+                    "max": 0,
+                    "value": 0,
+                    "modified": 0,
+                    "label": "fortune",
+                    "type": "number"
+                },
+                "defense": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "defense",
+                    "type": "number"
+                },
+                "artou": {
+                    "value": 0,
+                    "modified": 0,
+                    "label": "ar+tou",
+                    "type": "number"
+                }
+            },
+            "threat": "",
+            "notes": "",
+            "stunts": "",
+            "talent1": "",
+            "talent2": "",
+            "equipment1": "",
+            "equipment2": ""
+        },
+        "ship": {
+            "name": "",
+            "type": "",
+            "drive": "",
+            "sensors": "",
+            "hull": "",
+            "crew": 0,
+            "quality": "",
+            "flaw": "",
+            "crewrole": "",
+            "roletest": ""
+        }
+    },
+    "Item": {
+        "types": [
+            "item",
+            "talent",
+            "stunt",
+            "weapon",
+            "armor",
+            "shield"
+        ],
+        "item": {
+            "header": {
+                "resource1": {
+                    "value": 0,
+                    "label": "resource 1",
+                    "modifier": []
+                }
+            },
+            "attributes": {
+                "text": {
+                    "value": "eep",
+                    "label": "Text",
+                    "modifier": []
+                },
+                "number": {
+                    "value": 1,
+                    "label": "Number",
+                    "modifier": []
+                },
+                "boolean": {
+                    "value": true,
+                    "label": "Boolean",
+                    "modifier": []
+                }
+            },
+            "notes": {
+                "notes": ""
+            }
+        },
+        "talent": {
+            "label": "",
+            "highest": "",
+            "requirement": "",
+            "novice": {
+                "label": "novice",
+                "effect": "",
+                "active": false
+            },
+            "expert": {
+                "label": "expert",
+                "effect": "",
+                "active": false
+            },
+            "master": {
+                "label": "master",
+                "effect": "",
+                "active": false
+            }
+        },
+        "stunt": {
+            "type": "",
+            "cost": "",
+            "repeatable": true,
+            "description": ""
+        },
+        "weapon": {
+            "name": "",
+            "type": "",
+            "attack": "",
+            "npcattack": "",
+            "usefocus": false,
+            "damage": 0,
+            "hasBonusDamage": false,
+            "bonusDamage": 0,
+            "rangemin": 0,
+            "rangemax": 0,
+            "range": "",
+            "cost": 0,
+            "equipped": false,
+            "description": "",
+            "modifier": "",
+            "tohitabil": "",
+            "quality": ""
+        },
+        "armor": {
+            "name": "",
+            "type": "",
+            "bonus": 0,
+            "penalty": 0,
+            "cost": 0,
+            "defense": 0,
+            "equip": false
+        },
+        "shield": {
+            "name": "",
+            "type": "",
+            "bonus": 0,
+            "cost": 0,
+            "equip": false
+        }
+    }
+}

@@ -1,0 +1,93 @@
+<form class="{{cssClass}} item" autocomplete="off">
+
+    <div class="weapons-box">
+        <div class="weapons-header-box">
+            <div class="weapons-header-block">
+                <input name="name" type="text" value="{{item.name}}" data-dtype="String"/>
+            </div>
+        </div>
+
+        <div class="item weapons-block">
+            <div class="box-header">
+                <span class="">Group</span>
+                <span class="">Type</span>
+                <span class="">Damage</span>
+                <span class="">Modifier</span>
+            </div>
+
+            <div class="weapons-detail-box">
+                <div class="weapons-attribute">
+                    <input type="text" name="data.name" value="{{data.name}}" data-dtype="String" />
+                </div>
+
+                <div class="weapons-attribute">
+                    <select type="text" name="data.type" data-dtype="String">
+                        {{#select data.type}}
+                        <option value="unarmed" mod-type="fighting">Unarmed</option>
+                        <option value="makeshift" mod-type="fighting">Makeshift</option>
+                        <option value="light_melee" mod-type="fighting">Light Melee</option>
+                        <option value="heavy_melee" mod-type="fighting">Heavy Melee</option>
+                        <option value="pistol" mod-type="accuracy">Pistol</option>
+                        <option value="rifle" mod-type="accuracy">Rifle</option>
+                        <option value="grenade">Grenade</option>
+                        {{/select}}
+                    </select>
+                </div>
+
+                <div class="weapons-attribute">
+                    <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
+                </div>
+
+                <div class="weapons-attribute">
+                    <select type="text" name="data.modifier" value="{{data.modifier}}"
+                        data-dtype="String">
+                        {{#select data.modifier}}
+                        <option value="none">None</option>
+                        <option value="str">Strength</option>
+                        <option value="dex">Dexterity</option>
+                        <option value="per">Perception</option>
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="item weapons-block">
+            <div class="box-header">
+                <span class="">Qualities</span>
+                <span class="">Range Min</span>
+                <span class="">Range Max</span>
+                <span class="">Cost</span>
+            </div>
+
+            <div class="weapons-detail-box">
+                <div class="weapons-attribute">
+                    <input type="text" name="data.quality" value="{{data.quality}}" data-dtype="String" />
+                </div>
+
+                <div class="weapons-attribute">
+                    <input type="text" name="data.rangemin" value="{{data.rangemin}}" data-dtype="String" />
+                </div>
+
+                <div class="weapons-attribute">
+                    <input type="text" name="data.rangemax" value="{{data.rangemax}}" data-dtype="String" />
+                </div>
+
+                <div class="weapons-attribute">
+                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+                </div>
+            </div>
+        </div>
+
+        <div class="weapons-desc-block">
+            <div class="box-header">
+                <span class="">Description</span>
+            </div>
+            <div class="weapons-desc-box">
+                {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
+            </div>
+        </div>
+
+    </div>
+
+</form>

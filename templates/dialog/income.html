@@ -1,0 +1,41 @@
+<form class="{{cssClass}} income-cost" autocomplete="off">
+
+    <div class="tn-box">
+        <div class="tn-header-box">
+            <div class="tn-header-block">
+                <span>{{localize "EXPANSE.itemCost"}}</span>
+            </div>
+        </div>
+
+        <div class="tn-block">
+            <div class="box-header">
+                <span class="">{{localize "EXPANSE.Cost"}}</span>
+                <span class="">Test Difficulty</span>
+            </div>
+        </div>
+
+        <div class="tn-input-box">
+            <label for="incomeCost">{{localize "EXPANSE.Cost"}}</label>
+            <input name="incomeCost" class="targetInput" value="" data-dtype="Number" placeholder="Income" />
+        </div>
+    </div>
+
+</form>
+
+<script>
+    textContainer = document.querySelectorAll('.app.window-app.dialog');
+    length = textContainer.length;
+  
+    for (i = 0; i < length; i++) {
+      if (textContainer[i].children[1].children[0].children[0].className.includes("income-cost")) {
+        new_red = textContainer[i].id;
+        
+        if (document.getElementById(new_red).className.includes("income-cost-dialog")) {
+          continue;
+        } 
+        else {
+          document.getElementById(new_red).className += " income-cost-dialog";
+        }
+      } else {}
+    }
+  </script>

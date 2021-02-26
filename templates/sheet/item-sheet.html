@@ -1,0 +1,43 @@
+<form class="{{cssClass}}" autocomplete="off">
+    
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" date-edit="img" title="{{item.name}}"/>
+        <div class="header-fields">
+            <hl class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Yo Mama"/></hl>
+        </div>
+        <div class="header-fields">
+            <label class="resource-label"> Resource 1 </label>
+            <input type="text" name="data.header.resource1.value" value="{{data.header.resource1.value}}" data-dtype="Number"/>
+        </div>
+    </header>
+    
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="attributes">Attributes</a>
+        <a class="item" data-tab="notes">Notes</a>
+    </nav>
+    
+    <section class="sheet-body">
+        
+        <div class="tab attributes" data-group="primary" data-tab="attributes">
+            
+            <label class="attribute-label">Text</label>
+            <input class="attribute-text-input" type="text" name="data.attributes.text.value" value="{{data.attributes.text.value}}" data-dtype="String"/>
+            
+            <br><br>
+            
+            <label class="attribute-label">Number</label>
+            <input class="attribute-number-input" type="number" name="data.attributes.number.value" value="{{data.attributes.number.value}}" data-dtype="Number"/>
+            
+            <br><br>
+            
+            <label class="attribute-label">Boolean</label>
+            <input class="attribute-boolean-input" type="checkbox" name="data.attributes.boolean.value" value="{{data.attributes.boolean.value}}" data-dtype="Boolean"/>
+            
+        </div>
+        
+        <div class="tab notes active" data-group="primary" data-tab="notes">
+            {{editor content=data.notes.notes target="data.notes.notes" button=true owner=owner editable=editable}}
+        </div>
+        
+    </section>
+</form>

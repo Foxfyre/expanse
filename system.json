@@ -1,0 +1,41 @@
+{
+    "name": "the_expanse",
+    "title": "The Expanse",
+    "description": "The Expanse AGE system by Green Ronin",
+    "version": "0.1.0",
+    "minimumCoreVersion": "0.7.8",
+    "compatibleCoreVersion": "0.7.9",
+    "templateVersion": 2,
+    "author": "Charlotte Hamilton",
+    "esmodules": ["module/expanse.js", "scripts/scripts.js"],
+    "styles": [
+      "styles/expansetemplate.css", 
+      "styles/talents.css",
+      "styles/npc.css",
+      "styles/weapons.css",
+      "styles/armor.css",
+      "styles/ship.css"
+    ],
+    "scripts": [],
+    "packs": [],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      },
+      {
+        "lang": "de",
+        "name": "Deutsch",
+        "path": "lang/de.json"
+      }
+    ],
+    "gridDistance": 1,
+    "gridUnits": "m",
+    "primaryTokenAttribute": "attributes.fortune",
+    "secondaryTokenAttribute": "resource2",
+    "url": "",
+    "manifest": "",
+    "download": "",
+    "license": "LICENSE.txt"
+}

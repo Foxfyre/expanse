@@ -1,0 +1,73 @@
+<form class="{{cssClass}} " autocomplete="off">
+
+    <header class="sheet-header">
+    </header>
+
+    <section class="sheet-body">
+
+        <div class="talents" data-group="primary" data-tab="talents">
+
+            <div class="talents-box" data-item-id="{{item._id}}">
+
+                <div class="talents-section">
+                    <div class="talents-name-block">
+                        <div class="talents-titles">
+                            <span class="margin-l-5" name="item.name">{{item.name}}</span>
+                        </div>
+
+                    </div>
+                    <div class="talents-requirement-block">
+                        <div class="talents-titles">
+                            <span class="margin-l-5">Requirements:</span>
+                        </div>
+                        <div class="talents-requirements">
+                            {{editor content=data.requirement target="data.requirement" button=true owner=owner editable=editable}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="talents-section">
+                    <div class="talents-degree-block">
+                        <div class="talents-degree-titles">
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.novice.active"
+                            data-item-id={{item._id}} {{checked data.novice.active}}>
+                            <span>Novice</span>
+                        </div>
+                        <div class="talents-effect">
+                            {{editor content=data.novice.effect target="data.novice.effect" button=true owner=owner editable=editable}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="talents-section">
+                    <div class="talents-degree-block">
+                        <div class="talents-degree-titles">
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.expert.active"
+                            data-item-id={{item._id}} {{checked data.expert.active}}>
+                            <span>Expert</span>
+                        </div>
+                        <div class="talents-effect">
+                            {{editor content=data.expert.effect target="data.expert.effect" button=true owner=owner editable=editable}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="talents-section">
+                    <div class="talents-degree-block">
+                        <div class="talents-degree-titles">
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.master.active"
+                            data-item-id={{item._id}} {{checked data.master.active}}>
+                            <span>Master</span>
+                        </div>
+                        <div class="talents-effect">
+                            {{editor content=data.master.effect target="data.master.effect" button=true owner=owner editable=editable}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+</form>

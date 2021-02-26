@@ -1,0 +1,49 @@
+<form class="{{cssClass}} item" autocomplete="off">
+
+    <div class="armors-box">
+        <div class="armors-header-box">
+            <div class="armors-header-block">
+                <span>{{item.name}}</span>
+            </div>
+        </div>
+
+        <div class="item armors-block">
+            <div class="box-header">
+                <span class="">Type</span>
+                <span class="">Bonus</span>
+                <span class="">Penalty</span>
+                <span class="">Cost</span>
+            </div>
+
+            <div class="armors-detail-box">
+                <div class="armors-attribute">
+                    <input type="text" name="data.type" value="{{data.type}}"  data-dtype="String" />
+                </div>
+                <div class="armors-attribute">
+                    <input type="text" name="data.bonus" value="{{data.bonus}}" data-dtype="Number" />
+                </div>
+                <div class="armors-attribute">
+                    <input type="text" name="data.penalty" value="{{data.penalty}}" data-dtype="Number" />
+                </div>
+                <div class="armors-attribute">
+                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+                </div>
+                <div class="hidden-value">
+                    <input type="checkbox" class="expanse-checkbox" name="data.equip"
+                        {{checked data.equip}} data-dtype="Boolean">
+                </div>
+            </div>
+        </div>
+
+        <div class="armors-desc-block">
+            <div class="box-header">
+                <span class="">Description</span>
+            </div>
+            <div class="armors-desc-box">
+                {{editor content=data.armor.description target="data.armor.description" button=true owner=owner editable=editable}}
+            </div>
+        </div>
+
+    </div>
+
+</form>
