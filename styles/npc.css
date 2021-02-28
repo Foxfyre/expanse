@@ -1,6 +1,5 @@
-/*ul {
-    margin: 0;
-    padding: 0;
+/*.npc input[type=text] {
+    font-family: 'Montserrat', sans-serif;
 }*/
 
 .npc .npc-box {
@@ -234,7 +233,7 @@
     color: black;
     text-align: left;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
+    /*font-family: 'Montserrat', sans-serif;*/
 }
 
 .npc .npc-image-block {
@@ -278,7 +277,7 @@
     min-height: 100px;
     background-color: transparent;
     text-align: justify;
-    font-family: 'Montserrat', sans-serif;
+    /*font-family: 'Montserrat', sans-serif;*/
     padding: 5px;
 }
 
@@ -303,5 +302,5 @@
     font-size: 1em;
     border: none;
     background: rgba(0, 0, 0, 0.1);
-    font-family: 'Montserrat', sans-serif;
+    /*font-family: 'Montserrat', sans-serif;*/
 }

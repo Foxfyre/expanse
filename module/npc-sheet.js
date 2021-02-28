@@ -51,6 +51,8 @@ export class ExpanseNPCSheet extends ActorSheet {
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.data.usefocus;
                 let focusBonus = useFocus ? 2 : 0;
+                let toHitMod = v.data.type;
+                let modType = "";
 
                 switch (modifierStat) {
                     case 'dex':
@@ -63,10 +65,14 @@ export class ExpanseNPCSheet extends ActorSheet {
                         bonusDamage = data.actor.data.abilities.strength.rating;
                         break;
                 }
-                v.data.bonusDamage = bonusDamage;
 
-                let toHitMod = v.data.type;
-                let modType = "";
+                if (bonusDamage > 0) {
+                    v.data.hasBonusDamage = true;
+                } else {
+                    v.data.hasBonusDamage = false;
+                }
+
+                v.data.bonusDamage = bonusDamage;
 
                 switch (toHitMod) {
                     case "unarmed":
@@ -88,8 +94,6 @@ export class ExpanseNPCSheet extends ActorSheet {
                 }
                 v.data.tohitabil = modType;
                 v.data.attack += focusBonus;
-                // write to weapon
-                //console.log(v);
                 this.actor.updateEmbeddedEntity("OwnedItem", v)
             }
         }
@@ -175,7 +179,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
         console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + useFocus + " Ability Modifier: " + abilityMod);
-        
+
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
         };
