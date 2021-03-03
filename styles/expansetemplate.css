@@ -691,7 +691,7 @@ input[type=checkbox] {
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    min-height: 150px;
+    min-height: 100%;
     margin: 0px 5px 10px 5px;
     border-bottom-right-radius: 10px;
     background-color: #D6E7ED;

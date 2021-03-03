@@ -20,19 +20,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
         data.dtypes = ["String", "Number", "Boolean"];
 
-        /*const arrangedItem = data.items.sort(function (a, b) {
-            const nameA = a.name.toLowerCase();
-            const nameB = b.name.toLowerCase();
-
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
-            return 0;
-        })*/
-
         data.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
@@ -228,6 +215,7 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find('.pc-attack').click(this._onAttack.bind(this));
 
         html.find('.income-roll').click(this._IncomeRoll.bind(this));
+
     }
 
     _onAttack(event) {

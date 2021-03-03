@@ -21,25 +21,16 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         data.dtypes = ["String", "Number", "Boolean"];
 
-        const arrangedItem = data.items.sort(function (a, b) {
-            const nameA = a.name.toLowerCase();
-            const nameB = b.name.toLowerCase();
+        data.items.sort((a, b) => {
+            return a.name.localeCompare(b.name);
+        });
 
-            if (nameA < nameB) {
-                return -1;
-            }
-            if (nameA > nameB) {
-                return 1;
-            }
-            return 0;
-        })
-
-        data.stunts = arrangedItem.filter(i => i.type === "stunt");
-        data.talents = arrangedItem.filter(i => i.type === "talent");
-        data.items = arrangedItem.filter(i => i.type === "items");
-        data.weapon = arrangedItem.filter(i => i.type === "weapon");
-        data.armor = arrangedItem.filter(i => i.type === "armor");
-        data.shield = arrangedItem.filter(i => i.type === "shield");
+        data.stunts = data.actor.items.filter(i => i.type === "stunt");
+        data.talents = data.actor.items.filter(i => i.type === "talent");
+        data.items = data.actor.items.filter(i => i.type === "items");
+        data.weapon = data.actor.items.filter(i => i.type === "weapon");
+        data.armor = data.actor.items.filter(i => i.type === "armor");
+        data.shield = data.actor.items.filter(i => i.type === "shield");
         data.conditions = data.data.conditions;
         console.log(data);
 

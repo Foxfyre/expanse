@@ -26,7 +26,8 @@ export class ExpanseItemSheet extends ItemSheet {
     getData() {
         const data = super.getData();
         data.dtypes = ["String", "Number", "Boolean"];
-        //console.log(data);
+        console.log(data);
+
         return data;
     }
 
@@ -49,5 +50,34 @@ export class ExpanseItemSheet extends ItemSheet {
             //console.log(talent);
 
         });
+
+        html.find('.new-stunt').click( this._NewStuntCreate.bind(this));
     }
+
+    _NewStuntCreate(e) {
+        e.preventDefault();
+        const event = e.currentTarget;
+        console.log(event)
+        // Get the type of item to create.
+        /*
+        const type = header.dataset.type;
+        // Grab any data associated with this control.
+        const data = duplicate(header.dataset);
+        // Initialize a default name.
+        const name = data.defaultname;// `New ${type.capitalize()}`;
+        // Prepare the item object.
+        const itemData = {
+          name: name,
+          type: type,
+          data: data
+        };
+    
+        // Remove the type from the dataset since it's in the itemData.type prop.
+        delete itemData.data["type"];
+        // no need to keep ahold of defaultname after creation.
+        delete itemData.data["defaultname"];
+    
+        // Finally, create the item!
+        return this.actor.createOwnedItem(itemData);*/
+      }
 }

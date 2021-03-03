@@ -302,8 +302,9 @@
         },
         "stunt": {
             "type": "",
+            "name": "",
             "cost": "",
-            "repeatable": true,
+            "repeatable": false,
             "description": ""
         },
         "weapon": {

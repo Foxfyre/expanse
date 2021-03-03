@@ -1,0 +1,70 @@
+<form class="{{cssClass}} item" autocomplete="off">
+
+    <header class="sheet-header">
+    </header>
+
+    <section class="sheet-body">
+
+        <div class="stunts" data-group="primary" data-tab="stunts">
+
+            <div class="stunts-box">
+                <div class="stunts-header-box">
+                    <div class="stunts-header-block">
+                        <span>
+                            <input type="text" name="data.stunt.type" value="{{data.stunt.type}}" data-dtype="String" />
+                        </span>
+                    </div>
+ 
+                    <div class="box-header">
+                        <span class="stunts-box-sp">SP COST</span>
+                        <span class="stunts-box-stunt-name">Name</span>
+                        <span class="stunts-box-stunt-desc">Stunt</span>
+                    </div>
+                </div>
+
+                <div class="item stunts-section" draggable="true" data-item-id="{{item._id}}">
+                    <div class="stunts-section-sp">
+                        <input type="text" name="data.stunt.cost" value="{{data.stunt.cost}}" data-dtype="Number" />
+                    </div>
+
+                    <div class="stunts-section-name">
+                        <input type="text" name="data.stunt.name" value="{{data.stunt.name}}" data-dtype="String" />
+                    </div>
+                    <div class="stunts-section-desc">
+                        {{editor content=data.stunt.description target="data.stunt.description" button=true owner=owner editable=editable}}
+                    </div>
+                </div>
+
+                <!--<div class="stunt-header">
+
+                    <span class="stunt-header-title">Talent Name</span>
+                    <span class="stunt-header-title">Degree</span>
+                    <span class="stunt-header-effect">Talent Effect</span>
+
+                </div>
+
+                <ul class="stunts-list">
+                    <li class="stunt" data-item-id="{{item._id}}">
+                        <div class="stunt-list-name">
+                            <input type="text" name="data.stunt.name" value="{{data.stunt.name}}" data-dtype="String" />
+                        </div>
+                        <div class="stunt-list-degree">
+                            <input type="text" name="data.stunt.degree" value="{{data.stunt.degree}}" data-dtype="String" />
+                        </div>
+                        <div class="stunt-list-effect">
+                            <input type="text" name="data.stunt.effect" value="{{data.stunt.effect}}" data-dtype="String" />
+                        </div>
+
+                        <div class="item-controls">
+                            <a class="item-control item-edit" title="Edit Talent"><i class="fas fa-edit"></i></a>
+                        </div>
+
+                    </li>
+                </ul>-->
+
+            </div>
+
+        </div>
+
+    </section>
+</form>
