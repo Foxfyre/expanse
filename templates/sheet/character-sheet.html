@@ -125,8 +125,11 @@
 
                             <span>{{key}}</span>
 
-                            <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
-                                {{checked ability.useFocus}}>
+                            <div class="ability-focus-box">
+                                <span>Focus +2</span>
+                                <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
+                                    {{checked ability.useFocus}}>
+                            </div>
 
                         </div>
 
@@ -137,7 +140,7 @@
 
                     <div class="rating-box">
 
-                        <input class="age-ability" type="number" placeholder={{localize "EXPANSE.RatingTitle"}}
+                        <input class="age-ability" type="number" placeholder={{localize "EXPANSE.RatingTitle" }}
                             name="data.abilities.{{key}}.rating" value="{{ability.rating}}" data-dtype="Number" />
 
                         <div class="ability-btn rollable roll-button" data-roll="3d6+@abilities.{{key}}.rating"
@@ -167,8 +170,8 @@
 
                         <div class="condition">
 
-                            <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}"
-                                {{checked conditions}}>
+                            <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
+                                conditions}}>
 
                             <span>{{key}}</span>
 
@@ -196,8 +199,8 @@
 
                         <ul class="items talent-list">
                             {{#each talents as |item id|}}
-                            <li class="item talent" data-item-id="{{item._id}}">
-                                <div class="talent-column">
+                            <li class="item talent item-controls" data-item-id="{{item._id}}">
+                                <div class="talent-column item-control item-edit">
                                     <div class="talent-list-name">
                                         {{item.name}}
                                     </div>
@@ -289,7 +292,8 @@
                                         {{item.name}}
                                     </div>
                                     <div class="weapon-list-item">
-                                        {{item.data.damage}}{{#if item.data.hasBonusDamage}}+{{item.data.bonusDamage}}{{/if}}
+                                        {{item.data.damage}}{{#if
+                                        item.data.hasBonusDamage}}+{{item.data.bonusDamage}}{{/if}}
                                     </div>
                                     <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                                     <div class="weapon-list-item">
@@ -302,8 +306,8 @@
 
                                     <div class="weapon-list-item">
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocus"
-                                            name="item.data.usefocus" data-item-id={{item._id}}
-                                            {{checked item.data.usefocus}}>
+                                            name="item.data.usefocus" data-item-id={{item._id}} {{checked
+                                            item.data.usefocus}}>
                                     </div>
 
                                     <div class="weapon-list-item">
@@ -358,8 +362,8 @@
                                     </div>
                                     <div class="armor-list-item">
                                         <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{item._id}} name="item.data.equip"
-                                            {{checked item.data.equip}}>
+                                            data-item-id={{item._id}} name="item.data.equip" {{checked
+                                            item.data.equip}}>
                                     </div>
                                 </div>
 
@@ -403,8 +407,8 @@
                                     </div>
                                     <div class="armor-list-item">
                                         <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{item._id}} name="item.data.equip"
-                                            {{checked item.data.equip}}>
+                                            data-item-id={{item._id}} name="item.data.equip" {{checked
+                                            item.data.equip}}>
                                     </div>
                                 </div>
 
@@ -461,7 +465,8 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.appearance target="data.bio.appearance" button=true owner=owner editable=editable}}
+                        {{editor content=data.bio.appearance target="data.bio.appearance" button=true owner=owner
+                        editable=editable}}
                     </div>
                 </div>
 
@@ -472,7 +477,8 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.relationships target="data.bio.relationships" button=true owner=owner editable=editable}}
+                        {{editor content=data.bio.relationships target="data.bio.relationships" button=true owner=owner
+                        editable=editable}}
                     </div>
                 </div>
 
@@ -483,7 +489,8 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.goals target="data.bio.goals" button=true owner=owner editable=editable}}
+                        {{editor content=data.bio.goals target="data.bio.goals" button=true owner=owner
+                        editable=editable}}
                     </div>
                 </div>
 
@@ -498,7 +505,8 @@
                     </div>
 
                     <div class="notes-container">
-                        {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner editable=editable}}
+                        {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner
+                        editable=editable}}
                     </div>
                 </div>
             </div>

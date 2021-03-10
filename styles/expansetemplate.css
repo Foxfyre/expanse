@@ -429,6 +429,20 @@ blockquote {
     height: 15px;
     width: 15px;
 }
+
+.ability-focus-box {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ability-focus-box > span {
+    font-size: .8em;
+    text-transform: uppercase;
+    align-items: center;
+}
   
 .age-abilities input[type=text] {
     display: flex;

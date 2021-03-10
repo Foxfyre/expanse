@@ -231,6 +231,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemId = dataset.itemId;
         let itemToUse = actorData.items.filter(i => i._id === itemId);
         let itemUsed = itemToUse[0];
+        console.log(itemUsed)
         let weaponToHitAbil = dataset.itemAbil;
         let useFocus = itemUsed.data.usefocus ? 2 : 0;
         let abilityMod = actorData.data.abilities[weaponToHitAbil].rating;
@@ -262,8 +263,8 @@ export class ExpanseActorSheet extends ActorSheet {
         this.TargetNumber().then(target => {
             tn = Number(target);
             const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;
-            const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.data.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
-            const damageTotal = `Your attack with the ${itemUsed.data.name} does ${damageOnHit} points of damage.</br> 
+            const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
+            const damageTotal = `Your attack with the ${itemUsed.name} does ${damageOnHit} points of damage.</br> 
                 Subtract the enemies Toughness and Armor for total damage received`;
             if (toHit >= tn) {
                 rollCard = toHitSuccess + stuntPoints + damageTotal
@@ -285,7 +286,7 @@ export class ExpanseActorSheet extends ActorSheet {
     }
 
     _IncomeRoll(e) {
-        event.preventDefault();
+        e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
         
