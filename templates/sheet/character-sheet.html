@@ -129,6 +129,11 @@
                                 <span>Focus +2</span>
                                 <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
                                     {{checked ability.useFocus}}>
+                                {{#if ability.useFocus}}
+                                <span>+1</span>
+                                <input type="checkbox" class="expanse-checkbox"
+                                    name="data.abilities.{{key}}.useFocusPlus" {{checked ability.useFocusPlus}}>
+                                {{/if}}
                             </div>
 
                         </div>
@@ -305,9 +310,16 @@
                                     </div>
 
                                     <div class="weapon-list-item">
+                                        <span>+2</span>
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocus"
                                             name="item.data.usefocus" data-item-id={{item._id}} {{checked
                                             item.data.usefocus}}>
+                                        {{#if item.data.usefocus}}
+                                        <span>+1</span>
+                                        <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
+                                            name="item.data.usefocusplus" data-item-id={{item._id}} {{checked
+                                            item.data.usefocusplus}}>
+                                        {{/if}}
                                     </div>
 
                                     <div class="weapon-list-item">

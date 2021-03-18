@@ -61,10 +61,11 @@
                     "type": "number"
                 },
                 "level": {
-                    "value": 0,
+                    "value": 1,
                     "modified": 0,
                     "label": "Level",
-                    "type": "number"
+                    "type": "number",
+                    "bonus": false
                 },
                 "fortune": {
                     "value": 0,
@@ -78,47 +79,56 @@
                 "accuracy": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "communication": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "constitution": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "dexterity": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "fighting": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "intelligence": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "perception": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "strength": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 },
                 "willpower": {
                     "rating": 0,
                     "focus": "",
-                    "useFocus": false
+                    "useFocus": false,
+                    "useFocusPlus": false
                 }
             },
             "bio": {
@@ -313,6 +323,7 @@
             "attack": "",
             "npcattack": "",
             "usefocus": false,
+            "usefocusplus": false,
             "damage": 0,
             "hasBonusDamage": false,
             "bonusDamage": 0,

@@ -209,8 +209,6 @@ export class ExpanseNPCSheet extends ActorSheet {
         });
     }
 
-
-
     _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;

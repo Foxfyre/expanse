@@ -5,44 +5,6 @@
 
 export class ExpanseActor extends Actor {
   /** @override */
-  /*getRollData() {
-    const data = super.getRollData();
-    console.log(data)
-    // proceeding commented out block due to not using shorthand
-    //const shorthand = game.settings.get("expansetemplate", "macroShorthand");
-
-    // Re-map all attributes onto the base roll data
-    if (!!shorthand) {
-      for (let [k, v] of Object.entries(data.attributes)) {
-        if (!(k in data)) data[k] = v.value;
-      }
-      delete data.attributes;
-    }
-
-    // Map all items data using their slugified names
-    data.items = this.data.items.reduce((obj, i) => {
-      let key = i.name.slugify({ strict: true });
-      let itemData = duplicate(i.data);
-      if (!!shorthand) {
-        for (let [k, v] of Object.entries(itemData.attributes)) {
-          if (!(k in itemData)) itemData[k] = v.value;
-        }
-        delete itemData["attributes"];
-      }
-      obj[key] = itemData;
-      return obj;
-    }, {});
-    return data;
-  }*/
-
-  // Replace default image
-  /*static async create(data, options = {}) {
-
-    const path = "systems/the_expanse/ui/portraits"
-    return `${path}/${this.actor.img}`;
-
-    data.img = `${CONFIG.l5r5e.paths.assets}icons/actors/${data.type}.svg`;
-  }*/
 
   prepareDerivedData() {
     super.prepareDerivedData();
@@ -57,6 +19,11 @@ export class ExpanseActor extends Actor {
       data.attributes.toughness.modified = Number(data.abilities.constitution.rating);
       data.attributes.move.modified = Number(data.attributes.speed.modified);
       data.attributes.run.modified = Number(data.attributes.speed.modified * 2)
+
+      if (data.attributes.level.modified >= 11) {
+        console.log("level 11 or greater detected");
+        data.attributes.level.elevenbonus = true;
+      }
     }
     //console.log(data);
 

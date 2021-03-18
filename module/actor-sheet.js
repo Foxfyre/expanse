@@ -31,8 +31,8 @@ export class ExpanseActorSheet extends ActorSheet {
         data.armor = data.actor.items.filter(i => i.type === "armor");
         data.shield = data.actor.items.filter(i => i.type === "shield");
         data.conditions = data.data.conditions;
+        data.level = data.data.attributes.level;
         console.log(data);
-
 
         for (let [k, v] of Object.entries(data.weapon)) {
             if (v.type === "weapon") {
@@ -40,7 +40,10 @@ export class ExpanseActorSheet extends ActorSheet {
                 let modifierStat = v.data.modifier
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.data.usefocus;
+                let useFocusPlus = v.data.usefocusplus;
                 let focusBonus = useFocus ? 2 : 0;
+                let focusPlusBonus = useFocusPlus ? 1: 0;
+                const totalFocusBonus = focusBonus + focusPlusBonus;
                 let toHitMod = v.data.type;
                 let modType = "";
 
@@ -81,7 +84,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         break;
                 }
                 v.data.tohitabil = modType;
-                v.data.attack += focusBonus;
+                v.data.attack += totalFocusBonus;
                 this.actor.updateEmbeddedEntity("OwnedItem", v)
             }
         }
@@ -120,7 +123,6 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".item-edit").click((ev) => {
             let itemId = $(ev.currentTarget).parents(".item").attr("data-item-id");
             const item = this.actor.getOwnedItem(itemId);
-            // const item = this.actor.getEmbeddedEntity("OwnedItem", itemId);
             item.sheet.render(true);
         });
 
@@ -201,14 +203,26 @@ export class ExpanseActorSheet extends ActorSheet {
             }
         });
 
+        
+        html.find(".weapon-usefocusplus").click(e => {
+            const data = super.getData()
+            const actorData = data.actor;
+            const items = actorData.items;
 
-        // Roll Button Listener
-        /*html.find('.rollable').click((ev) => {
-        let buttonValue = $(ev.currentTarget);
-        const roll = new Roll("1d20 + " + Number(buttonValue.val()))
-        roll.roll
-        roll.toMessage();
-        });*/
+            let itemId = e.currentTarget.getAttribute("data-item-id");
+            const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId));
+
+
+            for (let [k, v] of Object.entries(items)) {
+                if (v.type === "weapon" && v.data.usefocusplus === false && v._id === itemId) {
+                    weapon.data.usefocusplus = !weapon.data.usefocusplus;
+                    this.actor.updateEmbeddedEntity("OwnedItem", weapon)
+                } else if (v.type === "weapon" && v.data.usefocusplus === true && v._id === itemId) {
+                    weapon.data.usefocusplus = !weapon.data.usefocusplus;
+                    this.actor.updateEmbeddedEntity("OwnedItem", weapon)
+                }
+            }
+        });
 
         html.find('.rollable').click(this._onRoll.bind(this));
 
@@ -234,17 +248,19 @@ export class ExpanseActorSheet extends ActorSheet {
         console.log(itemUsed)
         let weaponToHitAbil = dataset.itemAbil;
         let useFocus = itemUsed.data.usefocus ? 2 : 0;
+        let useFocusPlus = itemUsed.data.usefocusplus ? 1 : 0;
+        const focusBonus = useFocus + useFocusPlus
         let abilityMod = actorData.data.abilities[weaponToHitAbil].rating;
         let die1, die2, die3;
         let stuntPoints = "";
         let tn = 0;
         let rollCard = {};
 
-        let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: useFocus, abm: abilityMod });
+        let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: focusBonus, abm: abilityMod});
         toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        //console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + useFocus + " Ability Modifier: " + abilityMod);
+        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
 
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
@@ -368,13 +384,15 @@ export class ExpanseActorSheet extends ActorSheet {
             let rollCard;
             let die1 = 0; let die2 = 0; let die3 = 0;
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
+            let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
 
             [die1, die2, die3] = roll.roll().terms[0].results.map(i => i.result);
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
             let results = [die1, die2, die3];
-            let resultsSum = die1 + die2 + die3 + useFocus + abilityMod;
+            let resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod;
+            console.log(useFocusPlus);
 
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 rollCard = ` 
@@ -395,12 +413,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 flavor: label,
                 content: rollCard
             });
-            /*let label = dataset.label ? `Rolling ${dataset.label}` : '';*/
-            /*roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-              flavor: label,
-              rollCard
-            });*/
         }
     }
 
@@ -449,22 +461,3 @@ export class ExpanseActorSheet extends ActorSheet {
     }
 
 }
-
-/*async function TargetNumber() {
-new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/target-number.html").then(dlg => {
-                new Dialog({
-                    title: game.i18n.localize("EXPANSE.TargetNumber"),
-                    content: dlg,
-                    buttons: {
-                        roll: {
-                            label: game.i18n.localize("EXPANSE.Roll"),
-                            callback: html => {
-                                resolve(html.find(`[name="targetInput"]`).val());
-                            }
-                        }
-                    }
-                }).render(true);
-            });
-        })
-}*/
