@@ -128,8 +128,8 @@
     margin: 0;
     padding: 0;
     max-height: none !important;
-    min-width: 480px;
-    max-width: 780px;
+    /* min-width: 480px;
+    max-width: 780px; */
     /*min-height: 740px;*/
     border: 1px solid;
 }

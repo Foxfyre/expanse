@@ -268,9 +268,9 @@ img {
   margin: 0;
   padding: 0;
   max-height: none !important;
-  min-width: 670px;
+  /* min-width: 670px;
   max-width: 760px;
-  min-height: 740px;
+  min-height: 740px; */
   border: 1px solid;
 }
 
