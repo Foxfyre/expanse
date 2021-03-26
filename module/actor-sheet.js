@@ -429,7 +429,8 @@ export class ExpanseActorSheet extends ActorSheet {
                                 resolve(html.find(`[name="targetInput"]`).val());
                             }
                         }
-                    }
+                    },
+                    default: "roll"
                 }).render(true);
             });
         })
@@ -449,7 +450,8 @@ export class ExpanseActorSheet extends ActorSheet {
                                 resolve(html.find(`[name="incomeCost"]`).val());
                             }
                         }
-                    }
+                    },
+                    default: "roll"
                 }).render(true);
             });
         })
