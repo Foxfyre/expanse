@@ -1,3 +1,11 @@
+.weapons {
+    max-width: 670px;
+}
+
+.window-app.weapons .window-resizable-handle {
+    display: none;
+}
+
 .weapons .weapons-box {
     display: flex;
     flex-direction: column;

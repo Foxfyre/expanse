@@ -9,7 +9,7 @@
     "author": "Charlotte Hamilton",
     "esmodules": ["module/expanse.js", "scripts/scripts.js"],
     "styles": [
-      "styles/expansetemplate.css", 
+      "styles/expanse.css", 
       "styles/talents.css",
       "styles/npc.css",
       "styles/weapons.css",

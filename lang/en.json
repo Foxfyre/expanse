@@ -1,4 +1,12 @@
 {
+    "ACTOR.TypeCharacter": "Player Character",
+    "ACTOR.TypeNpc": "Non-Player Character",
+    "ACTOR.TypeShip": "Spaceship",
+    "ITEM.TypeItem": "Item",
+    "ITEM.TypeTalent": "Talent",
+    "ITEM.TypeStunt": "Stunts",
+    "ITEM.TypeWeapon": "Weapon",
+    "ITEM.TypeShield": "Shield",
     "EXPANSE.AccuracyAbility": "Speed",
     "EXPANSE.RatingTitle": "Rating",
     "EXPANSE.TargetNumber": "Target Number",
