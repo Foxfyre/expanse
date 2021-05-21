@@ -380,7 +380,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
         if (dataset.roll) {
             let roll = new Roll(dataset.roll, this.actor.data.data);
-
             let rollCard;
             let die1 = 0; let die2 = 0; let die3 = 0;
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
