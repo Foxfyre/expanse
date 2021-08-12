@@ -3,7 +3,7 @@
     <div class="shields-box">
         <div class="shields-header-box">
             <div class="shields-header-block">
-                <span>{{item.name}}</span>
+                <input type="text" name="name" value="{{name}}" data-dtype="String" />
             </div>
         </div>
 
@@ -36,10 +36,10 @@
                 <span class="">Description</span>
             </div>
             <div class="shields-desc-box">
-                {{editor content=data.armor.description target="data.armor.description" button=true owner=owner editable=editable}}
+                {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
             </div>
         </div>
 
     </div>
 
-</form>
+</form> 

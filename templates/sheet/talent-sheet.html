@@ -7,12 +7,12 @@
 
         <div class="talents" data-group="primary" data-tab="talents">
 
-            <div class="talents-box" data-item-id="{{item._id}}">
+            <div class="talents-box" data-item-id="{{_id}}">
 
                 <div class="talents-section">
                     <div class="talents-name-block">
                         <div class="talents-titles">
-                            <span class="margin-l-5" name="item.name">{{item.name}}</span>
+                            <span class="margin-l-5" name="name">{{name}}</span>
                         </div>
 
                     </div>
@@ -21,7 +21,7 @@
                             <span class="margin-l-5">Requirements:</span>
                         </div>
                         <div class="talents-requirements">
-                            {{editor content=data.requirement target="data.requirement" button=true owner=owner editable=editable}}
+                            {{editor content=requirement target="requirement" button=true owner=owner editable=editable}}
                         </div>
                     </div>
                 </div>
@@ -29,12 +29,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.novice.active"
-                            data-item-id={{item._id}} {{checked data.novice.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.novice.active"
+                            data-item-id={{_id}} {{checked data.ranks.novice.active}}>
                             <span>Novice</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.novice.effect target="data.novice.effect" button=true owner=owner editable=editable}}
+                            {{editor content=data.ranks.novice.effect target="data.ranks.novice.effect" button=true owner=owner editable=editable}}
                         </div>
                     </div>
                 </div>
@@ -42,12 +42,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.expert.active"
-                            data-item-id={{item._id}} {{checked data.expert.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.expert.active"
+                            data-item-id={{_id}} {{checked data.ranks.expert.active}}>
                             <span>Expert</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.expert.effect target="data.expert.effect" button=true owner=owner editable=editable}}
+                            {{editor content=data.ranks.expert.effect target="data.ranks.expert.effect" button=true owner=owner editable=editable}}
                         </div>
                     </div>
                 </div>
@@ -55,12 +55,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.master.active"
-                            data-item-id={{item._id}} {{checked data.master.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.master.active"
+                            data-item-id={{_id}} {{checked data.ranks.master.active}}>
                             <span>Master</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.master.effect target="data.master.effect" button=true owner=owner editable=editable}}
+                            {{editor content=data.ranks.master.effect target="data.ranks.master.effect" button=true owner=owner editable=editable}}
                         </div>
                     </div>
                 </div>

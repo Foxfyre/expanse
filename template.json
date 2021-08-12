@@ -291,23 +291,24 @@
             }
         },
         "talent": {
-            "label": "",
             "highest": "",
             "requirement": "",
-            "novice": {
-                "label": "novice",
-                "effect": "",
-                "active": false
-            },
-            "expert": {
-                "label": "expert",
-                "effect": "",
-                "active": false
-            },
-            "master": {
-                "label": "master",
-                "effect": "",
-                "active": false
+            "ranks": {
+                "novice": {
+                    "label": "novice",
+                    "effect": "",
+                    "active": false
+                },
+                "expert": {
+                    "label": "expert",
+                    "effect": "",
+                    "active": false
+                },
+                "master": {
+                    "label": "master",
+                    "effect": "",
+                    "active": false
+                }
             }
         },
         "stunt": {
@@ -320,6 +321,7 @@
         "weapon": {
             "name": "",
             "type": "",
+            "group": "",
             "attack": "",
             "npcattack": "",
             "usefocus": false,
@@ -344,7 +346,8 @@
             "penalty": 0,
             "cost": 0,
             "defense": 0,
-            "equip": false
+            "equip": false,
+            "description": ""
         },
         "shield": {
             "name": "",

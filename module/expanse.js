@@ -14,7 +14,7 @@ Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
 
   // Define custom Entity classes
-  CONFIG.Actor.entityClass = ExpanseActor;
+  CONFIG.Actor.documentClass = ExpanseActor;
 
   CONFIG.Combat.initiative = {
     formula: "3d6",

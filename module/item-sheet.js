@@ -59,10 +59,80 @@ export class ExpanseItemSheet extends ItemSheet {
 
     getData() {
         const data = super.getData();
-        data.dtypes = ["String", "Number", "Boolean"];
+        //data.dtypes = ["String", "Number", "Boolean"];
         console.log(data);
 
-        return data;
+        let itemData = {}
+        //itemData.dtypes = ["String", "Number", "Boolean"];
+
+        //itemData.weapons = data.actor.items.filter(i => i.type === "talent");
+
+        itemData.name = data.data.name;
+        itemData.img = data.data.img;
+        itemData.type = data.data.type;
+        //console.log(data.data.data)
+        if (data.data.type === "armor") {
+            itemData.data = {};
+            itemData.data.type = data.data.data.type;
+            itemData.data.bonus = data.data.data.bonus;
+            itemData.data.penalty = data.data.data.penalty;
+            itemData.data.cost = data.data.data.cost;
+            itemData.data.equip = data.data.data.equip;
+            itemData.data.description = data.data.data.description;
+        }
+
+        if (data.data.type === "talent") {
+            itemData.type = data.data.type;
+            itemData.name = data.data.name;
+            itemData._id = data.data._id;
+            itemData.data = data.data.data
+        }
+
+        if (data.data.type === "stunt") {
+            itemData.type = data.data.type;
+            itemData.name = data.data.name;
+            itemData.data = data.data.data;
+        }
+
+        if (data.data.type === "shield") {
+            itemData.data = {};
+            itemData.type = data.data.type;
+            itemData.name = data.data.name;
+            itemData.data.bonus = data.data.data.bonus;
+            itemData.data.cost = data.data.data.cost;
+            itemData.data.equip = data.data.data.equip;
+            itemData.data.type = data.data.data.type
+        }
+
+        if (data.data.type === "weapon") {
+            itemData.data = {};
+            itemData.name = data.data.name;
+            itemData.type = data.data.type;
+            itemData.img = data.data.img;
+            itemData.data.type = data.data.data.type;
+            itemData.data.group = data.data.data.group;
+            itemData.data.attack = data.data.data.attack;
+            itemData.data.npcAttack = data.data.data.npcattack;
+            itemData.data.usefocus = data.data.data.usefocus;
+            itemData.data.usefocusplus = data.data.data.usefocusplus;
+            itemData.data.damage = data.data.data.damage;
+            itemData.data.hasBonusDamage = data.data.data.hasBonusDamage;
+            itemData.data.bonusDamage = data.data.data.bonusDamage;
+            itemData.data.rangemin = data.data.data.rangemin;
+            itemData.data.rangemax = data.data.data.rangemax;
+            itemData.data.range = data.data.data.range;
+            itemData.data.cost = data.data.data.cost;
+            itemData.data.equipped = data.data.data.equipped;
+            itemData.data.description = data.data.data.description;
+            itemData.data.modifier = data.data.data.modifier;
+            itemData.data.tohitabil = data.data.data.tohitabil;
+            itemData.data.quality = data.data.data.quality;
+        }
+
+
+        console.log(itemData);
+
+        return itemData;
     }
 
     activateListeners(html) {
@@ -72,13 +142,6 @@ export class ExpanseItemSheet extends ItemSheet {
         new TabsV2(tabs, {
             initial: initial,
             callback: clicked => this._sheetTab = clicked.data("tab")
-        });
-
-        html.find(".learn-talent").click(async e => {
-            const data = super.getData()
-            const itemData = data.item;
-            const talent = itemData.data;
-            let itemId = e.currentTarget.getAttribute("data-item-id");
         });
     }
 }

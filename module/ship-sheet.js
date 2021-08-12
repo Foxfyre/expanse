@@ -46,7 +46,7 @@ export class ExpanseShipSheet extends ActorSheet {
 
         for (let [k, v] of Object.entries(data.weapon)) {
             if (v.type === "weapon") {
-                const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", v._id));
+                const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", v.id));
                 let modifierStat = v.data.modifier
                 let statBonus = 0; // get stat from actorData
 
@@ -128,10 +128,10 @@ export class ExpanseShipSheet extends ActorSheet {
 
             // If targeting same armor, cycle on off (Needs refactoring; else if redundant);
             for (let [k, v] of Object.entries(items)) {
-                if (v.type === "weapon" && v.data.usefocus === false && v._id === itemId) {
+                if (v.type === "weapon" && v.data.usefocus === false && v.id === itemId) {
                     weapon.data.usefocus = !weapon.data.usefocus;
                     this.actor.updateEmbeddedEntity("OwnedItem", weapon)
-                } else if (v.type === "weapon" && v.data.usefocus === true && v._id === itemId) {
+                } else if (v.type === "weapon" && v.data.usefocus === true && v.id === itemId) {
                     weapon.data.usefocus = !weapon.data.usefocus;
                     this.actor.updateEmbeddedEntity("OwnedItem", weapon)
                 }
@@ -157,7 +157,7 @@ export class ExpanseShipSheet extends ActorSheet {
 
         // Set variables for to hit
         let itemId = dataset.itemId;
-        let itemToUse = actorData.items.filter(i => i._id === itemId);
+        let itemToUse = actorData.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
         let useFocus = itemUsed.data.usefocus ? 2 : 0;

@@ -20,51 +20,6 @@ export class ExpanseTalentSheet extends ItemSheet {
         const data = super.getData();
 
         data.dtypes = ["String", "Number", "Boolean"];
-
-        /*for (let [k, v] of Object.entries(data.weapon)) {
-            if (v.type === "weapon") {
-                const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", v._id));
-                let modifierStat = v.data.modifier
-                let statBonus = 0; // get stat from actorData
-
-                switch (modifierStat) {
-                    case 'dex':
-                        statBonus = data.actor.data.abilities.dexterity.rating;
-                        break;
-                    case 'per':
-                        statBonus = data.actor.data.abilities.perception.rating;
-                        break;
-                    case 'str':
-                        statBonus = data.actor.data.abilities.strength.rating;
-                        break;
-                }
-                v.data.attack = statBonus;
-
-                let toHitMod = v.data.type;
-                let modType = "";
-
-                switch (toHitMod) {
-                    case "unarmed":
-                    case "makeshift":
-                    case "light_melee":
-                    case "heavy_melee":
-                        modType = "fighting";
-                        break;
-                    case "pistol":
-                    case "rifle":
-                        modType = "accuracy";
-                        break;
-                    default:
-                        modType = "fighting";
-                        break;
-                }
-                v.data.tohitabil = modType;
-                // write to weapon
-                //console.log(v);
-                this.actor.updateEmbeddedEntity("OwnedItem", v)
-            }
-        }
-        return data;*/
     }
 
     activateListeners(html) {
@@ -105,10 +60,10 @@ export class ExpanseTalentSheet extends ItemSheet {
 
             // If targeting same armor, cycle on off (Needs refactoring; else if redundant);
             for (let [k, v] of Object.entries(items)) {
-                if (v.type === "weapon" && v.data.usefocus === false && v._id === itemId) {
+                if (v.type === "weapon" && v.data.usefocus === false && v.id === itemId) {
                     weapon.data.usefocus = !weapon.data.usefocus;
                     this.actor.updateEmbeddedEntity("OwnedItem", weapon)
-                } else if (v.type === "weapon" && v.data.usefocus === true && v._id === itemId) {
+                } else if (v.type === "weapon" && v.data.usefocus === true && v.id === itemId) {
                     weapon.data.usefocus = !weapon.data.usefocus;
                     this.actor.updateEmbeddedEntity("OwnedItem", weapon)
                 }
@@ -134,7 +89,7 @@ export class ExpanseTalentSheet extends ItemSheet {
 
         // Set variables for to hit
         let itemId = dataset.itemId;
-        let itemToUse = actorData.items.filter(i => i._id === itemId);
+        let itemToUse = actorData.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
         let useFocus = itemUsed.data.usefocus ? 2 : 0;
@@ -262,22 +217,3 @@ export class ExpanseTalentSheet extends ItemSheet {
     }
 
 }
-
-/*async function TargetNumber() {
-new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/target-number.html").then(dlg => {
-                new Dialog({
-                    title: game.i18n.localize("EXPANSE.TargetNumber"),
-                    content: dlg,
-                    buttons: {
-                        roll: {
-                            label: game.i18n.localize("EXPANSE.Roll"),
-                            callback: html => {
-                                resolve(html.find(`[name="targetInput"]`).val());
-                            }
-                        }
-                    }
-                }).render(true);
-            });
-        })
-}*/

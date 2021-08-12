@@ -6,7 +6,7 @@
 
             <div class="npc-header-block">
                 <span>
-                    <input type="text" name="name" value="{{actor.name}}" data-dtype="String" />
+                    <input type="text" name="name" value="{{name}}" data-dtype="String" />
                 </span>
             </div>
 
@@ -17,21 +17,19 @@
         </div>
 
         <div class="npc-ability-block">
-            {{#each data.abilities as |ability key|}}
-            <div class="npc-ability" data-item-id="{{item._id}}">
+            {{#each abilities as |ability key|}}
+            <div class="npc-ability" data-item-id="{{item.id}}">
                 <span class="npc-ability-name rollable" data-roll="3d6+@abilities.{{key}}.rating"
                     data-label="{{key}}"><b>{{key}}</b></span>
                 <div class="npc-ability-value">
-                    <input type="text" name="data.abilities.{{key}}.rating" value="{{ability.rating}}"
-                        data-dtype="Number" />
+                    <input type="text" name="data.abilities.{{key}}.rating" value="{{rating}}" data-dtype="Number" />
                 </div>
                 <div class="npc-ability-focus">
-                    <input type="text" name="data.abilities.{{key}}.focus" value="{{ability.focus}}"
-                        data-dtype="String" />
+                    <input type="text" name="data.abilities.{{key}}.focus" value="{{focus}}" data-dtype="String" />
                 </div>
                 <div class="npc-ability-usefocus">
-                    <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
-                        {{checked ability.useFocus}}>
+                    <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus" {{checked
+                        useFocus}}>
                 </div>
             </div>
             {{/each}}
@@ -46,10 +44,9 @@
             </div>
 
             <div class="npc-attributes-box">
-                {{#each data.attributes as |attribute key|}}
+                {{#each attributes as |attribute key|}}
                 <div class="npc-attribute-value">
-                    <input type="text" name="data.attributes.{{key}}.value" value="{{attribute.value}}"
-                        data-dtype="Number" />
+                    <input type="text" name="data.attributes.{{key}}.value" value="{{value}}" data-dtype="Number" />
                 </div>
                 {{/each}}
             </div>
@@ -68,27 +65,28 @@
                     <span></span>
                 </div>
 
-                {{#each weapon as |item id|}}
-                <li class="item npc-weapon" data-item-id="{{item._id}}">
+                {{#each weapon as |weapon id|}}
+                <li class="item npc-weapon" data-item-id="{{weapon.id}}">
                     <div class="npc-weapon-row">
                         <div class="npc-weapon-list-item">
-                            {{item.name}}
+                            {{weapon.data.name}}
                         </div>
                         <div class="npc-weapon-list-item">
-                            {{item.data.attack}}
+                            {{weapon.data.data.attack}}
                         </div>
                         <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                         <div class="npc-weapon-list-item">
-                            {{item.data.damage}}{{#if item.data.hasBonusDamage}}+{{item.data.bonusDamage}}{{/if}}
+                            {{weapon.data.data.damage}}{{#if
+                            weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
                         </div>
                         <div class="npc-weapon-list-item">
-                            <input type="checkbox" class="expanse-checkbox weapon-usefocus" name="item.data.usefocus"
-                                data-item-id={{item._id}} {{checked item.data.usefocus}}>
+                            <input type="checkbox" class="expanse-checkbox weapon-usefocus" name="weapon.data.data.usefocus"
+                                data-item-id={{weapon.id}} {{checked weapon.data.data.usefocus}}>
                         </div>
 
                         <div class="npc-weapon-list-item">
-                            <div class="roll-button npc-attack" data-roll="weapon-attack" data-item-id="{{item._id}}"
-                                data-item-abil="{{item.data.tohitabil}}"></div>
+                            <div class="roll-button npc-attack" data-roll="weapon-attack" data-item-id="{{weapon.id}}"
+                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
                         </div>
 
                         <div class="item-controls npc-weapon-list-item">
@@ -136,7 +134,7 @@
 
             <div class="npc-images">
                 <div class="char-image">
-                    <img class="profile-img" src="{{actor.img}}" data-edit="img" name="img" title="Character Portrait" />
+                    <img class="profile-img" src="{{img}}" data-edit="img" name="img" title="Character Portrait" />
                 </div>
             </div>
         </div>

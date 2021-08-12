@@ -11,7 +11,7 @@
                 <div class="stunts-header-box">
                     <div class="stunts-header-block">
                         <span>
-                            <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
+                            <input type="text" name="name" value="{{name}}" data-dtype="String" />
                         </span>
                     </div>
 
@@ -22,16 +22,16 @@
                     </div>
                 </div>
 
-                <div class="item stunts-section" draggable="false" data-item-id="{{item._id}}">
+                <div class="item stunts-section" draggable="false" data-item-id="{{item.id}}">
                     <div class="stunts-section-sp">
-                        <input type="text" name="data.stunt.cost" value="{{data.stunt.cost}}" data-dtype="String" />
+                        <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="String" />
                     </div>
 
                     <div class="stunts-section-name">
-                        <input type="text" name="data.stunt.type" value="{{data.stunt.type}}" data-dtype="String" />
+                        <input type="text" name="data.type" value="{{data.type}}" data-dtype="String" />
                     </div>
                     <div class="stunts-section-desc">
-                        {{editor content=data.stunt.description target="data.stunt.description" button=true owner=owner editable=editable}}
+                        {{editor content=data.description target="data.description" button=true owner=owner editable=editable}}
                     </div>
                 </div>
 
@@ -40,4 +40,4 @@
         </div>
 
     </section>
-</form>
+</form> 

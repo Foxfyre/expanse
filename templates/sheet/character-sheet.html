@@ -7,7 +7,7 @@
             <div class="info-header">
 
                 <div class="char-image">
-                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+                    <img class="profile-img" src="{{img}}" data-edit="img" title="{{actor.name}}" />
                 </div>
 
 
@@ -23,53 +23,53 @@
 
                             <label for="name" class="info-label">{{localize "EXPANSE.Name" }}</label>
 
-                            <input class="info-input" type="text" name="name" value="{{actor.name}}"
+                            <input class="info-input" type="text" name="name" value="{{name}}"
                                 data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.header.info.origin" class="info-label">{{localize "EXPANSE.Origin" }}</label>
+                            <label for="data.info.origin" class="info-label">{{localize "EXPANSE.Origin" }}</label>
 
-                            <input class="info-input" type="text" name="data.header.info.origin"
-                                value="{{data.header.info.origin}}" data-dtype="String" />
-
-                        </div>
-
-                        <div class="information">
-
-                            <label for="data.header.info.background" class="info-label">{{localize "EXPANSE.Background" }}</label>
-
-                            <input class="info-input" type="text" name="data.header.info.background"
-                                value="{{data.header.info.background}}" data-dtype="String" />
+                            <input class="info-input" type="text" name="data.info.origin"
+                                value="{{info.origin}}" data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.header.info.social" class="info-label">{{localize "EXPANSE.Social" }}</label>
+                            <label for="data.info.background" class="info-label">{{localize "EXPANSE.Background" }}</label>
 
-                            <input class="info-input" type="text" name="data.header.info.social"
-                                value="{{data.header.info.social}}" data-dtype="String" />
-
-                        </div>
-
-                        <div class="information">
-
-                            <label for="data.header.info.profession" class="info-label">{{localize "EXPANSE.Profession" }}</label>
-
-                            <input class="info-input" type="text" name="data.header.info.profession"
-                                value="{{data.header.info.profession}}" data-dtype="String" />
+                            <input class="info-input" type="text" name="data.info.background"
+                                value="{{info.background}}" data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.header.info.drive" class="info-label">{{localize "EXPANSE.Drive"}}</label>
+                            <label for="data.info.social" class="info-label">{{localize "EXPANSE.Social" }}</label>
 
-                            <input class="info-input" type="text" name="data.header.info.drive"
-                                value="{{data.header.info.drive}}" data-dtype="String" />
+                            <input class="info-input" type="text" name="data.info.social"
+                                value="{{info.social}}" data-dtype="String" />
+
+                        </div>
+
+                        <div class="information">
+
+                            <label for="data.info.profession" class="info-label">{{localize "EXPANSE.Profession" }}</label>
+
+                            <input class="info-input" type="text" name="data.info.profession"
+                                value="{{info.profession}}" data-dtype="String" />
+
+                        </div>
+
+                        <div class="information">
+
+                            <label for="data.info.drive" class="info-label">{{localize "EXPANSE.Drive"}}</label>
+
+                            <input class="info-input" type="text" name="data.info.drive"
+                                value="{{info.drive}}" data-dtype="String" />
 
                         </div>
                     </div>
@@ -83,7 +83,7 @@
 
                 <div class="attribute-row">
 
-                    {{#each data.attributes as |attribute key|}}
+                    {{#each attributes as |attribute key|}}
 
                     <div class="attribute-box">
                         <div class="box-header">
@@ -115,7 +115,7 @@
 
             <div class="tab abilities" data-group="primary" data-tab="abilities">
 
-                {{#each data.abilities as |ability key|}}
+                {{#each abilities as |ability key|}}
 
                 <div class="age-abilities">
 
@@ -171,7 +171,7 @@
 
                     <div class="condition-container">
 
-                        {{#each data.conditions as |conditions key|}}
+                        {{#each conditions as |conditions key|}}
 
                         <div class="condition">
 
@@ -203,14 +203,14 @@
                         </div>
 
                         <ul class="items talent-list">
-                            {{#each talents as |item id|}}
-                            <li class="item talent item-controls" data-item-id="{{item._id}}">
+                            {{#each talent as |talent id|}}
+                            <li class="item talent item-controls" data-item-id="{{talent._id}}">
                                 <div class="talent-column item-control item-edit">
                                     <div class="talent-list-name">
-                                        {{item.name}}
+                                        {{data.name}}
                                     </div>
                                     <div class="talent-list-degree">
-                                        {{item.data.highest}}
+                                        {{data.data.highest}}
                                     </div>
                                     <!--<div class="talent-list-effect">
                                     {{item.data.talent.effect}}
@@ -238,16 +238,16 @@
                         </div>
 
                         <ul class="items stunt-list">
-                            {{#each stunts as |item id|}}
-                            <li class="item stunt" data-item-id="{{item._id}}">
+                            {{#each stunts as |stunt id|}}
+                            <li class="item stunt" data-item-id="{{stunt.id}}">
                                 <div class="stunt-list-type r-border-t-l">
-                                    {{item.data.stunt.type}}
+                                    {{data.data.type}}
                                 </div>
                                 <div class="stunt-list-type">
-                                    {{item.data.stunt.cost}}
+                                    {{data.data.cost}}
                                 </div>
                                 <div class="stunt-list-name r-border-b-r">
-                                    {{item.name}}
+                                    {{name}}
                                 </div>
 
                                 <div class="item-controls">
@@ -290,41 +290,41 @@
                                 <span></span>
                             </div>
 
-                            {{#each weapon as |item id|}}
-                            <li class="item weapon" data-item-id="{{item._id}}">
+                            {{#each weapon as |weapon id|}}
+                            <li class="item weapon" data-item-id="{{weapon.id}}">
                                 <div class="weapon-row">
                                     <div class="weapon-list-item">
-                                        {{item.name}}
+                                        {{weapon.data.name}}
                                     </div>
                                     <div class="weapon-list-item">
-                                        {{item.data.damage}}{{#if
-                                        item.data.hasBonusDamage}}+{{item.data.bonusDamage}}{{/if}}
+                                        {{weapon.data.data.damage}}{{#if
+                                            weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
                                     </div>
                                     <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                                     <div class="weapon-list-item">
-                                        {{item.data.attack}}
+                                        {{weapon.data.data.attack}}
                                     </div>
 
                                     <div class="weapon-list-item">
-                                        {{item.data.rangemin}} / {{item.data.rangemax}}
+                                        {{weapon.data.data.rangemin}} / {{weapon.data.data.rangemax}}
                                     </div>
 
                                     <div class="weapon-list-item">
                                         <span>+2</span>
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocus"
-                                            name="item.data.usefocus" data-item-id={{item._id}} {{checked
-                                            item.data.usefocus}}>
-                                        {{#if item.data.usefocus}}
+                                            name="weapon.data.data.usefocus" data-item-id={{weapon.id}} {{checked
+                                                weapon.data.data.usefocus}}>
+                                        {{#if weapon.data.data.usefocus}}
                                         <span>+1</span>
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
-                                            name="item.data.usefocusplus" data-item-id={{item._id}} {{checked
-                                            item.data.usefocusplus}}>
+                                            name="weapon.data.data.usefocusplus" data-item-id={{weapon.id}} {{checked
+                                                weapon.data.data.usefocusplus}}>
                                         {{/if}}
                                     </div>
 
                                     <div class="weapon-list-item">
                                         <div class="roll-button pc-attack" data-roll="weapon-attack"
-                                            data-item-id="{{item._id}}" data-item-abil="{{item.data.tohitabil}}"></div>
+                                            data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}"></div>
                                     </div>
 
                                     <div class="item-controls weapon-list-item">
@@ -357,25 +357,25 @@
                                 <span>Equipped</span>
                                 <span></span>
                             </div>
-                            {{#each armor as |item key|}}
-                            <li class="item armor" data-item-id="{{item._id}}">
+                            {{#each armor as |armor key|}}
+                            <li class="item armor" data-item-id="{{armor.id}}">
                                 <div class="armor-row">
                                     <div class="armor-list-item">
-                                        {{item.name}}
+                                        {{armor.data.name}}
                                     </div>
                                     <div class="armor-list-item">
-                                        {{item.data.type}}
+                                        {{armor.data.data.type}}
                                     </div>
                                     <div class="armor-list-item">
-                                        {{item.data.bonus}}
+                                        {{armor.data.data.bonus}}
                                     </div>
                                     <div class="armor-list-item">
-                                        {{item.data.penalty}}
+                                        {{armor.data.data.penalty}}
                                     </div>
                                     <div class="armor-list-item">
                                         <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{item._id}} name="item.data.equip" {{checked
-                                            item.data.equip}}>
+                                            data-item-id={{armor.id}} name="armor.data.equip" {{checked
+                                                armor.data.data.equip}}>
                                     </div>
                                 </div>
 
@@ -405,22 +405,22 @@
                                 <span></span>
                             </div>
 
-                            {{#each shield as |item key|}}
-                            <li class="item armor" data-item-id="{{item._id}}">
+                            {{#each shield as |shield key|}}
+                            <li class="item armor" data-item-id="{{shield.id}}">
                                 <div class="armor-row">
                                     <div class="armor-list-item">
-                                        {{item.name}}
+                                        {{shield.name}}
                                     </div>
                                     <div class="armor-list-item">
-                                        {{item.data.type}}
+                                        {{shield.data.data.type}}
                                     </div>
                                     <div class="armor-list-item">
-                                        {{item.data.bonus}}
+                                        {{shield.data.data.bonus}}
                                     </div>
                                     <div class="armor-list-item">
                                         <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{item._id}} name="item.data.equip" {{checked
-                                            item.data.equip}}>
+                                            data-item-id={{shield.id}} name="shield.data.equip" {{checked
+                                                shield.data.data.equip}}>
                                     </div>
                                 </div>
 
@@ -449,7 +449,7 @@
                                     <span>Income</span>
 
                                     <input class="age-income" type="text" name="data.info.income"
-                                        value="{{data.info.income}}" data-dtype="Number" />
+                                        value="{{info.income}}" data-dtype="Number" />
                                 </div>
 
                                 <div class="income-btn income-roll" data-roll="3d6+@data.info.income">
@@ -458,7 +458,7 @@
                             </div>
                             <div class="extra-equipment">
                                 <span>Equipment</span>
-                                <input type="text" name="data.info.equipment" value="{{data.info.equipment}}"
+                                <input type="text" name="data.info.equipment" value="{{info.equipment}}"
                                     data-dtype="String" />
                             </div>
                         </div>
@@ -477,8 +477,7 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.appearance target="data.bio.appearance" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=data.bio.appearance target="data.bio.appearance" button=true owner=owner editable=editable}}
                     </div>
                 </div>
 
@@ -489,8 +488,7 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.relationships target="data.bio.relationships" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=data.bio.relationships target="data.bio.relationships" button=true owner=owner editable=editable}}
                     </div>
                 </div>
 
@@ -501,8 +499,7 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.goals target="data.bio.goals" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=data.bio.goals target="data.bio.goals" button=true owner=owner editable=editable}}
                     </div>
                 </div>
 
@@ -517,8 +514,7 @@
                     </div>
 
                     <div class="notes-container">
-                        {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=bio.notes target="bio.notes" button=true owner=owner editable=editable}}
                     </div>
                 </div>
             </div>
