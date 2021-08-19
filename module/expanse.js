@@ -6,6 +6,7 @@
 
 import { ExpanseActorSheet } from "./actor-sheet.js";
 import { ExpanseItemSheet } from "./item-sheet.js";
+import { ExpanseItem } from "./item.js";
 import { ExpanseActor } from "./actor.js";
 import { ExpanseNPCSheet } from "./npc-sheet.js";
 import { ExpanseShipSheet } from "./ship-sheet.js";
@@ -15,7 +16,7 @@ Hooks.once("init", async function () {
 
   // Define custom Entity classes
   CONFIG.Actor.documentClass = ExpanseActor;
-
+  CONFIG.Item.documentClass = ExpanseItem;
   CONFIG.Combat.initiative = {
     formula: "3d6",
     decimals: 2

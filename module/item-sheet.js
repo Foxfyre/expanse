@@ -2,7 +2,6 @@ export class ExpanseItemSheet extends ItemSheet {
 
     constructor(...args) {
         super(...args);
-
         // Expand the default size of different item sheet
         const itemType = this.object.data.type;
         switch (itemType) {
@@ -56,16 +55,12 @@ export class ExpanseItemSheet extends ItemSheet {
     else 
       return `path/to/unowned/template.html`;
   }*/
-
     getData() {
+        console.log("Get Data 2 fired")
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
-        console.log(data);
 
         let itemData = {}
-        //itemData.dtypes = ["String", "Number", "Boolean"];
-
-        //itemData.weapons = data.actor.items.filter(i => i.type === "talent");
 
         itemData.name = data.data.name;
         itemData.img = data.data.img;
@@ -101,7 +96,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.bonus = data.data.data.bonus;
             itemData.data.cost = data.data.data.cost;
             itemData.data.equip = data.data.data.equip;
-            itemData.data.type = data.data.data.type
+            itemData.data.type = data.data.data.type;
         }
 
         if (data.data.type === "weapon") {
@@ -128,10 +123,6 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.tohitabil = data.data.data.tohitabil;
             itemData.data.quality = data.data.data.quality;
         }
-
-
-        console.log(itemData);
-
         return itemData;
     }
 

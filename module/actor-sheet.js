@@ -25,7 +25,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
     getData() {
         const data = super.getData();
-        console.log(data);
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
 
@@ -45,8 +44,6 @@ export class ExpanseActorSheet extends ActorSheet {
         //temp fix. new actors shouldnt need this
         sheetData.info = data.data.data.info;
         sheetData.img = data.actor.data.img;
-
-        console.log(sheetData.info);
 
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
@@ -156,7 +153,6 @@ export class ExpanseActorSheet extends ActorSheet {
         });
 
         html.find(".active-condition").click(async e => {
-            console.log("condition-fired");
             const data = super.getData()
             const actorData = data.actor;
             //const actorId = data.actor.id;
@@ -169,8 +165,6 @@ export class ExpanseActorSheet extends ActorSheet {
                     actorData.data.data.conditions[conditionName] = !v;
                 }
             }
-            console.log(conditionData);
-            //const update = { id: actorId, conditions: conditionData };
             await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
         })
 
@@ -238,7 +232,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
             const talent = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
-            console.log(talent);
             if (item.type === "talent") {
                 talent.data.ranks.active = !talent.data.ranks.active;
             }
@@ -266,7 +259,6 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemId = dataset.itemId;
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
-        console.log(itemUsed)
         let weaponToHitAbil = dataset.itemAbil;
         let useFocus = itemUsed.data.usefocus ? 2 : 0;
         let useFocusPlus = itemUsed.data.usefocusplus ? 1 : 0;
@@ -281,7 +273,7 @@ export class ExpanseActorSheet extends ActorSheet {
         //toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
+        //console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
 
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
@@ -411,7 +403,6 @@ export class ExpanseActorSheet extends ActorSheet {
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
             let results = [die1, die2, die3];
             let resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod;
-            console.log(useFocusPlus);
 
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 rollCard = ` 
@@ -425,7 +416,6 @@ export class ExpanseActorSheet extends ActorSheet {
               <b>Ability Test Results:</b> ${resultsSum}
               `
             }
-            console.log(rollCard);
 
             ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
