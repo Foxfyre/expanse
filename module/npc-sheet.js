@@ -38,7 +38,13 @@ export class ExpanseNPCSheet extends ActorSheet {
         //temp fix. new actors shouldnt need this
         sheetData.info = data.data.data;
         sheetData.img = data.actor.data.img;
-
+        sheetData.threat = data.data.data.threat;
+        sheetData.notes = data.data.data.notes;
+        sheetData.stunts = data.data.data.stunts;
+        sheetData.talent1 = data.data.data.talent1;
+        sheetData.talent2 = data.data.data.talent2;
+        sheetData.equipment1 = data.data.data.equipment1;
+        sheetData.equipment2 = data.data.data.equipment2;
         console.log(sheetData);
 
         sheetData.items.sort((a, b) => {

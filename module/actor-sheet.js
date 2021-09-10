@@ -44,7 +44,6 @@ export class ExpanseActorSheet extends ActorSheet {
         //temp fix. new actors shouldnt need this
         sheetData.info = data.data.data.info;
         sheetData.img = data.actor.data.img;
-
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
@@ -246,6 +245,10 @@ export class ExpanseActorSheet extends ActorSheet {
 
     }
 
+    dice(diceRoll) {
+        return `<img src="systems/forbidden-lands/assets/dice/${type}-${result}.png" alt="${result}" title="${result}" />`;
+    }
+
     _onAttack(event) {
         event.preventDefault();
         const element = event.currentTarget;
@@ -390,6 +393,8 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = event.currentTarget;
         const dataset = element.dataset;
 
+        
+
         if (dataset.roll) {
             let roll = new Roll(dataset.roll, this.actor.data.data).roll({async: false});
             let rollCard;
@@ -398,7 +403,9 @@ export class ExpanseActorSheet extends ActorSheet {
             let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
 
-            [die1, die2, die3] = roll.roll().terms[0].results.map(i => i.result);
+            [die1, die2, die3] = roll.terms[0].results.map(i => i.result);
+
+            console.log(die1)
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
             let results = [die1, die2, die3];

@@ -13,6 +13,10 @@ export class ExpanseItem extends Item {
             data.update({ img: `${path}item-armor.png` })
         } else if (data.type === "shield") {
             data.update({ img: `${path}item-shield.png` })
+        } else if (data.type === "talent") {
+            data.update({ img: `${path}talent-tablet.png` })
+        } else if (data.type === "stunt") {
+            data.update({ img: `${path}stunt.png`})
         }
     }
 
