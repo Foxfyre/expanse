@@ -35,7 +35,7 @@
     "primaryTokenAttribute": "attributes.fortune",
     "secondaryTokenAttribute": "resource2",
     "url": "https://github.com/Foxfyre/the_expanse",
-    "manifest": "https://raw.githubusercontent.com/Foxfyre/the_expanse/0.4.0-beta/system.json",
-    "download": "https://github.com/Foxfyre/the_expanse/releases/download/0.4.0-beta/the_expanse.zip",
+    "manifest": "https://raw.githubusercontent.com/Foxfyre/the_expanse/0.5.0-beta/system.json",
+    "download": "https://github.com/Foxfyre/the_expanse/releases/download/0.5.0-beta/the_expanse.zip",
     "license": "LICENSE.txt"
 }
