@@ -166,6 +166,7 @@ img {
     background-size: cover;
     background-repeat: none;
     background-position: center;
+    cursor: pointer;
 }
 /* Global styles override */
 

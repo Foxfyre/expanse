@@ -304,3 +304,8 @@
     background: rgba(0, 0, 0, 0.1);
     /*font-family: 'Montserrat', sans-serif;*/
 }
+
+.rollable:hover {
+    text-shadow: #00c9e8 1px 0 10px;
+    cursor: pointer;
+}

@@ -221,7 +221,7 @@ export class ExpanseNPCSheet extends ActorSheet {
             }
         });
     }
-
+ 
     _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
@@ -235,7 +235,7 @@ export class ExpanseNPCSheet extends ActorSheet {
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
 
-            [die1, die2, die3] = roll.roll().terms[0].results.map(i => i.result);
+            [die1, die2, die3] = roll.terms[0].results.map(i => i.result);
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
             let results = [die1, die2, die3];

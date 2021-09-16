@@ -2,7 +2,7 @@
     "name": "the_expanse",
     "title": "The Expanse",
     "description": "The Expanse AGE system by Green Ronin",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "minimumCoreVersion": "0.8.7",
     "compatibleCoreVersion": "0.8.8",
     "templateVersion": 3,
