@@ -276,8 +276,8 @@ export class ExpanseActorSheet extends ActorSheet {
         //toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        //console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
-
+        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
+        let results = [die1, die2, die3];
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
         };
@@ -294,19 +294,20 @@ export class ExpanseActorSheet extends ActorSheet {
 
         this.TargetNumber().then(target => {
             tn = Number(target);
+            const rollResults =  `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}<br> `;
             const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;
             const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
             const damageTotal = `Your attack with the ${itemUsed.name} does ${damageOnHit} points of damage.</br> 
                 Subtract the enemies Toughness and Armor for total damage received`;
             if (toHit >= tn) {
-                rollCard = toHitSuccess + stuntPoints + damageTotal
+                rollCard = rollResults + toHitSuccess + stuntPoints + damageTotal
                 ChatMessage.create({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
                     content: rollCard
                 });
             } else {
-                rollCard = toHitFail, stuntPoints
+                rollCard = rollResults + toHitFail, stuntPoints
                 ChatMessage.create({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
