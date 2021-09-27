@@ -286,7 +286,8 @@
                                 <span>Attack Bonus</span>
                                 <span>Range Min/Max</span>
                                 <span>Focus</span>
-                                <span>Attack</span>
+                                <span>Hit</span>
+                                <span>Damage</span>
                                 <span></span>
                             </div>
 
@@ -324,6 +325,11 @@
 
                                     <div class="weapon-list-item">
                                         <div class="roll-button pc-attack" data-roll="weapon-attack"
+                                            data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                                    </div>
+
+                                    <div class="weapon-list-item">
+                                        <div class="roll-button pc-damage" data-roll="weapon-damage"
                                             data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}"></div>
                                     </div>
 

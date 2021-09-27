@@ -174,7 +174,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
             const armor = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
-            
+
             for (let [k, v] of Object.entries(items)) {
                 // Confirming only one armour equipped
                 if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
@@ -241,6 +241,8 @@ export class ExpanseActorSheet extends ActorSheet {
 
         html.find('.pc-attack').click(this._onAttack.bind(this));
 
+        html.find('.pc-damage').click(this._onDamage.bind(this));
+
         html.find('.income-roll').click(this._IncomeRoll.bind(this));
 
     }
@@ -272,7 +274,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let tn = 0;
         let rollCard = {};
 
-        let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: focusBonus, abm: abilityMod }).roll({async: false});
+        let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: focusBonus, abm: abilityMod }).roll({ async: false });
         //toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
@@ -288,19 +290,27 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceFormula = itemUsed.data.data.damage;
         let bonusDamage = itemUsed.data.data.bonusDamage;
 
-        let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({async: false});
+        let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({ async: false });
         //damageRoll.evaluate();
         let damageOnHit = damageRoll.total;
 
-        this.TargetNumber().then(target => {
+        const rollResults = `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}</br> <b>TOTAL:</b> ${toHit}`;
+
+        rollCard = rollResults + stuntPoints
+        ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor: label,
+            content: rollCard
+        });
+
+        /*this.TargetNumber().then(target => {
             tn = Number(target);
-            const rollResults =  `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}<br> `;
+            const rollResults = `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}<br> `;
             const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;
             const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
-            const damageTotal = `Your attack with the ${itemUsed.name} does ${damageOnHit} points of damage.</br> 
-                Subtract the enemies Toughness and Armor for total damage received`;
+
             if (toHit >= tn) {
-                rollCard = rollResults + toHitSuccess + stuntPoints + damageTotal
+                rollCard = rollResults + toHitSuccess + stuntPoints
                 ChatMessage.create({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -314,6 +324,38 @@ export class ExpanseActorSheet extends ActorSheet {
                     content: rollCard
                 });
             }
+        });*/
+
+    }
+
+    _onDamage(e) {
+        e.preventDefault();
+        const element = e.currentTarget;
+        const dataset = element.dataset;
+
+        const data = super.getData()
+        const actorData = data.actor;
+        const items = actorData.items;
+        let rollCard = {};
+        
+
+        let itemId = dataset.itemId;
+        let itemToUse = actorData.data.items.filter(i => i.id === itemId);
+        let itemUsed = itemToUse[0];
+        let diceFormula = itemUsed.data.data.damage;
+        let bonusDamage = itemUsed.data.data.bonusDamage;
+        let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({ async: false });
+        //damageRoll.evaluate();
+        let damageOnHit = damageRoll.total;
+
+        let label = `<b> Attacking with ${itemUsed.name}</b>`;
+        const damageTotal = `Your attack with the ${itemUsed.name} does ${damageOnHit} points of damage.</br> 
+        Subtract the enemies Toughness and Armor for total damage received`;
+        rollCard = damageTotal
+        ChatMessage.create({
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            flavor: label,
+            content: rollCard
         });
 
     }
@@ -386,7 +428,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 });
             }
         });
-
     }
 
     _onRoll(event) {
@@ -394,10 +435,8 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = event.currentTarget;
         const dataset = element.dataset;
 
-        
-
         if (dataset.roll) {
-            let roll = new Roll(dataset.roll, this.actor.data.data).roll({async: false});
+            let roll = new Roll(dataset.roll, this.actor.data.data).roll({ async: false });
             let rollCard;
             let die1 = 0; let die2 = 0; let die3 = 0;
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
