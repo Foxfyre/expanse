@@ -127,6 +127,17 @@
 
         </div>
 
+        <div class="npc-notes-box">
+
+            <div class="box-header">
+                <span>DESCRIPTION</span>
+            </div>
+
+            <div class="npc-notes-container">
+                {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
+            </div>
+        </div>
+
         <div class="npc-image-block">
             <div class="box-header">
                 <span>Images</span>
@@ -136,17 +147,6 @@
                 <div class="char-image">
                     <img class="profile-img" src="{{img}}" data-edit="img" name="img" title="Character Portrait" />
                 </div>
-            </div>
-        </div>
-
-        <div class="npc-notes-box">
-
-            <div class="box-header">
-                <span>DESCRIPTION</span>
-            </div>
-
-            <div class="npc-notes-container">
-                {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
             </div>
         </div>
 
