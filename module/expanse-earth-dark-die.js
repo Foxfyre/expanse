@@ -7,7 +7,7 @@ export class TheExpanseEarthDark extends Die {
     /* -------------------------------------------- */
 
     /** @override */
-    static DENOMINATION = "ed";
+    static DENOMINATION = "a";
 
     /* -------------------------------------------- */
 

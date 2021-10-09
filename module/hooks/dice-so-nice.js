@@ -20,7 +20,7 @@ export function registerDiceSoNice(dice3d) {
 
     dice3d.addDicePreset(
         {
-            type: "ed",
+            type: "da",
             labels: [
                 "systems/the_expanse/ui/dice/earth/earth-1-dark.png",
                 "systems/the_expanse/ui/dice/earth/earth-2-dark.png",
@@ -45,7 +45,7 @@ export function registerDiceSoNice(dice3d) {
 
     dice3d.addDicePreset(
         {
-            type: "el",
+            type: "dl",
             labels: [
                 "systems/the_expanse/ui/dice/earth/earth-1-light.png",
                 "systems/the_expanse/ui/dice/earth/earth-2-light.png",
