@@ -48,6 +48,26 @@ export class ExpanseActor extends Actor {
         //console.log("level 11 or greater detected");
         data.attributes.level.elevenbonus = true;
       }
+
+      if (data.conditions.injured.active === true) {
+        data.conditions.fatigued.active = !data.conditions.fatigued.active;
+      }
+      if (data.conditions.hindered.active === true) {
+        data.attributes.move.modified = data.attributes.move.modified / 2;
+        data.attributes.run.modified = 0;
+      }
+      if (data.conditions.exhausted.active === true || data.conditions.prone.active === true || data.conditions.fatigued.active === true) {
+        data.attributes.run.modified = 0;
+      }
+      if (data.conditions.helpless.active === true || data.conditions.restrained.active === true) {
+        data.attributes.run.modified = 0;
+        data.attributes.move.modified = 0;
+      }
+      if (data.conditions.unconscious.active === true) {
+        data.conditions.prone.active = true;
+        data.attributes.move.modified = 0;
+        data.attributes.run.modified = 0;
+      }
     }
     super.prepareDerivedData();
 

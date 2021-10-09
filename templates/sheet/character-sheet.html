@@ -85,7 +85,7 @@
 
                     {{#each attributes as |attribute key|}}
 
-                    <div class="attribute-box">
+                    <div id={{key}} class="attribute-box">
                         <div class="box-header">
                             <span>{{key}}</span>
                         </div>
@@ -173,12 +173,12 @@
 
                         {{#each conditions as |conditions key|}}
 
-                        <div class="condition">
+                        <div class="condition" title="{{conditions.tooltip}}">
 
                             <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
-                                conditions}}>
+                                conditions.active}}>
 
-                            <span>{{key}}</span>
+                            <span class="condition-hover">{{key}}</span>
 
                         </div>
 

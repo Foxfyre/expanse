@@ -10,6 +10,9 @@ import { ExpanseItem } from "./item.js";
 import { ExpanseActor } from "./actor.js";
 import { ExpanseNPCSheet } from "./npc-sheet.js";
 import { ExpanseShipSheet } from "./ship-sheet.js";
+import { registerDiceSoNice } from "./hooks/dice-so-nice.js";
+import { TheExpanseEarthDark } from "./expanse-earth-dark-die.js";
+import { TheExpanseEarthLight } from "./expanse-earth-light-die.js";
 
 Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
@@ -21,7 +24,9 @@ Hooks.once("init", async function () {
     formula: "3d6",
     decimals: 2
   }
-
+  CONFIG.Dice.terms["ed"] = TheExpanseEarthDark;
+  CONFIG.Dice.terms["el"] = TheExpanseEarthLight;
+  
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("expanse", ExpanseActorSheet, {
     types: ["character"],
@@ -39,17 +44,11 @@ Hooks.once("init", async function () {
   Items.registerSheet("expanse", ExpanseItemSheet, {
     makeDefault: true
   });
-  
-
-  // Register system settings
-  /*game.settings.register("expansetemplate", "macroShorthand", {
-    name: "Shortened Macro Syntax",
-    hint:
-      "Enable a shortened macro syntax which allows referencing attributes directly, for example @str instead of @attributes.str.value. Disable this setting if you need the ability to reference the full attribute model, for example @attributes.str.label.",
-    scope: "world",
-    type: Boolean,
-    default: true,
-    config: true,
-  });*/
 });
+
+
+Hooks.once("diceSoNiceReady", (dice3d) => {
+  registerDiceSoNice(dice3d);
+});
+
 

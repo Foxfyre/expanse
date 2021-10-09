@@ -373,6 +373,10 @@ blockquote {
     font-family: 'Anton', sans-serif;
 }
 
+.attribute-negative input[type=text] {
+    box-shadow: inset 0 0 10px #ff0000;
+}
+
 .box-header {
     display: flex;
     width: 100%;

@@ -154,14 +154,13 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".active-condition").click(async e => {
             const data = super.getData()
             const actorData = data.actor;
-            //const actorId = data.actor.id;
             let conditionName = e.currentTarget.getAttribute("name");
-
             const conditionData = actorData.data.data.conditions;
 
             for (let [k, v] of Object.entries(conditionData)) {
                 if (k === conditionName) {
-                    actorData.data.data.conditions[conditionName] = !v;
+                    console.log(v);
+                    actorData.data.data.conditions[conditionName].active = !v.active;
                 }
             }
             await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
@@ -196,8 +195,6 @@ export class ExpanseActorSheet extends ActorSheet {
             }
         });
 
-
-        // The check is registering on the page, just need to update it.
         html.find(".weapon-usefocus").click(e => {
             const data = super.getData()
             const items = data.items;
@@ -247,10 +244,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
     }
 
-    dice(diceRoll) {
-        return `<img src="systems/forbidden-lands/assets/dice/${type}-${result}.png" alt="${result}" title="${result}" />`;
-    }
-
     _onAttack(event) {
         event.preventDefault();
         const element = event.currentTarget;
@@ -273,12 +266,24 @@ export class ExpanseActorSheet extends ActorSheet {
         let stuntPoints = "";
         let tn = 0;
         let rollCard = {};
+        let condMod;
+        let condModName;
 
-        let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: focusBonus, abm: abilityMod }).roll({ async: false });
+        if (actorData.data.data.conditions.wounded.active === true) {
+            condMod = -2;
+            condModName = "wounded";
+        } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
+            condMod = -1;
+            condModName = "injured";
+        } else {
+            condMod = 0;
+        }
+
+        let toHitRoll = new Roll(`3D6 + @foc + @abm + @cnd`, { foc: focusBonus, abm: abilityMod, cnd: condMod }).roll({ async: false });
         //toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod);
+        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod + " Condition Modifier: " + condMod);
         let results = [die1, die2, die3];
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
@@ -286,15 +291,15 @@ export class ExpanseActorSheet extends ActorSheet {
 
         let label = useFocus ? `<b> Rolling ${weaponToHitAbil} with focus </b>` : `Rolling ${weaponToHitAbil}`;
 
-        // Set variables for damage roll
+        /*// Set variables for damage roll
         let diceFormula = itemUsed.data.data.damage;
         let bonusDamage = itemUsed.data.data.bonusDamage;
 
         let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({ async: false });
         //damageRoll.evaluate();
-        let damageOnHit = damageRoll.total;
+        let damageOnHit = damageRoll.total;*/
 
-        const rollResults = `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}</br> <b>TOTAL:</b> ${toHit}`;
+        const rollResults = `<b>Dice Roll:</b> ${results} <br><b>Ability:</b> ${abilityMod} <b>Focus:</b> ${focusBonus} <b>Condition:</b> ${condMod} </br> <b>TOTAL:</b> ${toHit}<br>`;
 
         rollCard = rollResults + stuntPoints
         ChatMessage.create({
@@ -337,7 +342,7 @@ export class ExpanseActorSheet extends ActorSheet {
         const actorData = data.actor;
         const items = actorData.items;
         let rollCard = {};
-        
+
 
         let itemId = dataset.itemId;
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
@@ -349,7 +354,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let damageOnHit = damageRoll.total;
 
         let label = `<b> Attacking with ${itemUsed.name}</b>`;
-        const damageTotal = `Your attack with the ${itemUsed.name} does ${damageOnHit} points of damage.</br> 
+        const damageTotal = `Your attack with the ${itemUsed.name} does <b>${damageOnHit}</b> points of damage.</br> 
         Subtract the enemies Toughness and Armor for total damage received`;
         rollCard = damageTotal
         ChatMessage.create({
@@ -368,42 +373,42 @@ export class ExpanseActorSheet extends ActorSheet {
 
         const data = super.getData()
         const income = data.data.data.info.income;
-        let ic = 0;
+        let ic;
+        let die1, die2, die3;
 
         let incomeRoll = new Roll(`3D6 + @inc`, { inc: income });
 
         incomeRoll.evaluate();
-        let incomeResult = incomeRoll.total;
+        [die1, die2, die3] = incomeRoll.terms[0].results.map(i => i.result);
+        let incomeResult = Number(incomeRoll.total);
+        let results = [die1, die2, die3];
 
-        this.IncomeCost().then(target => {
-            ic = Number(target);
+        this.IncomeCost().then(r => {
+            console.log(r)
+            ic = r;
+
+            console.log(ic === "");
             let rollCard;
-            const incomeSuccess = `<b>Income Test:</b> 3D6 + ${income} vs ${ic}.</br>
-            <b>Result:</b> ${incomeResult}</br></br>
-            <i>You are able to successfully secure the item or service.</i></br>`;
+            const diceRollDialogue = `<b>Dice Roll:</b> ${results} <br> <b>Income: ${income}</br><b>Result:</b> ${incomeResult}`
 
-            const incomeFail = `<b>Income Test:</b> 3D6 + ${income} vs ${ic}.</br>
-            <b>Result:</b> ${incomeResult}</br></br>
-            <i>You are unable to secure the item or service.</i></br>`;
+            const incomeSuccess = `${diceRollDialogue}</br><i>You are able to successfully secure the item or service.</i>`;
 
-            const autoSuccess = `<b>Income Test:</b> 3D6 + ${income} vs ${ic}.</br>
-            <b>Result:</b> ${incomeResult}</br></br>
-            <i>Your income is high enough that you automatically succeed at securing the item or service</i>`;
+            const incomeFail = `${diceRollDialogue}</br><i>You are unable to secure the item or service.</i>`;
 
-            const incomeDeplete = `<b>Income Test:</b> 3D6 + ${income} vs ${ic}.</br>
-            <b>Result:</b> ${incomeResult}</br></br>
-            <i>You successfully secure the item or service, but due to the great expense, your Income depletes by 1.</>`;
+            const autoSuccess = `${diceRollDialogue}</br><i>Your income is high enough that you automatically succeed at securing the item or service</i>`;
+
+            const incomeDeplete = `${diceRollDialogue}</br><i>You successfully secure the item or service, but due to the great expense, your Income depletes by 1.</i>`;
 
             const label = 'Rolling Income';
 
-            if ((income + 4) >= ic) { // Auto Success
+            if ((income + 4) >= ic && ic !== "") { // Auto Success
                 rollCard = autoSuccess
                 ChatMessage.create({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
                     content: rollCard
                 });
-            } else if (incomeResult >= ic) { // Successful result
+            } else if (incomeResult >= ic && ic !== "") { // Successful result
                 if (ic >= (income + 10)) { // Depletion - Set automation to automatically deplete
                     rollCard = incomeDeplete
                     ChatMessage.create({
@@ -419,8 +424,15 @@ export class ExpanseActorSheet extends ActorSheet {
                         content: rollCard
                     });
                 }
-            } else if (incomeResult < ic) { // Failed Result
+            } else if (incomeResult < ic && ic !== "") { // Failed Result
                 rollCard = incomeFail
+                ChatMessage.create({
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    flavor: label,
+                    content: rollCard
+                });
+            } else if (ic === "") {
+                rollCard = diceRollDialogue
                 ChatMessage.create({
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -436,39 +448,88 @@ export class ExpanseActorSheet extends ActorSheet {
         const dataset = element.dataset;
 
         if (dataset.roll) {
-            let roll = new Roll(dataset.roll, this.actor.data.data).roll({ async: false });
+            console.log(dataset)
+            let roll = new Roll(`2ded + 1del + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
+            console.log(roll.dice)
+            console.log(roll.terms)
             let rollCard;
             let die1 = 0; let die2 = 0; let die3 = 0;
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
 
-            [die1, die2, die3] = roll.terms[0].results.map(i => i.result);
 
+            [die1, die2] = roll.terms[0].results.map(i => i.result);
+            [die3] = roll.terms[2].results.map(i => i.result);
+            console.log(roll)
             console.log(die1)
+            let condMod;
+            let condModName;
+
+            if (roll.data.conditions.wounded.active === true) {
+                condMod = -2;
+                condModName = "wounded";
+            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
+                condMod = -1;
+                condModName = "injured";
+            } else {
+                condMod = 0;
+            }
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
             let results = [die1, die2, die3];
-            let resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod;
+            let resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            let condModWarning;
+            if (condMod < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            } else {
+                condModWarning = ``;
+            }
+
+            let style1 = "dark";
+            let type = "earth";
+            let style2 = "light";
+
+            const die1Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die1}-${style1}.png" alt="${die1}" title="${die1}" />`
+            const die2Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die2}-${style1}.png" alt="${die2}" title="${die2}" />`
+            const die3Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die3}-${style2}.png" alt="${die3}" title="${die3}" />`
+
 
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 rollCard = ` 
               <b>Dice Roll:</b> ${results} <br> 
+              ${condModWarning}
               <b>Ability Test Results:</b> ${resultsSum} <br>
               <b>${die3} Stunt Points have been generated!</b>
               `
             } else {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
+                rollCard = `<div style="display: flex; flex-direction: row; justify-content: space-around;"> 
+                ${die1Image}${die2Image}${die3Image}
+                </div> 
+               <br> 
+              ${condModWarning}
               <b>Ability Test Results:</b> ${resultsSum}
               `
             }
 
-            ChatMessage.create({
+            let chatOptions = {
+                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                roll: roll,
+                rollMode: game.settings.get("core", "rollMode"),
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
                 content: rollCard
-            });
+            };
+
+            ChatMessage.create(
+                chatOptions
+                /*{
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: label,
+                content: rollCard
+            }*/
+
+            );
         }
     }
 
