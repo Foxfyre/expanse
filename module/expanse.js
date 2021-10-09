@@ -24,8 +24,8 @@ Hooks.once("init", async function () {
     formula: "3d6",
     decimals: 2
   }
-  CONFIG.Dice.terms["ed"] = TheExpanseEarthDark;
-  CONFIG.Dice.terms["el"] = TheExpanseEarthLight;
+  CONFIG.Dice.terms["a"] = TheExpanseEarthDark;
+  CONFIG.Dice.terms["l"] = TheExpanseEarthLight;
   
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("expanse", ExpanseActorSheet, {
