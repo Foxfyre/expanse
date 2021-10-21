@@ -56,7 +56,6 @@ export class ExpanseItemSheet extends ItemSheet {
       return `path/to/unowned/template.html`;
   }*/
     getData() {
-        console.log("Get Data 2 fired")
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
 
@@ -65,7 +64,6 @@ export class ExpanseItemSheet extends ItemSheet {
         itemData.name = data.data.name;
         itemData.img = data.data.img;
         itemData.type = data.data.type;
-        //console.log(data.data.data)
         if (data.data.type === "armor") {
             itemData.data = {};
             itemData.data.type = data.data.data.type;

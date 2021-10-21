@@ -1,0 +1,51 @@
+<form class="{{cssClass}} damage-modifier-sheet" autocomplete="off">
+
+  <div class="modifier-box">
+
+    <div class="modifier-header-box">
+      <div class="modifier-header-block">
+        <span>Damage Modifiers</span>
+      </div>
+    </div>
+
+    <div class="modifier-block">
+      <div class="box-header">
+        <span class="">{{localize "EXPANSE.DamageDiceModifier"}}</span>
+        <span class="">{{localize "EXPANSE.DamageModifier"}}</span>
+      </div>
+      <div class="modifier-sections">
+        <div class="modifier-section-left">
+          <label for="add1D6">Add
+            <input name="add1D6" type="number">
+            D6
+          </label>
+        </div>
+
+        <div class="modifier-section-right">
+          <label for="addDamage">Add Extra Damage
+          <input name="addDamage" type="number"></label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.dialog');
+  length = textContainer.length;
+
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].children[0].className.includes("damage-modifier-sheet")) {
+      new_red = textContainer[i].id;
+
+      if (document.getElementById(new_red).className.includes("damage-modifier-sheet-dialog")) {
+        continue;
+      }
+      else {
+        document.getElementById(new_red).className += " damage-modifier-sheet-dialog";
+      }
+    } else { }
+  }
+</script>

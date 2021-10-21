@@ -23,10 +23,71 @@ export class ExpanseActorSheet extends ActorSheet {
         return this.actorData.data;
     }
 
+    diceRollType() {
+        let diceData = {}
+        let diceStyle; let diceFaction; let diceStunt; let diceSoNice;
+
+        let diceSettings = game.settings.get("the_expanse", "diceStyle");
+
+        if (diceSettings === "0") {
+            diceStyle = "dark";
+            diceFaction = "earth";
+            diceStunt = "light";
+            diceSoNice = ["a", "l"]
+        } else if (diceSettings === "1") {
+            diceStyle = "light";
+            diceFaction = "earth";
+            diceStunt = "dark";
+            diceSoNice = ["l", "a"];
+        } else if (diceSettings === "2") {
+            diceStyle = "dark";
+            diceFaction = "mars";
+            diceStunt = "light";
+            diceSoNice = ["c", "d"];
+        } else if (diceSettings === "3") {
+            diceStyle = "light";
+            diceFaction = "mars";
+            diceStunt = "dark";
+            diceSoNice = ["d", "c"];
+        } else if (diceSettings === "4") {
+            diceStyle = "dark";
+            diceFaction = "belt";
+            diceStunt = "light";
+            diceSoNice = ["e", "f"];
+        } else if (diceSettings === "5") {
+            diceStyle = "light";
+            diceFaction = "belt";
+            diceStunt = "dark";
+            diceSoNice = ["f", "e"];
+        } else if (diceSettings === "6") {
+            diceStyle = "dark";
+            diceFaction = "protogen";
+            diceStunt = "light";
+            diceSoNice = ["g", "h"];
+        } else if (diceSettings === "7") {
+            diceStyle = "light";
+            diceFaction = "protogen";
+            diceStunt = "dark";
+            diceSoNice = ["h", "g"];
+        } else {
+            diceStyle = "dark";
+            diceFaction = "earth";
+            diceStunt = "light";
+            diceSoNice = ["a", "l"];
+        }
+
+        diceData.style = diceStyle;
+        diceData.faction = diceFaction;
+        diceData.stunt = diceStunt;
+        diceData.nice = diceSoNice;
+        return diceData;
+    }
+
     getData() {
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
+        console.log(data);
 
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = data.actor.data.name;
@@ -222,6 +283,22 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
         });
 
+        html.find(".weapon-extradamage").click(e => {
+            const data = super.getData()
+            const items = data.items;
+            const actorData = data.actor;
+            console.log(actorData);
+            let itemId = e.currentTarget.getAttribute("data-item-id");
+            const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+
+            for (let [k, v] of Object.entries(items)) {
+                if (v.type === "weapon" && v._id === itemId && actorData.data.data.attributes.stuntpoints.modified >= 2) {
+                    weapon.data.extraDamage = !weapon.data.extraDamage;
+                }
+            }
+            this.actor.updateEmbeddedDocuments("Item", [weapon]);
+        });
+
         html.find(".learn-talent").click(e => {
             const data = super.getData()
             const item = data.data;
@@ -248,7 +325,6 @@ export class ExpanseActorSheet extends ActorSheet {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
@@ -258,110 +334,234 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
-        let useFocus = itemUsed.data.usefocus ? 2 : 0;
-        let useFocusPlus = itemUsed.data.usefocusplus ? 1 : 0;
-        const focusBonus = useFocus + useFocusPlus
-        let abilityMod = actorData.data.data.abilities[weaponToHitAbil].rating;
-        let die1, die2, die3;
-        let stuntPoints = "";
-        let tn = 0;
-        let rollCard = {};
-        let condMod;
-        let condModName;
 
-        if (actorData.data.data.conditions.wounded.active === true) {
-            condMod = -2;
-            condModName = "wounded";
-        } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
-            condMod = -1;
-            condModName = "injured";
-        } else {
-            condMod = 0;
+        // pull this out into a function
+        if (actorData.data.data.attributes.stuntpoints.thisround === true) {
+            let spData = actorData.data.data.attributes.stuntpoints;
+            spData.modified = 0;
+            spData.thisround = false;
+            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
         }
 
-        let toHitRoll = new Roll(`3D6 + @foc + @abm + @cnd`, { foc: focusBonus, abm: abilityMod, cnd: condMod }).roll({ async: false });
-        //toHitRoll.evaluate();
-        [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
-        let toHit = Number(toHitRoll.total);
-        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + focusBonus + " Ability Modifier: " + abilityMod + " Condition Modifier: " + condMod);
-        let results = [die1, die2, die3];
-        if (die1 == die2 || die1 == die3 || die2 == die3) {
-            stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
-        };
+        if (dataset.roll) {
+            const diceData = this.diceRollType();
+            let die1, die2, die3;
+            let d2; let d1;
+            let condMod;
+            let condModName;
+            let rollCard;
+            let condModWarning;
+            let resultsSum
 
-        let label = useFocus ? `<b> Rolling ${weaponToHitAbil} with focus </b>` : `Rolling ${weaponToHitAbil}`;
-
-        /*// Set variables for damage roll
-        let diceFormula = itemUsed.data.data.damage;
-        let bonusDamage = itemUsed.data.data.bonusDamage;
-
-        let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({ async: false });
-        //damageRoll.evaluate();
-        let damageOnHit = damageRoll.total;*/
-
-        const rollResults = `<b>Dice Roll:</b> ${results} <br><b>Ability:</b> ${abilityMod} <b>Focus:</b> ${focusBonus} <b>Condition:</b> ${condMod} </br> <b>TOTAL:</b> ${toHit}<br>`;
-
-        rollCard = rollResults + stuntPoints
-        ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            flavor: label,
-            content: rollCard
-        });
-
-        /*this.TargetNumber().then(target => {
-            tn = Number(target);
-            const rollResults = `<b>Dice Roll:</b> ${results} <b>Ability Modifier:</b> ${abilityMod} <b>Focus:</b> ${focusBonus}<br> `;
-            const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;
-            const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
-
-            if (toHit >= tn) {
-                rollCard = rollResults + toHitSuccess + stuntPoints
-                ChatMessage.create({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: label,
-                    content: rollCard
-                });
+            // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
+            if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
+                d2 = diceData.nice[0];
+                d1 = diceData.nice[1];
             } else {
-                rollCard = rollResults + toHitFail, stuntPoints
+                d2 = 6;
+                d1 = 6;
+            }
+
+            let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
+            //console.log(dataset)
+            //console.log(toHitRoll)
+            console.log(itemUsed.data.data.usefocus);
+            let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
+            let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
+            let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
+            [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
+            [die3] = toHitRoll.terms[2].results.map(i => i.result);
+
+            if (actorData.data.data.conditions.wounded.active === true) {
+                condMod = -2;
+                condModName = "wounded";
+            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
+                condMod = -1;
+                condModName = "injured";
+            } else {
+                condMod = 0;
+            }
+
+            let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
+            console.log(useFocus)
+
+            if (condMod < 0) {
+                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
+            } else {
+                condModWarning = ``;
+            }
+
+            const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
+
+            let chatFocus;
+
+            if (useFocus === 2 && useFocusPlus === 1) {
+                chatFocus = `<b>Focus:</b> 3</br>`;
+            } else if (useFocus === 2 && useFocusPlus === 0) {
+                chatFocus = `<b>Focus:</b> 2</br>`;
+            } else (chatFocus = ``);
+
+            let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
+
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+
+            let chatStunts = "";
+            if (die1 == die2 || die1 == die3 || die2 == die3) {
+                chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
+                let spData = actorData.data.data.attributes.stuntpoints;
+                spData.modified = die3;
+                spData.thisround = true;
+                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+            }
+
+            if (event.shiftKey) {
+                this.RollModifier().then(r => {
+                    let testData = r;
+
+                    resultsSum += testData;
+                    let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
+                    rollCard = `
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        ${chatMod}
+                        ${chatAddMod}
+                        ${chatFocus}
+                        ${condModWarning} 
+                        <b>Ability Test Results:</b> ${resultsSum} <br> <br>
+                        ${chatStunts}
+                    `
+                    ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                        roll: toHitRoll,
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        flavor: label,
+                        content: rollCard
+                    });
+                })
+
+            } else {
+                rollCard = `
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                ${chatMod}
+                ${chatFocus}
+                ${condModWarning} 
+                <b>Ability Test Results:</b> ${resultsSum} <br> 
+                ${chatStunts}`
+
                 ChatMessage.create({
+                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                    roll: toHitRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
                     content: rollCard
                 });
             }
-        });*/
 
+        }
     }
 
     _onDamage(e) {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
+        const diceData = this.diceRollType();
+
+        let d2;
+        // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
+        if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
+            d2 = diceData.nice[0];
+        } else {
+            d2 = 6;
+        }
 
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
-        let rollCard = {};
-
 
         let itemId = dataset.itemId;
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
+
         let diceFormula = itemUsed.data.data.damage;
         let bonusDamage = itemUsed.data.data.bonusDamage;
-        let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({ async: false });
-        //damageRoll.evaluate();
-        let damageOnHit = damageRoll.total;
 
-        let label = `<b> Attacking with ${itemUsed.name}</b>`;
-        const damageTotal = `Your attack with the ${itemUsed.name} does <b>${damageOnHit}</b> points of damage.</br> 
-        Subtract the enemies Toughness and Armor for total damage received`;
-        rollCard = damageTotal
-        ChatMessage.create({
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            flavor: label,
-            content: rollCard
-        });
+        let damageOnHit;
+        let diceImageArray = "";
+
+
+
+        if (!e.shiftKey) {
+
+            let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+
+            console.log(diceFormula);
+
+            let totalDamage = damageRoll.total + bonusDamage;
+            let resultRoll = damageRoll.terms[0].results.map(i => i.result);
+            for (let i = 0; i < resultRoll.length; i++) {
+                diceImageArray += `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+            }
+
+            let label = `<b>Attacking with ${itemUsed.name}</b>`;
+
+            let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+            let chatBonusDamage = `<b>Damage Modifier (${dataset.itemAbil})</b>: ${bonusDamage}</br>`
+            let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
+            Subtract the enemies Toughness and Armor for total damage received`;
+
+            let rollCard = `<div style="display: flex; flex-direction: row; justify-content: space-around;">${diceImageArray}</div></br>
+                ${chatDamage}
+                ${chatBonusDamage}
+                ${chatDamageTotal}
+            `
+
+            ChatMessage.create({
+                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                roll: damageRoll,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: label,
+                content: rollCard
+            });
+
+        } else {
+            this.RollDamageModifier().then(r => {
+                console.log(r);
+                let testData = r;
+                diceFormula += testData[0];
+
+                let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+
+                let totalDamage = damageRoll.total + bonusDamage + testData[1];
+                let resultRoll = damageRoll.terms[0].results.map(i => i.result);
+                for (let i = 0; i < resultRoll.length; i++) {
+                    diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+                }
+
+                let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
+
+                let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+                let chatBonusDamage = `<b>Damage Modifier (${dataset.itemAbil})</b>: ${bonusDamage}</br>`
+                let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
+                let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
+                    Subtract the enemies Toughness and Armor for total damage received`;
+
+                let rollCard = `<div style="display: flex; flex-direction: row; justify-content: space-around; flex-wrap: wrap;">${diceImageArray}</div></br>
+                    ${chatDamage}
+                    ${chatBonusDamage}
+                    ${chatExtraDamage}
+                    ${chatDamageTotal}
+            `
+
+                ChatMessage.create({
+                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                    roll: damageRoll,
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    flavor: label,
+                    content: rollCard
+                });
+            })
+        }
 
     }
 
@@ -369,102 +569,151 @@ export class ExpanseActorSheet extends ActorSheet {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
-
-
         const data = super.getData()
-        const income = data.data.data.info.income;
-        let ic;
-        let die1, die2, die3;
+        let income = data.data.data.info.income;
+        let diceImageArray = "";
+        let ic; let d2;
 
-        let incomeRoll = new Roll(`3D6 + @inc`, { inc: income });
+        const diceData = this.diceRollType();
 
-        incomeRoll.evaluate();
-        [die1, die2, die3] = incomeRoll.terms[0].results.map(i => i.result);
-        let incomeResult = Number(incomeRoll.total);
-        let results = [die1, die2, die3];
+        // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
+        if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
+            d2 = diceData.nice[0];
+        } else {
+            d2 = 6;
+        }
 
-        this.IncomeCost().then(r => {
-            console.log(r)
-            ic = r;
+        if (income === null) { income = 0; };
 
-            console.log(ic === "");
-            let rollCard;
-            const diceRollDialogue = `<b>Dice Roll:</b> ${results} <br> <b>Income: ${income}</br><b>Result:</b> ${incomeResult}`
+        let incomeRoll = new Roll(`3d${d2}`).roll({ async: false });
 
-            const incomeSuccess = `${diceRollDialogue}</br><i>You are able to successfully secure the item or service.</i>`;
+        let incomeResult = Number(incomeRoll.total + income);
 
-            const incomeFail = `${diceRollDialogue}</br><i>You are unable to secure the item or service.</i>`;
+        let resultRoll = incomeRoll.terms[0].results.map(i => i.result);
+        for (let i = 0; i < resultRoll.length; i++) {
+            diceImageArray += `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+        }
 
-            const autoSuccess = `${diceRollDialogue}</br><i>Your income is high enough that you automatically succeed at securing the item or service</i>`;
+        let rollCard;
 
-            const incomeDeplete = `${diceRollDialogue}</br><i>You successfully secure the item or service, but due to the great expense, your Income depletes by 1.</i>`;
+        const chatDice = `<div style="display: flex; flex-direction: row; justify-content: space-around; flex-wrap: wrap;">${diceImageArray}</div></br>`
+        const chatIncome = `<b>Income:</b> ${income}</br>`
+        const chatResult = `<b>Result:</b> ${incomeResult}</br>`
+        const incomeSuccess = `</br><i>You are able to successfully secure the item or service.</i>`;
+        const incomeFail = `</br><i>You are unable to secure the item or service.</i>`;
+        const autoSuccess = `</br><i>Your income is high enough that you automatically succeed at securing the item or service</i>`;
+        const incomeDeplete = `</br><i>You successfully secure the item or service, but due to the great expense, your Income depletes by 1.</i>`;
+        const label = 'Rolling Income';
 
-            const label = 'Rolling Income';
+        if (!e.shiftKey) {
+            this.IncomeCost().then(r => {
+                console.log(r)
+                ic = r;
 
-            if ((income + 4) >= ic && ic !== "") { // Auto Success
-                rollCard = autoSuccess
-                ChatMessage.create({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: label,
-                    content: rollCard
-                });
-            } else if (incomeResult >= ic && ic !== "") { // Successful result
-                if (ic >= (income + 10)) { // Depletion - Set automation to automatically deplete
-                    rollCard = incomeDeplete
+                const chatCost = `<b>Cost:</b> ${ic}</br>`
+
+                rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}
+                `
+                if ((income + 4) >= ic && ic !== "") { // Auto Success
+                    rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${autoSuccess}`
                     ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
+                        roll: incomeRoll,
                         content: rollCard
                     });
-                } else {
-                    rollCard = incomeSuccess
+                } else if (incomeResult >= ic && ic !== "") { // Successful result
+                    if (ic >= (income + 10)) { // Depletion - Set automation to automatically deplete
+                        rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeDeplete}`
+                        ChatMessage.create({
+                            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                            flavor: label,
+                            roll: incomeRoll,
+                            content: rollCard
+                        });
+                    } else {
+                        rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeSuccess}`
+                        ChatMessage.create({
+                            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                            flavor: label,
+                            roll: incomeRoll,
+                            content: rollCard
+                        });
+                    }
+                } else if (incomeResult < ic && ic !== "") { // Failed Result
+                    rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeFail}`
                     ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
+                        roll: incomeRoll,
                         content: rollCard
+                    });
+                } else if (ic === "") {
+                    rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}`
+                    ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        flavor: label,
+                        roll: incomeRoll,
+                        content: diceRollDialogue
                     });
                 }
-            } else if (incomeResult < ic && ic !== "") { // Failed Result
-                rollCard = incomeFail
-                ChatMessage.create({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: label,
-                    content: rollCard
-                });
-            } else if (ic === "") {
-                rollCard = diceRollDialogue
-                ChatMessage.create({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: label,
-                    content: rollCard
-                });
-            }
-        });
+            });
+        } else {
+            rollCard = `${chatDice}${chatIncome}${chatResult}`
+            ChatMessage.create({
+                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flavor: label,
+                roll: incomeRoll,
+                content: rollCard
+            });
+        }
     }
 
     _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-
+        const data = super.getData();
+        const actorData = data.actor;
+        let testData;
+        // pull this out into a function
+        if (actorData.data.data.attributes.stuntpoints.thisround === true) {
+            let spData = actorData.data.data.attributes.stuntpoints;
+            spData.modified = 0;
+            spData.thisround = false;
+            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+        }
+        // This is the start of a refactoring test. If things go bad, undo to here.
         if (dataset.roll) {
-            console.log(dataset)
-            let roll = new Roll(`2ded + 1del + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
-            console.log(roll.dice)
-            console.log(roll.terms)
-            let rollCard;
+            const diceData = this.diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
+            let d2; let d1;
+            let condMod;
+            let condModName;
+            let rollCard;
+            let condModWarning;
+            let resultsSum;
+            // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
+            if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
+                d2 = diceData.nice[0];
+                d1 = diceData.nice[1];
+            } else {
+                d2 = 6;
+                d1 = 6;
+            }
+
+            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
-
-
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
-            console.log(roll)
-            console.log(die1)
-            let condMod;
-            let condModName;
 
             if (roll.data.conditions.wounded.active === true) {
                 condMod = -2;
@@ -477,59 +726,80 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
-            let results = [die1, die2, die3];
-            let resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
-            let condModWarning;
+
             if (condMod < 0) {
                 condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
             } else {
                 condModWarning = ``;
             }
 
-            let style1 = "dark";
-            let type = "earth";
-            let style2 = "light";
+            const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
 
-            const die1Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die1}-${style1}.png" alt="${die1}" title="${die1}" />`
-            const die2Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die2}-${style1}.png" alt="${die2}" title="${die2}" />`
-            const die3Image = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${type}/chat/${type}-${die3}-${style2}.png" alt="${die3}" title="${die3}" />`
+            let chatFocus;
 
+            if (useFocus === 2 && useFocusPlus === 1) {
+                chatFocus = `<b>Focus:</b> 3</br>`;
+            } else if (useFocus === 2 && useFocusPlus === 0) {
+                chatFocus = `<b>Focus:</b> 2</br>`;
+            } else (chatFocus = ``);
 
+            let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
+
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+
+            // Stunt Points Generation
+            let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
-              ${condModWarning}
-              <b>Ability Test Results:</b> ${resultsSum} <br>
-              <b>${die3} Stunt Points have been generated!</b>
-              `
-            } else {
-                rollCard = `<div style="display: flex; flex-direction: row; justify-content: space-around;"> 
-                ${die1Image}${die2Image}${die3Image}
-                </div> 
-               <br> 
-              ${condModWarning}
-              <b>Ability Test Results:</b> ${resultsSum}
-              `
+                chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
+                let spData = actorData.data.data.attributes.stuntpoints;
+                spData.modified = die3;
+                spData.thisround = true;
+                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
             }
 
-            let chatOptions = {
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                roll: roll,
-                rollMode: game.settings.get("core", "rollMode"),
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: label,
-                content: rollCard
-            };
+            if (event.shiftKey) {
+                this.RollModifier().then(r => {
+                    testData = r;
 
-            ChatMessage.create(
-                chatOptions
-                /*{
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: label,
-                content: rollCard
-            }*/
+                    resultsSum += testData;
+                    let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
+                    rollCard = `
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        ${chatMod}
+                        ${chatAddMod}
+                        ${chatFocus}
+                        ${condModWarning} 
+                        <b>Ability Test Results:</b> ${resultsSum} <br> 
+                        ${chatStunts}
+                    `
+                    ChatMessage.create({
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                        roll: roll,
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        flavor: label,
+                        content: rollCard
+                    });
+                })
 
-            );
+            } else {
+                rollCard = `
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                ${chatMod}
+                ${chatFocus}
+                ${condModWarning} 
+                <b>Ability Test Results:</b> ${resultsSum} <br> 
+                ${chatStunts}`
+
+                ChatMessage.create({
+                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                    roll: roll,
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    flavor: label,
+                    content: rollCard
+                });
+            }
         }
     }
 
@@ -547,7 +817,7 @@ export class ExpanseActorSheet extends ActorSheet {
                             }
                         }
                     },
-                    default: "roll"
+                    default: "Roll"
                 }).render(true);
             });
         })
@@ -568,15 +838,58 @@ export class ExpanseActorSheet extends ActorSheet {
                             }
                         }
                     },
-                    default: "roll"
+                    default: "Roll"
                 }).render(true);
             });
         })
         return ic;
     }
 
-    AttackDamage() {
+    RollDamageModifier() {
+        let dMod = new Promise((resolve) => {
+            renderTemplate("/systems/the_expanse/templates/dialog/damageModifiers.html").then(dlg => {
+                new Dialog({
+                    title: game.i18n.localize("EXPANSE.DamageModifier"),
+                    content: dlg,
+                    buttons: {
+                        roll: {
+                            label: game.i18n.localize("EXPANSE.Roll"),
+                            callback: (html) => {
+                                resolve([
+                                    Number(html.find(`[name="add1D6"]`).val()),
+                                    Number(html.find(`[name="addDamage"]`).val())
+                                ])
+                            }
+                        }
+                    },
+                    default: "Roll"
+                }).render(true)
+            });
+        })
+        return dMod;
+    }
 
+    RollModifier() {
+        let rMod = new Promise((resolve) => {
+            renderTemplate("/systems/the_expanse/templates/dialog/rollModifiers.html").then(dlg => {
+                new Dialog({
+                    title: game.i18n.localize("EXPANSE.RollModifier"),
+                    content: dlg,
+                    buttons: {
+                        roll: {
+                            label: game.i18n.localize("EXPANSE.Roll"),
+                            callback: (html) => {
+                                resolve(
+                                    rMod.addModifier = Number(html.find(`[name="addRollModifier"]`).val())
+                                )
+                            }
+                        }
+                    },
+                    default: "Roll"
+                }).render(true)
+            });
+        })
+        return rMod;
     }
 
 }

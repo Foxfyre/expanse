@@ -75,7 +75,12 @@
 .weapons .weapons-attribute {
     display: flex;
     justify-content: center; 
+    align-items: center;
     width: 23%;
+}
+
+.weapons .weapons-attribute-input {
+    width: 25%;
 }
 
 .weapons .weapons-desc-block {
@@ -104,6 +109,5 @@
 .weapons .weapons-desc-box .editor-content {
 padding: 5px;
 }
-
 
 

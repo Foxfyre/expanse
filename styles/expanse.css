@@ -1323,3 +1323,105 @@ a.entity-link, a.inline-roll {
     margin-block-start: 0.55em;
     margin-block-end: 0.55em;
 }
+
+/* Damage Mod CSS  */
+
+.damage-modifier-sheet-dialog, .income-cost-sheet {
+    width: 450px !important;
+    background-color: rgba(116,189,220, 0.5);
+}
+
+.income-cost-sheet {
+    width: 300px !important;
+}
+
+.damage-modifier-sheet-dialog .window-content {
+    background: none;
+}
+
+.damage-modifier-sheet {
+    margin-bottom: 10px;
+}
+
+.damage-modifier-sheet .modifier-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0px 5px 0px 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #f3f3f3;
+}
+
+.modifier-header-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: #D6E7ED;
+}
+
+.modifier-header-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 5px;
+    background-color: #005971;
+    border-top-left-radius: 10px;
+    color: whitesmoke;
+}
+
+.modifier-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #D6E7ED;
+}
+
+.modifier-sections {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+}
+
+.modifier-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.modifier-section-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+}
+
+.modifier-section-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.modifier-sections input[type=number] {
+    width: 40px;
+}
+
+.damage-modifier-sheet-dialog .dialog-buttons {
+    display: block;
+    background-color: #D6E7ED;
+}

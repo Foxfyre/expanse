@@ -10,7 +10,7 @@
         <div class="item weapons-block">
             <div class="box-header">
                 <span class="">Type</span>
-                <span class="">Damage</span>
+                <span class="">Damage Dice</span>
                 <span class="">Modifier</span>
             </div>
 
@@ -31,7 +31,8 @@
                 </div>
 
                 <div class="weapons-attribute">
-                    <input type="text" name="data.damage" value="{{data.damage}}" data-dtype="String" />
+                    <input class="weapons-attribute-input" type="number" name="data.damage" value="{{data.damage}}"/>
+                    <span>D6</span>
                 </div>
 
                 <div class="weapons-attribute">
