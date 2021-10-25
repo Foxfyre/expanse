@@ -6,7 +6,6 @@
 export class ExpanseItem extends Item {
 
     _preCreate() {
-        console.log(this.data)
         const data = this.data;
         const path = "systems/the_expanse/ui/item-img/"
         if (data.type === "armor") {
