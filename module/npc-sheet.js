@@ -195,9 +195,15 @@ export class ExpanseNPCSheet extends ActorSheet {
         let bonusDamage = itemUsed.data.data.bonusDamage;
         
         let damageRoll = new Roll(`${diceFormula} + @bd`, { bd: bonusDamage }).roll({async: false});
-        //damageRoll.evaluate();
+        
         let damageOnHit = damageRoll.total;
+
         console.log(damageRoll);
+
+        const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+        <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+        <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
+
         this.TargetNumber().then(target => {
             tn = Number(target);
             const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;

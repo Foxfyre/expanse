@@ -5,14 +5,14 @@ import { ExpanseActor } from "./actor.js";
 import { ExpanseNPCSheet } from "./npc-sheet.js";
 import { ExpanseShipSheet } from "./ship-sheet.js";
 import { registerDiceSoNice } from "./hooks/dice-so-nice.js";
-import { TheExpanseEarthDark } from "./expanse-earth-dark-die.js";
-import { TheExpanseEarthLight } from "./expanse-earth-light-die.js";
-import { TheExpanseMarsDark } from "./expanse-mars-dark-die.js";
-import { TheExpanseMarsLight } from "./expanse-mars-light-die.js";
-import { TheExpanseBeltDark } from "./expanse-belt-dark-die.js";
-import { TheExpanseBeltLight } from "./expanse-belt-light-die.js";
-import { TheExpanseProtogenDark } from "./expanse-protogen-dark-die.js";
-import { TheExpanseProtogenLight } from "./expanse-protogen-light-die.js";
+import { TheExpanseEarthDark } from "./dice-so-nice//expanse-earth-dark-die.js";
+import { TheExpanseEarthLight } from "./dice-so-nice//expanse-earth-light-die.js";
+import { TheExpanseMarsDark } from "./dice-so-nice//expanse-mars-dark-die.js";
+import { TheExpanseMarsLight } from "./dice-so-nice//expanse-mars-light-die.js";
+import { TheExpanseBeltDark } from "./dice-so-nice/expanse-belt-dark-die.js";
+import { TheExpanseBeltLight } from "./dice-so-nice//expanse-belt-light-die.js";
+import { TheExpanseProtogenDark } from "./dice-so-nice//expanse-protogen-dark-die.js";
+import { TheExpanseProtogenLight } from "./dice-so-nice//expanse-protogen-light-die.js";
 
 Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
