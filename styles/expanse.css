@@ -1425,3 +1425,11 @@ a.entity-link, a.inline-roll {
     display: block;
     background-color: #D6E7ED;
 }
+
+.table-white {
+    background-color: #ffffff;
+}
+
+.table-blue {
+    background-color: #b3d1dc;
+}

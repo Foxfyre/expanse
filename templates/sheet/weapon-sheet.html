@@ -3,7 +3,7 @@
     <div class="weapons-box">
         <div class="weapons-header-box">
             <div class="weapons-header-block">
-                <input name="name" type="text" value="{{name}}" data-dtype="String"/>
+                <input name="name" type="text" value="{{name}}" data-dtype="String" />
             </div>
         </div>
 
@@ -31,13 +31,14 @@
                 </div>
 
                 <div class="weapons-attribute">
-                    <input class="weapons-attribute-input" type="number" name="data.damage" value="{{data.damage}}"/>
-                    <span>D6</span>
+                    <input class="weapons-attribute-input" type="number" name="data.damage" value="{{data.damage}}" />
+                    <span>
+                        D6
+                    </span>
                 </div>
 
                 <div class="weapons-attribute">
-                    <select type="text" name="data.modifier" value="{{data.modifier}}"
-                        data-dtype="String">
+                    <select type="text" name="data.modifier" value="{{data.modifier}}" data-dtype="String">
                         {{#select data.modifier}}
                         <option value="none">None</option>
                         <option value="str">Strength</option>
@@ -48,12 +49,12 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="item weapons-block">
             <div class="box-header">
                 <span class="">Qualities</span>
-                <span class="">Range Min</span>
-                <span class="">Range Max</span>
+                <span class="">Range</span>
+                <span class="">Max Range</span>
                 <span class="">Cost</span>
             </div>
 

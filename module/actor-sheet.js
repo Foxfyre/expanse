@@ -87,7 +87,6 @@ export class ExpanseActorSheet extends ActorSheet {
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
-        console.log(data);
 
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = data.actor.data.name;
@@ -220,7 +219,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
             for (let [k, v] of Object.entries(conditionData)) {
                 if (k === conditionName) {
-                    console.log(v);
                     actorData.data.data.conditions[conditionName].active = !v.active;
                 }
             }
@@ -466,22 +464,20 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = e.currentTarget;
         const dataset = element.dataset;
         const diceData = this.diceRollType();
-
-        let d2;
-        // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
-        if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
-            d2 = diceData.nice[0];
-        } else {
-            d2 = 6;
-        }
-
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
-
         let itemId = dataset.itemId;
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
+
+        let d6;
+        // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
+        if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
+            d6 = diceData.nice[0];
+        } else {
+            d6 = 6
+        }
 
         let diceFormula = itemUsed.data.data.damage;
         let bonusDamage = itemUsed.data.data.bonusDamage;
@@ -489,14 +485,12 @@ export class ExpanseActorSheet extends ActorSheet {
         let damageOnHit;
         let diceImageArray = "";
 
-
-
         if (!e.shiftKey) {
 
-            let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+            let damageRoll = new Roll(`${diceFormula}d${d6}`).roll({ async: false });
 
             console.log(diceFormula);
-
+            console.log(damageRoll)
             let totalDamage = damageRoll.total + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
