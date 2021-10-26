@@ -122,13 +122,13 @@ export class ExpanseActorSheet extends ActorSheet {
                 let modType = "";
 
                 switch (modifierStat) {
-                    case 'dex':
+                    case 'Dexterity':
                         bonusDamage = data.actor.data.data.abilities.dexterity.rating;
                         break;
-                    case 'per':
+                    case 'Perception':
                         bonusDamage = data.actor.data.data.abilities.perception.rating;
                         break;
-                    case 'str':
+                    case 'Strength':
                         bonusDamage = data.actor.data.data.abilities.strength.rating;
                         break;
                 }
@@ -470,6 +470,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemId = dataset.itemId;
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
+        let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
 
         let d6;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -486,11 +487,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceImageArray = "";
 
         if (!e.shiftKey) {
-
             let damageRoll = new Roll(`${diceFormula}d${d6}`).roll({ async: false });
-
-            console.log(diceFormula);
-            console.log(damageRoll)
             let totalDamage = damageRoll.total + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
@@ -500,7 +497,7 @@ export class ExpanseActorSheet extends ActorSheet {
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
             let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
-            let chatBonusDamage = `<b>Damage Modifier (${dataset.itemAbil})</b>: ${bonusDamage}</br>`
+            let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
 
@@ -520,7 +517,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
         } else {
             this.RollDamageModifier().then(r => {
-                console.log(r);
                 let testData = r;
                 diceFormula += testData[0];
 
@@ -535,7 +531,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
                 let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
-                let chatBonusDamage = `<b>Damage Modifier (${dataset.itemAbil})</b>: ${bonusDamage}</br>`
+                let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
                     Subtract the enemies Toughness and Armor for total damage received`;

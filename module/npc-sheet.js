@@ -18,7 +18,6 @@ export class ExpanseNPCSheet extends ActorSheet {
 
     getData() {
         const data = super.getData();
-        console.log(data);
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
 
@@ -45,7 +44,6 @@ export class ExpanseNPCSheet extends ActorSheet {
         sheetData.talent2 = data.data.data.talent2;
         sheetData.equipment1 = data.data.data.equipment1;
         sheetData.equipment2 = data.data.data.equipment2;
-        console.log(sheetData);
 
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
@@ -54,7 +52,6 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
-                console.log(v.data.data);
                 const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
                 let modifierStat = v.data.data.modifier
                 let bonusDamage = 0; // get stat from actorData
@@ -161,9 +158,6 @@ export class ExpanseNPCSheet extends ActorSheet {
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
-
-        console.log(dataset);
-        console.log(actorData);
 
         // Set variables for to hit
         let itemId = dataset.itemId;

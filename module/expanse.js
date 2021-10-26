@@ -51,14 +51,14 @@ Hooks.once("init", async function () {
     makeDefault: true
   });
 
-  Handlebars.registerHelper('concat', function() {
+  Handlebars.registerHelper('concat', function () {
     let arg = Array.prototype.slice.call(arguments, 0);
     arg.pop();
     return arg.join('');
   })
 
-  Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
+  Handlebars.registerHelper('ifCond', function (v1, v2, options) {
+    if (v1 === v2) {
       return options.fn(this);
     }
     return options.inverse(this);
@@ -75,7 +75,7 @@ Hooks.once("diceSoNiceReady", (dice3d) => {
 Hooks.once("init", () => {
   const debouncedReload = foundry.utils.debounce(() => {
     window.location.reload();
-}, 100);
+  }, 100);
 
   game.settings.register("the_expanse", "diceStyle", {
     name: "SETTINGS.DiceChoice",
@@ -96,4 +96,25 @@ Hooks.once("init", () => {
     },
     onChange: debouncedReload
   });
+})
+
+Hooks.on("ready", async () => {
+  new Dialog({
+    title: "How to use - Notes",
+    content: `<p>Thank you for using The Expanse Foundry VTT System during this early release phase! <br><br>
+    How to use: On the Player Character Sheets, there are dice icons which look like a 5. This indicate where you can roll with one click. 
+    You will find them on the following sections: Abilities, Weapon Entries, Income. When you click these buttons, you will get a straight unmodified roll. 
+    If you want to modify your roll, hold down shift when you click the die symbol. 
+    <br><br>
+    The current goal of the system is to have a functional sheet which balances game-play and sheet automation. We do not want to have the system handle every
+    aspect of game play that you come across. We want to give you as much of the table experience in the VTT as possible. 
+    <br><br>
+    Thank you from Charlotte and the Green Ronin VTT Team!
+    </p>`,
+    buttons: {
+      ok: {
+        label: "Ok",
+      }
+    }
+  }).render(true)
 })
