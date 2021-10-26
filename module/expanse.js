@@ -109,7 +109,7 @@ Hooks.on("ready", async () => {
     The current goal of the system is to have a functional sheet which balances game-play and sheet automation. We do not want to have the system handle every
     aspect of game play that you come across. We want to give you as much of the table experience in the VTT as possible. 
     <br><br>
-    Thank you from Charlotte and the Green Ronin VTT Team!
+    Thank you from the Green Ronin VTT Team!
     </p>`,
     buttons: {
       ok: {

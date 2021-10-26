@@ -61,13 +61,13 @@ export class ExpanseNPCSheet extends ActorSheet {
                 let modType = "";
 
                 switch (modifierStat) {
-                    case 'dex':
+                    case 'Dexterity':
                         bonusDamage = data.actor.data.data.abilities.dexterity.rating;
                         break;
-                    case 'per':
+                    case 'Perception':
                         bonusDamage = data.actor.data.data.abilities.perception.rating;
                         break;
-                    case 'str':
+                    case 'Strength':
                         bonusDamage = data.actor.data.data.abilities.strength.rating;
                         break;
                 }
@@ -194,9 +194,9 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         console.log(damageRoll);
 
-        const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
-        <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
-        <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
+        //const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+        //<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+        //<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
 
         this.TargetNumber().then(target => {
             tn = Number(target);
