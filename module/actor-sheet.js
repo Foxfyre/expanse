@@ -1,3 +1,5 @@
+import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
+
 export class ExpanseActorSheet extends ActorSheet {
 
     static get defaultOptions() {
@@ -415,7 +417,7 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             if (event.shiftKey) {
-                this.RollModifier().then(r => {
+                RollModifier().then(r => {
                     let testData = r;
 
                     resultsSum += testData;
@@ -472,12 +474,12 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemUsed = itemToUse[0];
         let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
 
-        let d6;
+        let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
         if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
-            d6 = diceData.nice[0];
+            d2 = diceData.nice[0];
         } else {
-            d6 = 6
+            d2 = 6
         }
 
         let diceFormula = itemUsed.data.data.damage;
@@ -487,7 +489,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceImageArray = "";
 
         if (!e.shiftKey) {
-            let damageRoll = new Roll(`${diceFormula}d${d6}`).roll({ async: false });
+            let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
             let totalDamage = damageRoll.total + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
@@ -516,7 +518,7 @@ export class ExpanseActorSheet extends ActorSheet {
             });
 
         } else {
-            this.RollDamageModifier().then(r => {
+            RollDamageModifier().then(r => {
                 let testData = r;
                 diceFormula += testData[0];
 

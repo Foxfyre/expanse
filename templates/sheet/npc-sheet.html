@@ -58,10 +58,11 @@
             <ul class="items npc-weapon-list">
                 <div class="box-header">
                     <span>Weapon</span>
-                    <span>Attack Roll</span>
                     <span>Damage</span>
+                    <span>Attack Bonus</span>
                     <span>Focus</span>
-                    <span></span>
+                    <span>Hit</span>
+                    <span>Damage</span>
                     <span></span>
                 </div>
 
@@ -71,21 +72,31 @@
                         <div class="npc-weapon-list-item">
                             {{weapon.data.name}}
                         </div>
-                        <div class="npc-weapon-list-item">
-                            {{weapon.data.data.attack}}
-                        </div>
-                        <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
+
                         <div class="npc-weapon-list-item">
                             {{weapon.data.data.damage}}D6{{#if
                             weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
                         </div>
+
+                        <div class="npc-weapon-list-item">
+                            {{weapon.data.data.attack}}
+                        </div>
+                        <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
+
                         <div class="npc-weapon-list-item">
                             <input type="checkbox" class="expanse-checkbox weapon-usefocus" name="weapon.data.data.usefocus"
                                 data-item-id={{weapon.id}} {{checked weapon.data.data.usefocus}}>
                         </div>
 
-                        <div class="npc-weapon-list-item">
-                            <div class="roll-button npc-attack" data-roll="weapon-attack" data-item-id="{{weapon.id}}"
+                        <div class="weapon-list-item">
+                            <div class="roll-button npc-attack" data-roll="weapon-attack"
+                                data-item-id="{{weapon.id}}"
+                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                        </div>
+
+                        <div class="weapon-list-item">
+                            <div class="roll-button npc-damage" data-roll="weapon-damage"
+                                data-item-id="{{weapon.id}}"
                                 data-item-abil="{{weapon.data.data.tohitabil}}"></div>
                         </div>
 
