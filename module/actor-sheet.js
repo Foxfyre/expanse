@@ -730,6 +730,9 @@ export class ExpanseActorSheet extends ActorSheet {
             <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
 
             let chatFocus;
+            
+            // Calculate total focus to be applied to roll
+            const totalFocus = useFocus === 0 ? 0 : useFocus + useFocusPlus;
 
             if (useFocus === 2 && useFocusPlus === 1) {
                 chatFocus = `<b>Focus:</b> 3</br>`;
@@ -739,7 +742,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            resultsSum = die1 + die2 + die3 + totalFocus + abilityMod + condMod;
 
             // Stunt Points Generation
             let chatStunts = "";
