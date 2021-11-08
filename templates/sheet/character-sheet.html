@@ -130,11 +130,11 @@
                                 <span>Focus +2</span>
                                 <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
                                     {{checked ability.useFocus}}>
-                                {{#if ability.useFocus}}
+                                {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
                                 <span>+1</span>
                                 <input type="checkbox" class="expanse-checkbox"
                                     name="data.abilities.{{key}}.useFocusPlus" {{checked ability.useFocusPlus}}>
-                                {{/if}}
+                                {{/ifCond}}
                             </div>
 
                         </div>
@@ -174,7 +174,7 @@
 
                         {{#each conditions as |conditions key|}}
 
-                        <div class="condition" title="{{localize (concat "EXPANSE." key) }}">
+                        <div class="condition" title="{{localize (concat " EXPANSE." key) }}">
 
                             <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
                                 conditions.active}}>
@@ -252,8 +252,7 @@
                                 </div>
 
                                 <div class="item-controls">
-                                    <a class="item-control item-edit" title="Edit Stunt"><i
-                                            class="fas fa-edit"></i></a>
+                                    <a class="item-control item-edit" title="Edit Stunt"><i class="fas fa-edit"></i></a>
                                     <a class="item-control item-delete" title="Delete Stunt"><i
                                             class="fas fa-trash"></i></a>
                                 </div>
@@ -300,7 +299,7 @@
                                     </div>
                                     <div class="weapon-list-item">
                                         {{weapon.data.data.damage}}D6{{#if
-                                            weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
+                                        weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
                                     </div>
                                     <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                                     <div class="weapon-list-item">
@@ -316,12 +315,12 @@
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocus"
                                             name="weapon.data.data.usefocus" data-item-id={{weapon.id}} {{checked
                                             weapon.data.data.usefocus}}>
-                                        {{#if weapon.data.data.usefocus}}
+                                        {{#ifCond weapon.data.data.usefocus '&&' ../attributes.level.bonus}}
                                         <span>+1</span>
                                         <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
                                             name="weapon.data.data.usefocusplus" data-item-id={{weapon.id}} {{checked
                                             weapon.data.data.usefocusplus}}>
-                                        {{/if}}
+                                        {{/ifCond}}
                                     </div>
 
                                     <div class="weapon-list-item">

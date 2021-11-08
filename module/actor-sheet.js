@@ -352,6 +352,7 @@ export class ExpanseActorSheet extends ActorSheet {
             let rollCard;
             let condModWarning;
             let resultsSum
+            let useFocusPlus = 0;
 
             // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
             if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
@@ -367,7 +368,10 @@ export class ExpanseActorSheet extends ActorSheet {
             //console.log(toHitRoll)
             console.log(itemUsed.data.data.usefocus);
             let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
-            let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
+            if (itemUsed.data.data.usefocus === true && itemUsed.data.data.usefocusplus === true) {
+                useFocusPlus = 1
+            }
+            //let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
@@ -691,6 +695,7 @@ export class ExpanseActorSheet extends ActorSheet {
             let rollCard;
             let condModWarning;
             let resultsSum;
+            let useFocusPlus = 0;
             // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
             if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
                 d2 = diceData.nice[0];
@@ -702,7 +707,9 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
-            let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
+            if (roll.data.abilities[dataset.label].usefocus === true && roll.data.abilities[dataset.label].usefocusplus === true) {
+                useFocusPlus = 1
+            }
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);

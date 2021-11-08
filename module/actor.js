@@ -45,8 +45,8 @@ export class ExpanseActor extends Actor {
       data.attributes.run.modified = Number(data.attributes.speed.modified * 2)
 
       if (data.attributes.level.modified >= 11) {
-        //console.log("level 11 or greater detected");
-        data.attributes.level.elevenbonus = true;
+        console.log("level 11 or greater detected"); 
+        data.attributes.level.bonus = true;
       }
 
       if (data.conditions.injured.active === true) {
