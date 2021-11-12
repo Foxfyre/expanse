@@ -54,5 +54,11 @@
     "SETTINGS.BeltDark": "Black dice with white writing. Stunt die is a white die with black writing.",
     "SETTINGS.BeltLight": "White dice with black writing. Stunt die is a black die with white writing.",
     "SETTINGS.ProtoDark": "Black dice with blue writing. Stunt die is a blue die with black writing.",
-    "SETTINGS.ProtoLight": "Blue dice with black writing. Stunt die is a black die with blue writing."
+    "SETTINGS.ProtoLight": "Blue dice with black writing. Stunt die is a black die with blue writing.",
+    "EXPANSE.ship.captain": "Captain",
+    "EXPANSE.ship.sensors": "Sensors",
+    "EXPANSE.ship.gunnary": "Gunnary",
+    "EXPANSE.ship.pilot": "Pilot",
+    "EXPANSE.ship.engineer": "Engineer",
+    "EXPANSE.ship.other": "Other"
 }

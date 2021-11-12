@@ -3,7 +3,7 @@
     <div class="ship-box">
 
         <div class="ship-image">
-            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+            <img class="ship-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
         </div>
 
         <div class="ship-block">
@@ -15,12 +15,12 @@
                 </div>
                 <div class="ship-type ship-input">
                     <label for="data.type" class="info-label">Type</label>
-                    <input class="info-input" type="text" name="data.type" value="{{actor.data.type}}"
+                    <input class="info-input" type="text" name="data.type" value="{{actor.data.data.type}}"
                         data-dtype="String" />
                 </div>
                 <div class="ship-drive ship-input">
                     <label for="data.drive" class="info-label">Drive</label>
-                    <input class="info-input" type="text" name="data.drive" value="{{actor.data.drive}}"
+                    <input class="info-input" type="text" name="data.drive" value="{{actor.data.data.drive}}"
                         data-dtype="String" />
                 </div>
             </div>
@@ -29,47 +29,170 @@
                 <div class="ship-senhulcre">
                     <div class="ship-input">
                         <label for="data.sensors" class="info-label">Sensors</label>
-                        <input class="info-input" type="text" name="data.sensors" value="{{actor.data.sensors}}"
+                        <input class="info-input" type="text" name="data.sensors" value="{{actor.data.data.sensors}}"
                             data-dtype="String" />
                     </div>
                     <div class="ship-input">
                         <label for="data.hull" class="info-label">Hull</label>
-                        <input class="info-input" type="text" name="data.hull" value="{{actor.data.hull}}"
+                        <input class="info-input" type="text" name="data.hull" value="{{actor.data.data.hull}}"
                             data-dtype="String" />
                     </div>
                     <div class="ship-input">
                         <label for="data.crew" class="info-label">Crew</label>
-                        <input class="info-input" type="text" name="data.crew" value="{{actor.data.crew}}"
+                        <input class="info-input" type="text" name="data.crew" value="{{actor.data.data.crew}}"
                             data-dtype="Number" />
                     </div>
                 </div>
-                <div class="ship-weapons ship-input">
-                    <label for="data.weapons" class="info-label">Weapons</label>
-                    <input class="info-input" type="text" name="data.weapons" value="{{actor.data.weapons}}"
-                        data-dtype="String" />
+                <div class="ship-weapons">
+                    <label class="info-label">Weapons</label>
+                    <div class="weapon-inputs">
+                        <input class="info-input" type="text" name="data.weapon1" value="{{actor.data.data.weapon1}}"
+                            data-dtype="String" />
+                        <input class="info-input" type="text" name="data.weapon2" value="{{actor.data.data.weapon2}}"
+                            data-dtype="String" />
+                        <input class="info-input" type="text" name="data.weapon3" value="{{actor.data.data.weapon3}}"
+                            data-dtype="String" />
+                        <input class="info-input" type="text" name="data.weapon4" value="{{actor.data.data.weapon4}}"
+                            data-dtype="String" />
+                    </div>
                 </div>
             </div>
 
             <div class="ship-row ship-input">
                 <label for="data.quality" class="info-label">Qualities</label>
-                <input class="info-input" type="text" name="data.quality" value="{{actor.data.quality}}"
+                <input class="info-input" type="text" name="data.quality" value="{{actor.data.data.quality}}"
                     data-dtype="String" />
             </div>
             <div class="ship-row ship-input">
                 <label for="data.flaw" class="info-label">Flaw</label>
-                <input class="info-input" type="text" name="data.flaw" value="{{actor.data.flaw}}"
+                <input class="info-input" type="text" name="data.flaw" value="{{actor.data.data.flaw}}"
                     data-dtype="String" />
             </div>
-            <div class="ship-row ship-crew-row">
-                <div class="ship-input ship-crewrole">
-                    <label for="data.crewrole" class="info-label">Crew Role</label>
-                    <input class="info-input" type="text" name="data.crewrole" value="{{actor.data.crewrole}}"
-                        data-dtype="String" />
-                </div class="ship-input">
-                <div class="ship-input ship-roletest">
-                    <label for="data.roletest" class="info-label">Role Test</label>
-                    <input class="info-input" type="text" name="data.roletest" value="{{actor.data.roletest}}"
-                        data-dtype="String" />
+            <div class="crew-box">
+                <div class="box-header">
+                    <span class="stunt-header-title">Crew Role</span>
+                    <span class="stunt-header-title">Stat</span>
+                    <span class="stunt-header-effect">Modifier</span>
+                    <span class="stunt-header-blank">Crew Member</span>
+                </div>
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew1.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew1.stat" value="{{actor.data.data.crew1.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew1.modValue" value="{{actor.data.data.crew1.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew1.name" value="{{actor.data.data.crew1.name}}" />
+                </div>
+
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew2.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew2.stat" value="{{actor.data.data.crew2.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew2.modValue" value="{{actor.data.data.crew2.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew2.name" value="{{actor.data.data.crew2.name}}" />
+                </div>
+
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew3.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew3.stat" value="{{actor.data.data.crew3.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew3.modValue" value="{{actor.data.data.crew3.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew3.name" value="{{actor.data.data.crew3.name}}" />
+                </div>
+
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew4.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew4.stat" value="{{actor.data.data.crew4.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew4.modValue" value="{{actor.data.data.crew4.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew4.name" value="{{actor.data.data.crew4.name}}" />
+                </div>
+
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew5.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew5.stat" value="{{actor.data.data.crew5.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew5.modValue" value="{{actor.data.data.crew5.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew5.name" value="{{actor.data.data.crew5.name}}" />
+                </div>
+
+                <div class="ship-member">
+                    <div class="ship-crewrole">
+                        <select>
+                        {{#select actor.data.data.crew6.role}}
+                        <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
+                        <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
+                        <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
+                        <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
+                        <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                        <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                        {{/select}}
+                        </select>
+                    </div>
+                    <input class="ship-crewstat" type="text" name="data.crew6.stat" value="{{actor.data.data.crew6.stat}}" />
+
+                    <input class="ship-crewmod" type="number" placeholder="0" name="data.crew6.modValue" value="{{actor.data.data.crew6.modValue}}" />
+
+                    <input class="ship-crewname" type="text" name="data.crew6.name" value="{{actor.data.data.crew6.name}}" />
                 </div>
             </div>
 

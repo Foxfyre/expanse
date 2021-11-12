@@ -279,48 +279,60 @@
             "crew": 0,
             "quality": "",
             "flaw": "",
-            "crewrole": "",
-            "roletest": ""
+            "deck": {
+                "1": "",
+                "2": ""
+            },
+            "weapon1": "",
+            "weapon2": "",
+            "weapon3": "",
+            "weapon4": "",
+            "crew1": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            },
+            "crew2": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            },
+            "crew3": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            },
+            "crew4": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            },
+            "crew5": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            },
+            "crew6": {
+                "role": "",
+                "stat": "",
+                "modValue": 0,
+                "name": ""
+            }
         }
     },
     "Item": {
         "types": [
-            "item",
             "talent",
             "stunt",
             "weapon",
             "armor",
             "shield"
         ],
-        "item": {
-            "header": {
-                "resource1": {
-                    "value": 0,
-                    "label": "resource 1",
-                    "modifier": []
-                }
-            },
-            "attributes": {
-                "text": {
-                    "value": "eep",
-                    "label": "Text",
-                    "modifier": []
-                },
-                "number": {
-                    "value": 1,
-                    "label": "Number",
-                    "modifier": []
-                },
-                "boolean": {
-                    "value": true,
-                    "label": "Boolean",
-                    "modifier": []
-                }
-            },
-            "notes": {
-                "notes": ""
-            }
-        },
         "talent": {
             "highest": "",
             "requirement": "",

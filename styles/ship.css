@@ -15,12 +15,13 @@
 
 .ship .ship-image {
     display: flex;
+    justify-content: center;
     height: 300px;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+    /*box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);*/
 }
 
 .ship .ship-image img {
-    width: 600px;
+    display: flex;
     height: 300px;
 }
 
@@ -84,18 +85,62 @@
 .ship .ship-weapons {
     display: flex;
     flex-direction: row;
-    width: 73%;
+    padding-left: 5px;
+    width: 100%;
     height: 100px;
+}
+
+.ship .weapon-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ship .weapon-inputs > input[type=text] {
+    height: 25px;
+    margin-bottom: 2px;
+}
+
+.ship .crew-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #D6E7ED;
+}
+
+.ship .ship-member {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-evenly;
+    margin: 5px 0;
 }
 
 .ship .ship-crewrole {
     display: flex;
-    flex-direction: row;
-    width: 38%;
+    width: 23%;
+    background-color: transparent;
+    justify-content: center;
 }
 
-.ship .ship-roletest {
+.ship .ship-crewstat {
     display: flex;
-    flex-direction: row;
-    width: 60%;
+    width: 23%;
+    border: none;
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.ship .ship-crewmod {
+    display: flex;
+    width: 23%;
+    border: none;
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.ship .ship-crewname {
+    display: flex;
+    width: 23%;
+    border: none;
+    background-color: rgba(0, 0, 0, .05);
 }
