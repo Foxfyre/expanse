@@ -1240,7 +1240,7 @@ input[type=checkbox] {
     margin: 15px;
     height: 100%;
     padding: 5px;
-    background-color: rgba(116,189,220, 0.5);
+    background-color: rgba(116,189,220, 0.3);
 }
 
 .window-app.app.journal-sheet .window-content form button[type="submit"] {
@@ -1274,7 +1274,7 @@ input[type=checkbox] {
 .window-app.app.journal-sheet form.editable .editor {
     padding: 4px;
     height: 85%;
-    color: #f3f3f3;
+    color: #f3f3f3 !important;
     font-family: 'Montserrat', sans-serif;
 }
 
@@ -1312,10 +1312,14 @@ a.entity-link, a.inline-roll {
     padding: 5px 10px;
 }
 
+.window-app.app.journal-sheet h1 {
+    border-bottom: 2px solid #005971;
+}
+
 .window-app.app.journal-sheet h5 {
     font-size: 1.125em;
     font-weight: normal;
-    border-bottom: 1px solid #782e22;
+    border-bottom: 1px solid #005971;
     padding: 0 0 5px 5px;
     margin-block-start: 0.55em;
     margin-block-end: 0.55em;

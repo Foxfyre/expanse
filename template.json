@@ -276,9 +276,11 @@
             "drive": "",
             "sensors": "",
             "hull": "",
-            "crew": 0,
+            "crew": "",
             "quality": "",
             "flaw": "",
+            "description": "",
+            "notes": "",
             "deck": {
                 "1": "",
                 "2": ""

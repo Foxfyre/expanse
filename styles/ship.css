@@ -43,15 +43,14 @@
 }
 
 .ship .ship-name {
-    
     width: 40%;
 }
 .ship .ship-type {
-    width: 30%;
+    width: 25%;
 }
 
 .ship .ship-drive {
-    width: 28%;
+    width: 33%;
 }
 
 .ship .ship-row > label {
@@ -99,6 +98,34 @@
 .ship .weapon-inputs > input[type=text] {
     height: 25px;
     margin-bottom: 2px;
+}
+
+.ship .ship-notes-box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    min-height:100px;
+    margin: 0px 0px 10px 0px;
+    background-color: #f3f3f3;
+}
+
+.shi .ship-notes-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.ship .ship-notes-container .editor {
+    width: 100%;
+    min-height: 100px;
+    background-color: transparent;
+    text-align: justify;
+    /*font-family: 'Montserrat', sans-serif;*/
+    padding: 5px;
 }
 
 .ship .crew-box {
