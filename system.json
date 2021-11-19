@@ -2,7 +2,7 @@
     "name": "the_expanse",
     "title": "The Expanse",
     "description": "The Expanse AGE system by Green Ronin",
-    "version": "0.6.4",
+    "version": "0.6.5",
     "minimumCoreVersion": "0.8.7",
     "compatibleCoreVersion": "0.8.8",
     "templateVersion": 3,
@@ -36,6 +36,6 @@
     "secondaryTokenAttribute": "resource2",
     "url": "https://github.com/Foxfyre/the_expanse",
     "manifest": "https://raw.githubusercontent.com/Foxfyre/the_expanse/main/system.json",
-    "download": "https://github.com/Foxfyre/the_expanse/releases/download/v0.6.4/the_expanse.zip",
+    "download": "https://github.com/Foxfyre/the_expanse/releases/download/v0.6.5/the_expanse.zip",
     "license": "LICENSE.txt"
 }
