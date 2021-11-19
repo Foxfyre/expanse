@@ -10,6 +10,14 @@ export class ExpanseActor extends Actor {
     super.prepareData();
   }
 
+  _preCreate() {
+    const data = this.data;
+    const path = "systems/the_expanse/ui/item-img/"
+    if (data.type === "ship") {
+      data.update({ img: `${path}actor-ship.png` })
+    }
+  }
+
   prepareEmbeddedEntities() {
     const actorData = this.data;
 
@@ -45,7 +53,7 @@ export class ExpanseActor extends Actor {
       data.attributes.run.modified = Number(data.attributes.speed.modified * 2)
 
       if (data.attributes.level.modified >= 11) {
-        console.log("level 11 or greater detected"); 
+        console.log("level 11 or greater detected");
         data.attributes.level.bonus = true;
       }
 
