@@ -84,9 +84,6 @@ export class ExpanseTalentSheet extends ItemSheet {
         const actorData = data.actor;
         const items = actorData.items;
 
-        //console.log(dataset);
-        //console.log(actorData);
-
         // Set variables for to hit
         let itemId = dataset.itemId;
         let itemToUse = actorData.items.filter(i => i.id === itemId);
@@ -103,7 +100,6 @@ export class ExpanseTalentSheet extends ItemSheet {
         toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + useFocus + " Ability Modifier: " + abilityMod);
         
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
@@ -176,7 +172,6 @@ export class ExpanseTalentSheet extends ItemSheet {
               <b>Ability Test Results:</b> ${resultsSum}
               `
             }
-            console.log(rollCard);
 
             ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),

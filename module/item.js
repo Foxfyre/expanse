@@ -15,7 +15,7 @@ export class ExpanseItem extends Item {
         } else if (data.type === "talent") {
             data.update({ img: `${path}talent-tablet.png` })
         } else if (data.type === "stunt") {
-            data.update({ img: `${path}stunt.png`})
+            data.update({ img: `${path}stunt.png` })
         }
     }
 
@@ -28,16 +28,24 @@ export class ExpanseItem extends Item {
             } else if (data.data.type === "rifle") {
                 this.update({ img: `${path}item-rifle1.png` })
             } else if (data.data.type === "light_melee") {
-                this.update({ img: `${path}item-light_melee.png`})
+                this.update({ img: `${path}item-light_melee.png` })
             } else if (data.data.type === "heavy_melee") {
-                this.update({ img: `${path}item-heavy_melee.png`})
+                this.update({ img: `${path}item-heavy_melee.png` })
             } else if (data.data.type === "makeshift") {
-                this.update({ img: `${path}item-makeshift1.png`})
+                this.update({ img: `${path}item-makeshift1.png` })
             } else if (data.data.type === "grenade") {
-                this.update({ img: `${path}item-grenade.png`})
+                this.update({ img: `${path}item-grenade.png` })
             } else if (data.data.type === "unarmed") {
-                this.update({ img: `${path}item-unarmed.png`})
+                this.update({ img: `${path}item-unarmed.png` })
             }
+        }
+
+        if (data.type === "talent" && data.data.specialization === true) {
+            this.update({ img: `${path}talent-book.png` })
+        }
+        
+        if (data.type === "talent" && data.data.specialization === false) {
+            this.update({ img: `${path}talent-tablet.png` })
         }
     }
 }

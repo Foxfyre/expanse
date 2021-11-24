@@ -84,17 +84,85 @@
 
                 <div class="attribute-row">
 
-                    {{#each attributes as |attribute key|}}
-
-                    <div id={{key}} class="attribute-box">
+                    <div id="speed" class="attribute-box">
                         <div class="box-header">
-                            <span>{{key}}</span>
+                            <span>{{localize "EXPANSE.Speed"}}</span>
                         </div>
-                        <input type="text" name="data.attributes.{{key}}.modified" value="{{attribute.modified}}"
+                        <input type="text" name="data.attributes.speed.modified" value="{{attributes.speed.modified}}"
                             data-dtype="Number" />
                     </div>
 
-                    {{/each}}
+                    <div id="defense" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Defense"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.defense.modified" value="{{attributes.defense.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="toughness" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Toughness"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.toughness.modified" value="{{attributes.toughness.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="armor" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Armor"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.armor.modified" value="{{attributes.armor.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="penalty" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Penalty"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.penalty.modified" value="{{attributes.penalty.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="move" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Move"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.move.modified" value="{{attributes.move.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="run" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Run"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.run.modified" value="{{attributes.run.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="level" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Level"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.level.modified" value="{{attributes.level.modified}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="fortune" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Fortune"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.fortune.value" value="{{attributes.fortune.value}}"
+                            data-dtype="Number" />
+                    </div>
+
+                    <div id="stuntpoints" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.Stuntpoints"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.stuntpoints.modified" value="{{attributes.stuntpoints.modified}}"
+                            data-dtype="Number" />
+                    </div>
 
                 </div>
 
@@ -205,7 +273,7 @@
 
                         <ul class="items talent-list">
                             {{#each talent as |talent id|}}
-                            <li class="item talent item-controls" data-item-id="{{talent._id}}">
+                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent._id}}" {{#if data.data.specialization}} style="padding-left: 10px;"{{/if}} >
                                 <div class="talent-column item-control item-edit">
                                     <div class="talent-list-name">
                                         {{data.name}}
@@ -213,9 +281,6 @@
                                     <div class="talent-list-degree">
                                         {{data.data.highest}}
                                     </div>
-                                    <!--<div class="talent-list-effect">
-                                    {{item.data.talent.effect}}
-                                </div>-->
                                 </div>
 
                                 <div class="item-controls talent-item-control">

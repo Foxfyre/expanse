@@ -338,6 +338,7 @@
         "talent": {
             "highest": "",
             "requirement": "",
+            "specialization": false,
             "ranks": {
                 "novice": {
                     "label": "novice",

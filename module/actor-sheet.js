@@ -7,7 +7,10 @@ export class ExpanseActorSheet extends ActorSheet {
             classes: ["sheet", "actor", "talents"],
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
-            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
+            dragDrop: [
+                { dragSelector: ".item-list .item", dropSelector: null },
+                { dragSelector: ".talent-item", dropSelector: ".talent-item"}
+            ]
         });
     }
 
@@ -89,7 +92,6 @@ export class ExpanseActorSheet extends ActorSheet {
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
-
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = data.actor.data.name;
         sheetData.stunts = data.actor.items.filter(i => i.type === "stunt");
@@ -287,7 +289,6 @@ export class ExpanseActorSheet extends ActorSheet {
             const data = super.getData()
             const items = data.items;
             const actorData = data.actor;
-            console.log(actorData);
             let itemId = e.currentTarget.getAttribute("data-item-id");
             const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
 
@@ -364,14 +365,10 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
-            //console.log(dataset)
-            //console.log(toHitRoll)
-            console.log(itemUsed.data.data.usefocus);
             let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
             if (itemUsed.data.data.usefocus === true && itemUsed.data.data.usefocusplus === true) {
                 useFocusPlus = 1
             }
-            //let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
@@ -387,7 +384,6 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
-            console.log(useFocus)
 
             if (condMod < 0) {
                 condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
@@ -603,7 +599,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
         if (!e.shiftKey) {
             this.IncomeCost().then(r => {
-                console.log(r)
                 ic = r;
 
                 const chatCost = `<b>Cost:</b> ${ic}</br>`

@@ -41,7 +41,6 @@ export class ExpanseShipSheet extends ActorSheet {
         data.armor = arrangedItem.filter(i => i.type === "armor");
         data.shield = arrangedItem.filter(i => i.type === "shield");
         data.conditions = data.data.conditions;
-        console.log(data);
 
 
         for (let [k, v] of Object.entries(data.weapon)) {
@@ -83,7 +82,6 @@ export class ExpanseShipSheet extends ActorSheet {
                 }
                 v.data.tohitabil = modType;
                 // write to weapon
-                //console.log(v);
                 this.actor.updateEmbeddedEntity("OwnedItem", v)
             }
         }
@@ -152,9 +150,6 @@ export class ExpanseShipSheet extends ActorSheet {
         const actorData = data.actor;
         const items = actorData.items;
 
-        //console.log(dataset);
-        //console.log(actorData);
-
         // Set variables for to hit
         let itemId = dataset.itemId;
         let itemToUse = actorData.items.filter(i => i.id === itemId);
@@ -171,7 +166,6 @@ export class ExpanseShipSheet extends ActorSheet {
         toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        console.log("To Hit Results:" + " " + die1 + " " + die2 + " " + die3 + " Use Focus: " + useFocus + " Ability Modifier: " + abilityMod);
         
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
@@ -217,7 +211,6 @@ export class ExpanseShipSheet extends ActorSheet {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
-        console.log(dataset);
         if (dataset.roll) {
             let roll = new Roll(dataset.roll, this.actor.data.data);
 
@@ -244,7 +237,6 @@ export class ExpanseShipSheet extends ActorSheet {
               <b>Ability Test Results:</b> ${resultsSum}
               `
             }
-            console.log(rollCard);
 
             ChatMessage.create({
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),

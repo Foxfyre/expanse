@@ -154,6 +154,7 @@
     background-color: #005971;
     border-top-left-radius: 10px;
     color: whitesmoke;
+    justify-content: space-between;
 }
 
 .talents .talents-titles {

@@ -57,7 +57,6 @@ export class ExpanseItemSheet extends ItemSheet {
   }*/
     getData() {
         const data = super.getData();
-        //data.dtypes = ["String", "Number", "Boolean"];
 
         let itemData = {}
 
@@ -78,7 +77,8 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.type = data.data.type;
             itemData.name = data.data.name;
             itemData._id = data.data._id;
-            itemData.data = data.data.data
+            itemData.data = data.data.data;
+            itemData.specialization = data.data.data.specialization;
         }
 
         if (data.data.type === "stunt") {
@@ -131,6 +131,14 @@ export class ExpanseItemSheet extends ItemSheet {
         new TabsV2(tabs, {
             initial: initial,
             callback: clicked => this._sheetTab = clicked.data("tab")
+        });
+
+        html.find(".learn-specialization").click(e => {
+            const data = super.getData()
+            const item = data.data;
+            if (item.type === "talent") {
+                item.data.specialization = !item.data.specialization;
+            }
         });
     }
 }

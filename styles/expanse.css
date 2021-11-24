@@ -1308,11 +1308,11 @@ a.entity-link, a.inline-roll {
     color: #f3f3f3;
 }
 
-.window-app.app.journal-sheet li {
+.window-app.app li {
     padding: 5px 10px;
 }
 
-.window-app.app.journal-sheet h1,.window-app.app.journal-sheet h2 {
+.window-app.app h1,.window-app.app  h2 {
     border-bottom: 2px solid #005971;
 }
 
@@ -1446,4 +1446,24 @@ a.entity-link, a.inline-roll {
 
 .abzu-dark-green {
     background-color: #005731;
+}
+
+.popup {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    height: 100%;
+    padding: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+}
+
+.popup > ul {
+    list-style: none;
+}
+
+.popup-img {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
 }
