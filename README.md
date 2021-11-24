@@ -5,7 +5,13 @@
 *The Expanse Roleplaying Game* brings James S.A. Corey’s award-winning series of science fiction novels to the tabletop. Using the Adventure Game Engine (AGE) rules that power Green Ronin’s *Fantasy AGE, Blue Rose*, and *Modern AGE RPGs*, *The Expanse* takes players to a far-future solar system where humanity is divided: Martians, Belters, and the people of old Earth struggle for political power and resources, but older, alien, forces are stirring in the universe, and human history is about to take an unexpected new turn.
 
 *The Expanse RPG* applies the fast-playing, stunt-powered AGE system to spaceships, solar colonies, adventure, and intrigue in the far-future, where the actions of the characters may change the course of history!
- 
+
+## How To Install
+1. Open Foundry VTT
+2. In Configuration & Set Up, Click the Install System button and either select The Expanse (AGE) Official system from the list and click install 
+*or*
+copy and paste the [manifest link](https://raw.githubusercontent.com/Foxfyre/the_expanse/main/system.json) in the Manifest URL field
+
 ## Features
 - Character sheets with formatted layout specifically for VTTs
 - NPC Sheets
