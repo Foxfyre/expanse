@@ -61,7 +61,7 @@ Hooks.once("init", async function () {
     switch (operator) {
       case '===':
         return (v1 === v2) ? options.fn(this) : options.inverse(this);
-      case "&&" :
+      case "&&":
         return (v1 && v2) ? options.fn(this) : options.inverse(this);
       default:
         return options.inverse(this);
@@ -122,6 +122,11 @@ Hooks.on("ready", async () => {
     <li>Or send us an email at <a href="mailto:letsplay@greenronin.com">LetsPlay@GreenRonin.com</a></li>
     </ul>
     <p>Thank you on behalf of Green Ronin Publishing!
+    <br><br>
+    <p><i>The Expanse Roleplaying Game</i> is ©2019 Green Ronin Publishing, LLC. All rights reserved. First Printing. References to other copyrighted material
+            in no way constitute a challenge to the respective copyright holders of that material. Green Ronin, <i>The Expanse Roleplaying Game</i>,
+            and their associated logos are trademarks of Green Ronin Publishing, LLC. The Expanse is © 2011-2019 Daniel Abraham and Ty Franck.</br>
+            <div class="popup-img"><img src="systems/the_expanse/ui//roninlogo02_color300.png" width="69" height="120" />    <img src="systems/the_expanse/ui/AGE_logo_Expanse.png" width="161" height="100" /></div>
     </p></div>`,
     buttons: {
       ok: {
