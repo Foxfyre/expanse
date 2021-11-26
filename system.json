@@ -1,41 +1,56 @@
 {
-    "name": "the_expanse",
-    "title": "The Expanse",
-    "description": "The Expanse AGE system by Green Ronin",
-    "version": "0.7.0",
-    "minimumCoreVersion": "0.8.7",
-    "compatibleCoreVersion": "0.8.9",
-    "templateVersion": 3,
-    "author": "Charlotte Hamilton",
-    "esmodules": ["module/expanse.js", "scripts/scripts.js"],
-    "styles": [
-      "styles/expanse.css", 
-      "styles/talents.css",
-      "styles/npc.css",
-      "styles/weapons.css",
-      "styles/armor.css",
-      "styles/ship.css"
-    ],
-    "scripts": [],
-    "packs": [],
-    "languages": [
-      {
-        "lang": "en",
-        "name": "English",
-        "path": "lang/en.json"
-      },
-      {
-        "lang": "de",
-        "name": "Deutsch",
-        "path": "lang/de.json"
-      }
-    ],
-    "gridDistance": 1,
-    "gridUnits": "m",
-    "primaryTokenAttribute": "attributes.fortune",
-    "secondaryTokenAttribute": "resource2",
-    "url": "https://github.com/Foxfyre/the_expanse",
-    "manifest": "https://raw.githubusercontent.com/Foxfyre/the_expanse/main/system.json",
-    "download": "https://github.com/Foxfyre/the_expanse/releases/download/v0.7.0/the_expanse.zip",
-    "license": "LICENSE.txt"
+  "name": "the_expanse",
+  "title": "The Expanse RPG (AGE)",
+  "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
+  "version": "0.7.0",
+  "minimumCoreVersion": "0.8.7",
+  "compatibleCoreVersion": "0.8.9",
+  "templateVersion": 3,
+  "author": "Charlotte Hamilton",
+  "authors": [
+    {
+      "name": "Foxfyre",
+      "email": "foxfyre2204@gmail.com",
+      "discord": "Foxfyre#2204"
+    },
+    {
+      "name": "Green Ronin Publishing",
+      "email": "letsplay@greenronin.com"
+    }
+  ],
+  "esmodules": [
+    "module/expanse.js",
+    "scripts/scripts.js"
+  ],
+  "styles": [
+    "styles/expanse.css",
+    "styles/talents.css",
+    "styles/npc.css",
+    "styles/weapons.css",
+    "styles/armor.css",
+    "styles/ship.css"
+  ],
+  "scripts": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "media": [
+    {
+      "type": "cover",
+      "url": "https://github.com/Foxfyre/the_expanse/blob/48754e8d372787dc421144561a92d8590410bac7/ui/expanse-cover.jpg"
+    }
+  ],
+  "gridDistance": 1,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "attributes.fortune",
+  "secondaryTokenAttribute": "resource2",
+  "url": "https://github.com/Foxfyre/the_expanse",
+  "manifest": "https://raw.githubusercontent.com/Foxfyre/the_expanse/main/system.json",
+  "download": "https://github.com/Foxfyre/the_expanse/releases/download/v0.7.0/the_expanse.zip",
+  "license": "LICENSE.txt"
 }
