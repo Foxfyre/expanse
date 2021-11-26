@@ -7,7 +7,7 @@ export class ExpanseItem extends Item {
 
     _preCreate() {
         const data = this.data;
-        const path = "systems/the_expanse/ui/item-img/"
+        const path = "systems/expanse/ui/item-img/"
         if (data.type === "armor") {
             data.update({ img: `${path}item-armor.png` })
         } else if (data.type === "shield") {
@@ -21,7 +21,7 @@ export class ExpanseItem extends Item {
 
     _onUpdate(changed, options, userId) {
         const data = this.data;
-        const path = "systems/the_expanse/ui/item-img/"
+        const path = "systems/expanse/ui/item-img/"
         if (data.type === "weapon") {
             if (data.data.type === "pistol") {
                 this.update({ img: `${path}item-pistol.png` })

@@ -45,7 +45,7 @@ export class ExpanseItemSheet extends ItemSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/the_expanse/templates/sheet"
+        const path = "systems/expanse/templates/sheet"
         return `${path}/${this.item.data.type}-sheet.html`;
     }
 

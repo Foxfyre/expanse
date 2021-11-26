@@ -12,7 +12,7 @@ export class ExpanseActor extends Actor {
 
   _preCreate() {
     const data = this.data;
-    const path = "systems/the_expanse/ui/item-img/"
+    const path = "systems/expanse/ui/item-img/"
     if (data.type === "ship" && data.img === "icons/svg/mystery-man.svg") {
       data.update({ img: `${path}actor-ship.png` })
     }

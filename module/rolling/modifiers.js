@@ -1,6 +1,6 @@
 export function RollModifier() {
     let rMod = new Promise((resolve) => {
-        renderTemplate("/systems/the_expanse/templates/dialog/rollModifiers.html").then(dlg => {
+        renderTemplate("/systems/expanse/templates/dialog/rollModifiers.html").then(dlg => {
             new Dialog({
                 title: game.i18n.localize("EXPANSE.RollModifier"),
                 content: dlg,
@@ -23,7 +23,7 @@ export function RollModifier() {
 
 export function RollDamageModifier() {
     let dMod = new Promise((resolve) => {
-        renderTemplate("/systems/the_expanse/templates/dialog/damageModifiers.html").then(dlg => {
+        renderTemplate("/systems/expanse/templates/dialog/damageModifiers.html").then(dlg => {
             new Dialog({
                 title: game.i18n.localize("EXPANSE.DamageModifier"),
                 content: dlg,

@@ -12,7 +12,7 @@ export class ExpanseShipSheet extends ActorSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/the_expanse/templates/sheet"
+        const path = "systems/expanse/templates/sheet"
         return `${path}/${this.actor.data.type}-sheet.html`;
     }
 
@@ -254,7 +254,7 @@ export class ExpanseShipSheet extends ActorSheet {
 
     TargetNumber() {
         let tn = new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/target-number.html").then(dlg => {
+            renderTemplate("/systems/expanse/templates/dialog/target-number.html").then(dlg => {
                 new Dialog({
                     title: game.i18n.localize("EXPANSE.TargetNumber"),
                     content: dlg,

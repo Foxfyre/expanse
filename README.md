@@ -10,7 +10,7 @@
 1. Open Foundry VTT
 2. In Configuration & Set Up, Click the Install System button and either select The Expanse (AGE) Official system from the list and click install 
 *or*
-copy and paste the [manifest link](https://raw.githubusercontent.com/Foxfyre/the_expanse/main/system.json) in the Manifest URL field
+copy and paste the [manifest link](https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json) in the Manifest URL field
 
 ## Features
 - Character sheets with formatted layout specifically for VTTs

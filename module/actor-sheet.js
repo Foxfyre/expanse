@@ -16,7 +16,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/the_expanse/templates/sheet"
+        const path = "systems/expanse/templates/sheet"
         return `${path}/${this.actor.data.type}-sheet.html`;
     }
 
@@ -32,7 +32,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceData = {}
         let diceStyle; let diceFaction; let diceStunt; let diceSoNice;
 
-        let diceSettings = game.settings.get("the_expanse", "diceStyle");
+        let diceSettings = game.settings.get("expanse", "diceStyle");
 
         if (diceSettings === "0") {
             diceStyle = "dark";
@@ -391,9 +391,9 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModWarning = ``;
             }
 
-            const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
-            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
-            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
+            const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
 
             let chatFocus;
 
@@ -495,7 +495,7 @@ export class ExpanseActorSheet extends ActorSheet {
             let totalDamage = damageRoll.total + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
-                diceImageArray += `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+                diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
             }
 
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
@@ -530,7 +530,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 let totalDamage = damageRoll.total + bonusDamage + testData[1];
                 let resultRoll = damageRoll.terms[0].results.map(i => i.result);
                 for (let i = 0; i < resultRoll.length; i++) {
-                    diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+                    diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
                 }
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
@@ -587,7 +587,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
         let resultRoll = incomeRoll.terms[0].results.map(i => i.result);
         for (let i = 0; i < resultRoll.length; i++) {
-            diceImageArray += `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
+            diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
         }
 
         let rollCard;
@@ -737,9 +737,9 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModWarning = ``;
             }
 
-            const dieImage = `<img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
-            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
-            <img height="75px" width="75px" src="systems/the_expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
+            const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
+            <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
 
             let chatFocus;
 
@@ -811,7 +811,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     TargetNumber() {
         let tn = new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/target-number.html").then(dlg => {
+            renderTemplate("/systems/expanse/templates/dialog/target-number.html").then(dlg => {
                 new Dialog({
                     title: game.i18n.localize("EXPANSE.TargetNumber"),
                     content: dlg,
@@ -832,7 +832,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     IncomeCost() {
         let ic = new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/income.html").then(dlg => {
+            renderTemplate("/systems/expanse/templates/dialog/income.html").then(dlg => {
                 new Dialog({
                     title: game.i18n.localize("EXPANSE.Cost"),
                     content: dlg,
@@ -853,7 +853,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     RollDamageModifier() {
         let dMod = new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/damageModifiers.html").then(dlg => {
+            renderTemplate("/systems/expanse/templates/dialog/damageModifiers.html").then(dlg => {
                 new Dialog({
                     title: game.i18n.localize("EXPANSE.DamageModifier"),
                     content: dlg,
@@ -877,7 +877,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     RollModifier() {
         let rMod = new Promise((resolve) => {
-            renderTemplate("/systems/the_expanse/templates/dialog/rollModifiers.html").then(dlg => {
+            renderTemplate("/systems/expanse/templates/dialog/rollModifiers.html").then(dlg => {
                 new Dialog({
                     title: game.i18n.localize("EXPANSE.RollModifier"),
                     content: dlg,

@@ -2,7 +2,7 @@ export function diceRollType() {
     let diceData = {}
     let diceStyle; let diceFaction; let diceStunt; let diceSoNice;
 
-    let diceSettings = game.settings.get("the_expanse", "diceStyle");
+    let diceSettings = game.settings.get("expanse", "diceStyle");
 
     if (diceSettings === "0") {
         diceStyle = "dark";
