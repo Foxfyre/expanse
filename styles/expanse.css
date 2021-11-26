@@ -1232,6 +1232,7 @@ input[type=checkbox] {
     overflow-y: hidden;
     padding: 0px;
     margin: 0px;
+    text-align: justify;
 }
 
 .window-app.app.journal-sheet .window-content form {

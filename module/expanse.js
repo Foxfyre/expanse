@@ -105,20 +105,27 @@ Hooks.once("init", () => {
 
 Hooks.on("ready", async () => {
   new Dialog({
-    title: "How to use - Notes",
-    content: `<p>Thank you for using The Expanse Foundry VTT System during this early release phase! <br><br>
-    How to use: On the Player Character Sheets, there are dice icons which look like a 5. This indicate where you can roll with one click. 
-    You will find them on the following sections: Abilities, Weapon Entries, Income. When you click these buttons, you will get a straight unmodified roll. 
-    If you want to modify your roll, hold down shift when you click the die symbol. 
-    <br><br>
-    The current goal of the system is to have a functional sheet which balances game-play and sheet automation. We do not want to have the system handle every
-    aspect of game play that you come across. We want to give you as much of the table experience in the VTT as possible. 
-    <br><br>
-    Thank you from the Green Ronin VTT Team!
-    </p>`,
+    title: "The Expanse RPG",
+    content: `<div class="popup">
+    <img src="systems/the_expanse/ui/The expanse RPG logo - black.png" width="350px" height="62px" style="margin-bottom: 10px;">
+    <h2>Welcome to <i>The Expanse RPG!</i></h2>
+    <p>Green Ronin Publishing is proud to present the official Foundry VTT system for <i>The Expanse RPG</i>! <br><br>
+    <h2>How to use</h2>
+    <b>Standard Rolling</b>On the character and NPC sheets, the following image indicates rollable buttons. On the NPC sheet, the attribute name is the rollable trigger. 
+    <br><br><img src="systems/the_expanse/ui/earth-5.png" width="25px" height="25px"><br>
+    <b>Modified Rolls</b>If you need to modify a roll, whether by adding a modifier or more dice (damage rolls only), hold SHIFT and click the rollable button.<br><br>
+    <h2>Feedback</h2>
+    In an effort to improve, we're always open to feedback. 
+    <ul>
+    <li>You can use the <a href="https://github.com/Foxfyre/the_expanse/issues">Issues tab</a> on GitHub to report bugs</li>
+    <li>Join us on the <a href="https://discord.gg/MJQQd6H">GRAAD Discord</a></li>
+    <li>Or send us an email at <a href="mailto:letsplay@greenronin.com">LetsPlay@GreenRonin.com</a></li>
+    </ul>
+    <p>Thank you on behalf of Green Ronin Publishing!
+    </p></div>`,
     buttons: {
       ok: {
-        label: "Ok",
+        label: "Here comes the juice!",
       }
     }
   }).render(true)
