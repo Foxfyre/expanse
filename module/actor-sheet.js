@@ -436,7 +436,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         roll: toHitRoll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
-                        content: rollCard
+                        content: rollCard,
+                        sound: CONFIG.sounds.dice
                     });
                 })
 
@@ -454,7 +455,8 @@ export class ExpanseActorSheet extends ActorSheet {
                     roll: toHitRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
-                    content: rollCard
+                    content: rollCard,
+                    sound: CONFIG.sounds.dice
                 });
             }
 
@@ -514,7 +516,8 @@ export class ExpanseActorSheet extends ActorSheet {
                 roll: damageRoll,
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
-                content: rollCard
+                content: rollCard,
+                sound: CONFIG.sounds.dice
             });
 
         } else {
@@ -550,7 +553,8 @@ export class ExpanseActorSheet extends ActorSheet {
                     roll: damageRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
-                    content: rollCard
+                    content: rollCard,
+                    sound: CONFIG.sounds.dice
                 });
             })
         }
@@ -612,7 +616,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
-                        content: rollCard
+                        content: rollCard,
+                        sound: CONFIG.sounds.dice
                     });
                 } else if (incomeResult >= ic && ic !== "") { // Successful result
                     if (ic >= (income + 10)) { // Depletion - Set automation to automatically deplete
@@ -622,7 +627,8 @@ export class ExpanseActorSheet extends ActorSheet {
                             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                             flavor: label,
                             roll: incomeRoll,
-                            content: rollCard
+                            content: rollCard,
+                            sound: CONFIG.sounds.dice
                         });
                     } else {
                         rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeSuccess}`
@@ -631,7 +637,8 @@ export class ExpanseActorSheet extends ActorSheet {
                             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                             flavor: label,
                             roll: incomeRoll,
-                            content: rollCard
+                            content: rollCard,
+                            sound: CONFIG.sounds.dice
                         });
                     }
                 } else if (incomeResult < ic && ic !== "") { // Failed Result
@@ -641,7 +648,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
-                        content: rollCard
+                        content: rollCard,
+                        sound: CONFIG.sounds.dice
                     });
                 } else if (ic === "") {
                     rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}`
@@ -650,7 +658,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
-                        content: diceRollDialogue
+                        content: diceRollDialogue,
+                        sound: CONFIG.sounds.dice
                     });
                 }
             });
@@ -661,7 +670,8 @@ export class ExpanseActorSheet extends ActorSheet {
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
                 roll: incomeRoll,
-                content: rollCard
+                content: rollCard,
+                sound: CONFIG.sounds.dice
             });
         }
     }
@@ -773,7 +783,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         roll: roll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
-                        content: rollCard
+                        content: rollCard,
+                        sound: CONFIG.sounds.dice
                     });
                 })
 
@@ -791,7 +802,8 @@ export class ExpanseActorSheet extends ActorSheet {
                     roll: roll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
-                    content: rollCard
+                    content: rollCard,
+                    sound: CONFIG.sounds.dice
                 });
             }
         }
