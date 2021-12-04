@@ -16,7 +16,7 @@
                         </div>
 
                         <div class="talents-titles" style="align-self:center;">
-                            <span>Specialization</span>
+                            <span>{{localize "EXPANSE.talent.Specialization"}}</span>
                             <input type="checkbox" class="expanse-checkbox learn-specialization" name="data.specialization"
                                 data-item-id={{_id}} {{checked data.specialization}}>
                         </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="talents-requirement-block">
                         <div class="talents-titles">
-                            <span class="margin-l-5">Requirements:</span>
+                            <span class="margin-l-5">{{localize "EXPANSE.talent.Requirements"}}:</span>
                         </div>
                         <div class="talents-requirements">
                             {{editor content=requirement target="requirement" button=true owner=owner
@@ -38,7 +38,7 @@
                         <div class="talents-degree-titles">
                             <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.novice.active"
                                 data-item-id={{_id}} {{checked data.ranks.novice.active}}>
-                            <span>Novice</span>
+                            <span>{{localize "EXPANSE.talent.Novice"}}</span>
                         </div>
                         <div class="talents-effect">
                             {{editor content=data.ranks.novice.effect target="data.ranks.novice.effect" button=true
@@ -52,7 +52,7 @@
                         <div class="talents-degree-titles">
                             <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.expert.active"
                                 data-item-id={{_id}} {{checked data.ranks.expert.active}}>
-                            <span>Expert</span>
+                            <span>{{localize "EXPANSE.talent.Expert"}}</span>
                         </div>
                         <div class="talents-effect">
                             {{editor content=data.ranks.expert.effect target="data.ranks.expert.effect" button=true
@@ -66,7 +66,7 @@
                         <div class="talents-degree-titles">
                             <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.master.active"
                                 data-item-id={{_id}} {{checked data.ranks.master.active}}>
-                            <span>Master</span>
+                            <span>{{localize "EXPANSE.talent.Master"}}</span>
                         </div>
                         <div class="talents-effect">
                             {{editor content=data.ranks.master.effect target="data.ranks.master.effect" button=true

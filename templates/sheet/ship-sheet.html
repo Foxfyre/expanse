@@ -10,16 +10,16 @@
 
             <div class="ship-row">
                 <div class="ship-name ship-input">
-                    <label for="name" class="info-label">Name</label>
+                    <label for="name" class="info-label">{{localize "EXPANSE.ship.Name" }}</label>
                     <input class="info-input" type="text" name="name" value="{{actor.name}}" data-dtype="String" />
                 </div>
                 <div class="ship-type ship-input">
-                    <label for="data.type" class="info-label">Type</label>
+                    <label for="data.type" class="info-label">{{localize "EXPANSE.ship.Type" }}</label>
                     <input class="info-input" type="text" name="data.type" value="{{actor.data.data.type}}"
                         data-dtype="String" />
                 </div>
                 <div class="ship-drive ship-input">
-                    <label for="data.drive" class="info-label">Drive</label>
+                    <label for="data.drive" class="info-label">{{localize "EXPANSE.ship.Drive" }}</label>
                     <input class="info-input" type="text" name="data.drive" value="{{actor.data.data.drive}}"
                         data-dtype="String" />
                 </div>
@@ -28,23 +28,23 @@
             <div class="ship-row">
                 <div class="ship-senhulcre">
                     <div class="ship-input">
-                        <label for="data.sensors" class="info-label">Sensors</label>
+                        <label for="data.sensors" class="info-label">{{localize "EXPANSE.ship.Sensors" }}</label>
                         <input class="info-input" type="text" name="data.sensors" value="{{actor.data.data.sensors}}"
                             data-dtype="String" />
                     </div>
                     <div class="ship-input">
-                        <label for="data.hull" class="info-label">Hull</label>
+                        <label for="data.hull" class="info-label">{{localize "EXPANSE.ship.Hull" }}</label>
                         <input class="info-input" type="text" name="data.hull" value="{{actor.data.data.hull}}"
                             data-dtype="String" />
                     </div>
                     <div class="ship-input">
-                        <label for="data.crew" class="info-label">Crew</label>
+                        <label for="data.crew" class="info-label">{{localize "EXPANSE.ship.Crew" }}</label>
                         <input class="info-input" type="text" name="data.crew" value="{{actor.data.data.crew}}"
                             data-dtype="String" />
                     </div>
                 </div>
                 <div class="ship-weapons">
-                    <label class="info-label">Weapons</label>
+                    <label class="info-label">{{localize "EXPANSE.ship.Weapons" }}</label>
                     <div class="weapon-inputs">
                         <input class="info-input" type="text" name="data.weapon1" value="{{actor.data.data.weapon1}}"
                             data-dtype="String" />
@@ -59,12 +59,12 @@
             </div>
 
             <div class="ship-row ship-input">
-                <label for="data.quality" class="info-label">Qualities</label>
+                <label for="data.quality" class="info-label">{{localize "EXPANSE.ship.Qualities" }}</label>
                 <input class="info-input" type="text" name="data.quality" value="{{actor.data.data.quality}}"
                     data-dtype="String" />
             </div>
             <div class="ship-row ship-input">
-                <label for="data.flaw" class="info-label">Flaw</label>
+                <label for="data.flaw" class="info-label">{{localize "EXPANSE.ship.Flaw" }}</label>
                 <input class="info-input" type="text" name="data.flaw" value="{{actor.data.data.flaw}}"
                     data-dtype="String" />
             </div>
@@ -72,7 +72,7 @@
             <div class="ship-notes-box">
 
                 <div class="box-header">
-                    <span>DESCRIPTION & NOTES</span>
+                    <span>{{localize "EXPANSE.ship.DescNotes" }}</span>
                 </div>
 
                 <div class="ship-notes-container">
@@ -82,10 +82,10 @@
 
             <div class="crew-box">
                 <div class="box-header">
-                    <span class="stunt-header-title">Crew Role</span>
-                    <span class="stunt-header-title">Stat</span>
-                    <span class="stunt-header-effect">Modifier</span>
-                    <span class="stunt-header-blank">Crew Member</span>
+                    <span class="stunt-header-title">{{localize "EXPANSE.ship.CrewRole" }}</span>
+                    <span class="stunt-header-title">{{localize "EXPANSE.ship.Stat" }}</span>
+                    <span class="stunt-header-effect">{{localize "EXPANSE.ship.Modifier" }}</span>
+                    <span class="stunt-header-blank">{{localize "EXPANSE.ship.CrewMember" }}</span>
                 </div>
                 <div class="ship-member">
                     <div class="ship-crewrole">

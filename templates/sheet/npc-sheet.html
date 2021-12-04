@@ -11,7 +11,7 @@
             </div>
 
             <div class="box-header">
-                <span class="">ABILITES (FOCUSES)</span>
+                <span class="">{{localize "EXPANSE.Npc.AbilitiesFocuses" }}</span>
             </div>
 
         </div>
@@ -20,7 +20,7 @@
             {{#each abilities as |ability key|}}
             <div class="npc-ability" data-item-id="{{item.id}}">
                 <span class="npc-ability-name rollable" data-roll="3d6+@abilities.{{key}}.rating"
-                    data-label="{{key}}"><b>{{key}}</b></span>
+                    data-label="{{key}}"><b>{{localize (concat "EXPANSE.Npc." key) }}</b></span>
                 <div class="npc-ability-value">
                     <input type="text" name="data.abilities.{{key}}.rating" value="{{rating}}" data-dtype="Number" />
                 </div>
@@ -37,10 +37,10 @@
 
         <div class="npc-attribute-block">
             <div class="box-header">
-                <span class="">SPEED</span>
-                <span class="">FORTUNE</span>
-                <span class="">DEFENSE</span>
-                <span class="">AR + TOU</span>
+                <span class="">{{localize "EXPANSE.Npc.Speed" }}</span>
+                <span class="">{{localize "EXPANSE.Npc.Fortune" }}</span>
+                <span class="">{{localize "EXPANSE.Npc.Defense" }}</span>
+                <span class="">{{localize "EXPANSE.Npc.Ar+Tou" }}</span>
             </div>
 
             <div class="npc-attributes-box">
@@ -57,12 +57,12 @@
 
             <ul class="items npc-weapon-list">
                 <div class="box-header">
-                    <span>Weapon</span>
-                    <span>Damage</span>
-                    <span>Attack Bonus</span>
+                    <span>{{localize "EXPANSE.Npc.Weapon" }}</span>
+                    <span>{{localize "EXPANSE.Npc.Damage" }}</span>
+                    <span>{{localize "EXPANSE.Npc.AttackBonus" }}</span>
                     <span>Focus</span>
-                    <span>Hit</span>
-                    <span>Damage</span>
+                    <span>{{localize "EXPANSE.Npc.Hit" }}</span>
+                    <span>{{localize "EXPANSE.Npc.DamageRoll" }}</span>
                     <span></span>
                 </div>
 
@@ -112,22 +112,22 @@
 
         <div class="npc-specials-block">
             <div class="box-header">
-                <span class="">SPECIAL FEATURES</span>
+                <span class="">{{localize "EXPANSE.Npc.SpecialFeatures" }}</span>
             </div>
             <div class="npc-special-box">
                 <div class="npc-special-rows">
-                    <span>Stunts:</span>
+                    <span>{{localize "EXPANSE.Npc.Stunts" }}:</span>
                     <input type="text" name="data.stunts" value="{{stunts}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
-                    <span>Talents:</span>
+                    <span>{{localize "EXPANSE.Npc.Talents" }}:</span>
                     <input type="text" name="data.talent1" value="{{talent1}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
                     <input type="text" name="data.talent2" value="{{talent2}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
-                    <span>EQUIPMENT:</span>
+                    <span>{{localize "EXPANSE.Npc.Equipment" }}:</span>
                     <input type="text" name="data.equipment1" value="{{equipment1}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
@@ -141,7 +141,7 @@
         <div class="npc-notes-box">
 
             <div class="box-header">
-                <span>DESCRIPTION</span>
+                <span>{{localize "EXPANSE.Description" }}</span>
             </div>
  
             <div class="npc-notes-container">
@@ -151,7 +151,7 @@
 
         <div class="npc-image-block">
             <div class="box-header">
-                <span>Images</span>
+                <span>{{localize "EXPANSE.Npc.Images" }}</span>
             </div>
 
             <div class="npc-images">
@@ -162,7 +162,7 @@
         </div>
 
         <div class="npc-threat-footer">
-            <span>THREAT:</span>
+            <span>{{localize "EXPANSE.Npc.Threat" }}:</span>
             <input type="text" name="data.threat" value="{{threat}}" data-dtype="String" />
         </div>
 
