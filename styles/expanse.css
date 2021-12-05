@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Antonio&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 .sheet .window-content {
@@ -176,7 +176,7 @@ img {
 /* Global styles override */
 
 .window-app {
-  font-family: 'Antonio', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 .sheet header.sheet-header img {
@@ -196,7 +196,7 @@ img {
 }
 
 .sheet {
-    font-family: 'Antonio', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .sheet .tab[data-tab].active {
@@ -376,7 +376,7 @@ blockquote {
     border: 2px solid #74bddc;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    font-family: 'Antonio', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .attribute-negative input[type=text] {
@@ -745,7 +745,7 @@ input[type=checkbox] {
     border: 2px solid #74bddc;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    font-family: 'Antonio', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .sheet .stunts-section-name {
@@ -765,7 +765,7 @@ input[type=checkbox] {
     border: 2px solid #74bddc;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    font-family: 'Antonio', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .sheet .stunts-section-desc {
