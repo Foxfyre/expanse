@@ -1,3 +1,5 @@
+The only difference here is I changed the default font to something more readable. - elexisvenator
+
 # The Expanse (AGE) Official System
 
 ![The Expanse Cover Image](https://cdn.shopify.com/s/files/1/0235/5929/products/GRR6601_600_1024x1024.jpg?v=1551720277)

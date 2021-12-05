@@ -49,8 +49,8 @@
   "gridUnits": "m",
   "primaryTokenAttribute": "attributes.fortune",
   "secondaryTokenAttribute": "resource2",
-  "url": "https://github.com/Foxfyre/expanse",
-  "manifest": "https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json",
-  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.7.0/expanse.zip",
+  "url": "https://github.com/elexisvenator/expanse",
+  "manifest": "https://raw.githubusercontent.com/elexisvenator/expanse/main/system.json",
+  "download": "https://github.com/elexisvenator/expanse/releases/download/v0.7.0/expanse.zip",
   "license": "LICENSE.txt"
 }
