@@ -51,6 +51,6 @@
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/elexisvenator/expanse",
   "manifest": "https://raw.githubusercontent.com/elexisvenator/expanse/main/system.json",
-  "download": "https://github.com/elexisvenator/expanse/releases/download/v0.7.0/expanse.zip",
+  "download": "https://github.com/elexisvenator/expanse/releases/download/v0.7.1/expanse.zip",
   "license": "LICENSE.txt"
 }
