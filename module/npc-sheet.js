@@ -6,7 +6,7 @@ export class ExpanseNPCSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "npc"],
-            width: 480,
+            width: 500,
             height: 450,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
@@ -51,7 +51,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-
+        console.log(sheetData);
 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {

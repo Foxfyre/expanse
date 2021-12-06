@@ -105,24 +105,26 @@ export class ExpanseActor extends Actor {
 
   prepareEmbeddedEntities() {
     const actorData = this.data;
+    if (actorData.type === "character") {
+      for (let items of actorData.items) {
+        if (items.data.type === "armor" && items.data.data.equip === true) {
+          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
+          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
+        } else if (items.data.type === "armor" && items.data.data.equip === false) {
+          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
+          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
+        }
+      }
 
+      //shields
+      for (let items of actorData.items) {
+        if (items.data.type === "shield" && items.data.data.equip === true) {
+          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
+        }
+      }
+    }
     // if armour is equipped, set modified value to bonus. else set to original value
-    for (let items of actorData.items) {
-      if (items.data.type === "armor" && items.data.data.equip === true) {
-        actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
-        actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
-      } else if (items.data.type === "armor" && items.data.data.equip === false) {
-        actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
-        actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
-      }
-    }
 
-    //shields
-    for (let items of actorData.items) {
-      if (items.data.type === "shield" && items.data.data.equip === true) {
-        actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
-      }
-    }
   }
 
 
