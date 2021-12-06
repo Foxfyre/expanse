@@ -233,7 +233,9 @@ ul {
 }
 
 blockquote {
-    border-color: #005971
+    border-color: transparent;
+    padding: 5px 10px; 
+    color: black;
 }
 
 /* New CSS */
@@ -1317,9 +1319,16 @@ a.entity-link, a.inline-roll {
     border-bottom: 2px solid #005971;
 }
 
+.window-app.app h4 {
+    border-bottom: 1px solid #005971;
+    padding: 0 0 5px 5px;
+    text-transform: uppercase;
+}
+
 .window-app.app.journal-sheet h5 {
     font-size: 1.125em;
     font-weight: normal;
+    text-transform: uppercase;
     border-bottom: 1px solid #005971;
     padding: 0 0 5px 5px;
     margin-block-start: 0.55em;
@@ -1468,3 +1477,4 @@ a.entity-link, a.inline-roll {
     align-items: baseline;
     justify-content: space-around;
 }
+
