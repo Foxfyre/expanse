@@ -7,7 +7,7 @@ export class TheExpanseBeltLight extends Die {
     /* -------------------------------------------- */
 
     /** @override */
-    static DENOMINATION = "f";
+    static DENOMINATION = "r";
 
     /* -------------------------------------------- */
 

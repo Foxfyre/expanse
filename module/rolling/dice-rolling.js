@@ -28,12 +28,12 @@ export function diceRollType() {
         diceStyle = "dark";
         diceFaction = "belt";
         diceStunt = "light";
-        diceSoNice = ["e", "f"];
+        diceSoNice = ["e", "r"];
     } else if (diceSettings === "5") {
         diceStyle = "light";
         diceFaction = "belt";
         diceStunt = "dark";
-        diceSoNice = ["f", "e"];
+        diceSoNice = ["r", "e"];
     } else if (diceSettings === "6") {
         diceStyle = "dark";
         diceFaction = "protogen";

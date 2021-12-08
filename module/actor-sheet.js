@@ -1,3 +1,4 @@
+import { diceRollType } from "./rolling/dice-rolling.js";
 import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
 
 export class ExpanseActorSheet extends ActorSheet {
@@ -26,66 +27,6 @@ export class ExpanseActorSheet extends ActorSheet {
 
     get actorProperties() {
         return this.actorData.data;
-    }
-
-    diceRollType() {
-        let diceData = {}
-        let diceStyle; let diceFaction; let diceStunt; let diceSoNice;
-
-        let diceSettings = game.settings.get("expanse", "diceStyle");
-
-        if (diceSettings === "0") {
-            diceStyle = "dark";
-            diceFaction = "earth";
-            diceStunt = "light";
-            diceSoNice = ["a", "l"]
-        } else if (diceSettings === "1") {
-            diceStyle = "light";
-            diceFaction = "earth";
-            diceStunt = "dark";
-            diceSoNice = ["l", "a"];
-        } else if (diceSettings === "2") {
-            diceStyle = "dark";
-            diceFaction = "mars";
-            diceStunt = "light";
-            diceSoNice = ["c", "d"];
-        } else if (diceSettings === "3") {
-            diceStyle = "light";
-            diceFaction = "mars";
-            diceStunt = "dark";
-            diceSoNice = ["d", "c"];
-        } else if (diceSettings === "4") {
-            diceStyle = "dark";
-            diceFaction = "belt";
-            diceStunt = "light";
-            diceSoNice = ["e", "f"];
-        } else if (diceSettings === "5") {
-            diceStyle = "light";
-            diceFaction = "belt";
-            diceStunt = "dark";
-            diceSoNice = ["f", "e"];
-        } else if (diceSettings === "6") {
-            diceStyle = "dark";
-            diceFaction = "protogen";
-            diceStunt = "light";
-            diceSoNice = ["g", "h"];
-        } else if (diceSettings === "7") {
-            diceStyle = "light";
-            diceFaction = "protogen";
-            diceStunt = "dark";
-            diceSoNice = ["h", "g"];
-        } else {
-            diceStyle = "dark";
-            diceFaction = "earth";
-            diceStunt = "light";
-            diceSoNice = ["a", "l"];
-        }
-
-        diceData.style = diceStyle;
-        diceData.faction = diceFaction;
-        diceData.stunt = diceStunt;
-        diceData.nice = diceSoNice;
-        return diceData;
     }
 
     getData() {
@@ -345,7 +286,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
 
         if (dataset.roll) {
-            const diceData = this.diceRollType();
+            const diceData = diceRollType();
             let die1, die2, die3;
             let d2; let d1;
             let condMod;
@@ -381,7 +322,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModName = "injured";
             } else {
                 condMod = 0;
-            }
+            } 
 
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
 
@@ -467,7 +408,7 @@ export class ExpanseActorSheet extends ActorSheet {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
-        const diceData = this.diceRollType();
+        const diceData = diceRollType();
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
@@ -570,7 +511,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceImageArray = "";
         let ic; let d2;
 
-        const diceData = this.diceRollType();
+        const diceData = diceRollType();
 
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
         if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
@@ -692,7 +633,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
         // This is the start of a refactoring test. If things go bad, undo to here.
         if (dataset.roll) {
-            const diceData = this.diceRollType();
+            const diceData = diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
             let d2; let d1;
             let condMod;

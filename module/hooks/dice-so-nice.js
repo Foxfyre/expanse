@@ -199,7 +199,7 @@ export function registerDiceSoNice(dice3d) {
 
     dice3d.addDicePreset(
         {
-            type: "df",
+            type: "dr",
             labels: [
                 "systems/expanse/ui/dice/belt/belt-1-light.png",
                 "systems/expanse/ui/dice/belt/belt-2-light.png",

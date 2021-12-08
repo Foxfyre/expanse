@@ -29,7 +29,7 @@ Hooks.once("init", async function () {
   CONFIG.Dice.terms["c"] = TheExpanseMarsDark;
   CONFIG.Dice.terms["d"] = TheExpanseMarsLight;
   CONFIG.Dice.terms["e"] = TheExpanseBeltDark;
-  CONFIG.Dice.terms["f"] = TheExpanseBeltLight;
+  CONFIG.Dice.terms["r"] = TheExpanseBeltLight;
   CONFIG.Dice.terms["g"] = TheExpanseProtogenDark;
   CONFIG.Dice.terms["h"] = TheExpanseProtogenLight;
 
@@ -85,7 +85,7 @@ Hooks.once("init", () => {
   game.settings.register("expanse", "diceStyle", {
     name: "SETTINGS.DiceChoice",
     hint: "SETTINGS.DiceChoiceHint",
-    scope: "world",
+    scope: "client",
     config: true,
     default: 0,
     type: String,
