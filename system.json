@@ -2,7 +2,7 @@
   "name": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "minimumCoreVersion": "0.8.7",
   "compatibleCoreVersion": "0.8.9",
   "templateVersion": 3,
@@ -51,6 +51,6 @@
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/Foxfyre/expanse",
   "manifest": "https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json",
-  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.7.0/expanse.zip",
+  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.7.1/expanse.zip",
   "license": "LICENSE.txt"
 }
