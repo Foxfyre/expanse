@@ -150,7 +150,7 @@
 
 .npc .npc-attribute-value input[type=text] {
     display: flex;
-    width: 15px;
+    width: 25px;
     height: 20px;
 }
 /****************/
