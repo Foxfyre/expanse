@@ -155,7 +155,7 @@
 body {
     background-image: url("../ui/expanse_background.jpg");
     background-size: cover;
-    background-repeat: none;
+    background-repeat: no-repeat;
     background-position: center;
 }
 

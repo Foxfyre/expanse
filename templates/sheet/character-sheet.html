@@ -273,7 +273,7 @@
 
                         <ul class="items talent-list">
                             {{#each talent as |talent id|}}
-                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent._id}}" {{#if data.data.specialization}} style="padding-left: 10px;"{{/if}} >
+                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent.id}}" {{#if data.data.specialization}} style="padding-left: 10px;"{{/if}} >
                                 <div class="talent-column item-control item-edit">
                                     <div class="talent-list-name">
                                         {{data.name}}
