@@ -37,6 +37,11 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    },
+    {
+      "lang": "es",
+      "Name": "Spanish",
+      "path": "lang/es.json"
     }
   ],
   "media": [
