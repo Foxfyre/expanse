@@ -384,7 +384,9 @@
             "modifier": "",
             "bonusModifier": "",
             "tohitabil": "",
-            "quality": ""
+            "quality": "",
+            "manualDamage": 0,
+            "dieFaces": "6"
         },
         "armor": {
             "name": "",

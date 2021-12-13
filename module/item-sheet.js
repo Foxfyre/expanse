@@ -109,6 +109,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.usefocus = data.data.data.usefocus;
             itemData.data.usefocusplus = data.data.data.usefocusplus;
             itemData.data.damage = data.data.data.damage;
+            itemData.data.manualDamage = data.data.data.manualDamage;
             itemData.data.hasBonusDamage = data.data.data.hasBonusDamage;
             itemData.data.bonusDamage = data.data.data.bonusDamage;
             itemData.data.rangemin = data.data.data.rangemin;
@@ -120,6 +121,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.modifier = data.data.data.modifier;
             itemData.data.tohitabil = data.data.data.tohitabil;
             itemData.data.quality = data.data.data.quality;
+            itemData.data.dieFaces = data.data.data.dieFaces;
         }
         return itemData;
     }

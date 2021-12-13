@@ -1424,7 +1424,7 @@ a.entity-link, a.inline-roll {
 .modifier-section-left {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 50%;
 }

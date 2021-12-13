@@ -66,7 +66,7 @@
     height: 40px;
 }
 
-.weapons .weapons-detail-box input[type=text], select {
+.weapons .weapons-detail-box input[type=text], select, input[type=number] {
     display: flex;
     height: 27px;
     border: none;
@@ -81,6 +81,7 @@
 
 .weapons .weapons-attribute-input {
     width: 25%;
+    margin-right: 5px;
 }
 
 .weapons .weapons-desc-block {

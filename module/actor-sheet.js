@@ -10,7 +10,7 @@ export class ExpanseActorSheet extends ActorSheet {
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [
                 { dragSelector: ".item-list .item", dropSelector: null },
-                { dragSelector: ".talent-item", dropSelector: ".talent-item"}
+                { dragSelector: ".talent-item", dropSelector: ".talent-item" }
             ]
         });
     }
@@ -322,7 +322,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModName = "injured";
             } else {
                 condMod = 0;
-            } 
+            }
 
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
 
@@ -416,6 +416,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
+        let damageD3 = (itemUsed.data.data.dieFaces === 3) ? true : false;
 
         let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -433,15 +434,15 @@ export class ExpanseActorSheet extends ActorSheet {
 
         if (!e.shiftKey) {
             let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-            let totalDamage = damageRoll.total + bonusDamage;
+            let damageOutput = damageD3 ? Math.ceil(damageRoll.total / 2) : damageRoll.total;
+            let totalDamage = damageOutput + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
                 diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
             }
-
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
-            let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+            let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${damageOutput}</br>`;
             let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
@@ -465,10 +466,11 @@ export class ExpanseActorSheet extends ActorSheet {
             RollDamageModifier().then(r => {
                 let testData = r;
                 diceFormula += testData[0];
-
+                const reducer = (previousValue, currentValue) => previousValue + currentValue;
                 let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-
-                let totalDamage = damageRoll.total + bonusDamage + testData[1];
+                let damageOutput = damageD3 ? damageRoll.terms[0].results.map(i => Math.ceil(i.result / 2)) : damageRoll.terms[0].results.map(i => (i.result));
+                let cDmg = damageOutput.reduce(reducer);
+                let totalDamage = cDmg + bonusDamage + testData[1];
                 let resultRoll = damageRoll.terms[0].results.map(i => i.result);
                 for (let i = 0; i < resultRoll.length; i++) {
                     diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
@@ -476,7 +478,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
-                let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+                let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${cDmg}</br>`;
                 let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
