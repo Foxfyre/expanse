@@ -363,8 +363,11 @@
                                         {{weapon.data.name}}
                                     </div>
                                     <div class="weapon-list-item">
-                                        {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}{{#if
-                                        weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
+                                        {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}
+                                        {{#if weapon.data.data.hasBonusDamage}}
+                                        {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
+                                        {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
+                                            {{weapon.data.data.bonusDamage}} {{/if}} 
                                     </div>
                                     <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                                     <div class="weapon-list-item">

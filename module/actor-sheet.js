@@ -78,7 +78,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         break;
                 }
 
-                if (bonusDamage > 0) {
+                if (bonusDamage !== 0) {
                     v.data.data.hasBonusDamage = true;
                 } else {
                     v.data.data.hasBonusDamage = false;

@@ -75,7 +75,7 @@ export class ExpanseNPCSheet extends ActorSheet {
                         bonusDamage = weapon.data.manualDamage;
                         break;
                 }
-                if (bonusDamage > 0) {
+                if (bonusDamage !== 0) {
                     v.data.data.hasBonusDamage = true;
                 } else {
                     v.data.data.hasBonusDamage = false;
@@ -168,14 +168,6 @@ export class ExpanseNPCSheet extends ActorSheet {
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
-
-        // pull this out into a function
-        /*if (actorData.data.data.attributes.stuntpoints.thisround === true) {
-            let spData = actorData.data.data.attributes.stuntpoints;
-            spData.modified = 0;
-            spData.thisround = false;
-            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
-        }*/
 
         if (dataset.roll) {
             const diceData = diceRollType();

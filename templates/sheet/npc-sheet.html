@@ -74,8 +74,12 @@
                         </div>
 
                         <div class="npc-weapon-list-item">
-                            {{weapon.data.data.damage}}D6{{#if
-                            weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
+                            {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}
+                            {{#if
+                            weapon.data.data.hasBonusDamage}}
+                            {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
+                            {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
+                                {{weapon.data.data.bonusDamage}} {{/if}} 
                         </div>
 
                         <div class="npc-weapon-list-item">
@@ -90,20 +94,24 @@
                         </div>
 
                         <div class="weapon-list-item">
-                            <div class="roll-button npc-attack" data-roll="weapon-attack" data-item-id="{{weapon.id}}"
-                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                            <div class="roll-button npc-attack" data-roll="weapon-attack"
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                            </div>
                         </div>
 
                         <div class="weapon-list-item">
-                            <div class="roll-button npc-damage" data-roll="weapon-damage" data-item-id="{{weapon.id}}"
-                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                            <div class="roll-button npc-damage" data-roll="weapon-damage"
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                            </div>
                         </div>
 
                         <div class="item-controls npc-weapon-list-item">
-                            <a class="item-control item-edit" title="Edit Talent"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-edit" title="Edit Talent"><i
+                                    class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Talent"><i
+                                    class="fas fa-trash"></i></a>
                         </div>
-                    </div>
+                        </div>
                 </li>
                 {{/each}}
             </ul>
