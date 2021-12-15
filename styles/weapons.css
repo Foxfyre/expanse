@@ -81,7 +81,7 @@
 
 .weapons .weapons-attribute-input {
     width: 25%;
-    margin-right: 5px;
+    margin: 0 5px 0 5px;
 }
 
 .weapons .weapons-desc-block {
