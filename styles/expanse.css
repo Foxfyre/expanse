@@ -234,7 +234,7 @@ ul {
 
 blockquote {
     border-color: transparent;
-    padding: 5px 10px; 
+    padding: 0px 10px 5px 10px; 
     color: black;
 }
 
@@ -791,7 +791,6 @@ input[type=checkbox] {
 
 .sheet .editor-content > p {
     margin-top: 0;
-    padding: 3px;
 }
 
 .sheet .stunt-degree-block {
@@ -1342,6 +1341,16 @@ a.entity-link, a.inline-roll {
     padding: 0 0 5px 5px;
     margin-block-start: 0.55em;
     margin-block-end: 0.55em;
+}
+
+.window-app.app.journal-sheet p {
+    text-indent: 2ch;
+    padding: 0 5px;
+}
+
+.window-app.app.journal-sheet blockquote p {
+    text-indent: -1ch;
+    margin: 1px 0px 0px -6px;
 }
 
 /* Damage Mod CSS  */
