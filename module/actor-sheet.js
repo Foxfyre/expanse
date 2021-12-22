@@ -9,8 +9,7 @@ export class ExpanseActorSheet extends ActorSheet {
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [
-                { dragSelector: ".item-list .item", dropSelector: null },
-                { dragSelector: ".talent-item", dropSelector: ".talent-item" }
+                { dragSelector: ".item-list .item", dropSelector: null }
             ]
         });
     }
@@ -55,7 +54,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
-                const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
+                //const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
                 let modifierStat = v.data.data.modifier
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.data.data.usefocus;
@@ -106,6 +105,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 }
                 v.data.data.tohitabil = modType;
                 v.data.data.attack += totalFocusBonus;
+                v._id = v.data._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
@@ -152,7 +152,7 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".item-delete").click((ev) => {
             let li = $(ev.currentTarget).parents(".item"),
                 itemId = li.attr("data-item-id");
-            this.actor.deleteEmbeddedEntity("Item", itemId);
+            this.actor.deleteEmbeddedDocuments("Item", [itemId]);
             li.slideUp(200, () => this.render(false));
         });
 
@@ -239,18 +239,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 }
             }
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
-        });
-
-        html.find(".learn-talent").click(e => {
-            const data = super.getData()
-            const item = data.data;
-
-            let itemId = e.currentTarget.getAttribute("data-item-id");
-            const talent = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
-            if (item.type === "talent") {
-                talent.data.ranks.active = !talent.data.ranks.active;
-            }
-            this.actor.updateEmbeddedDocuments("item", [talent.data]);
         });
 
         html.find('.rollable').click(this._onRoll.bind(this));

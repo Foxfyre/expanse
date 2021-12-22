@@ -103,6 +103,7 @@ export class ExpanseNPCSheet extends ActorSheet {
                 }
                 v.data.data.tohitabil = modType;
                 v.data.data.attack += focusBonus;
+                v._id = v.data._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
@@ -131,7 +132,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         html.find(".item-delete").click((ev) => {
             let li = $(ev.currentTarget).parents(".item"),
                 itemId = li.attr("data-item-id");
-            this.actor.deleteEmbeddedEntity("Item", itemId);
+            this.actor.deleteEmbeddedDocuments("Item", [itemId]);
             li.slideUp(200, () => this.render(false));
         });
 

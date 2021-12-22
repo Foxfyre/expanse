@@ -47,5 +47,9 @@ export class ExpanseItem extends Item {
         if (data.type === "talent" && data.data.specialization === false) {
             this.update({ img: `${path}talent-tablet.png` })
         }
+
+        if (data.type === "stunt") {
+            this.update({ img: `${path}stunt.png` })
+        }
     }
 }

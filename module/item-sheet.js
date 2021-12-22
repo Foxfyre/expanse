@@ -39,7 +39,10 @@ export class ExpanseItemSheet extends ItemSheet {
             width: 600,
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }],
-            dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
+            /*dragDrop: [
+                { dragSelector: ".item-list .item", dropSelector: null },
+                { dragSelector: ".talent-item", dropSelector: ".talent-list" }
+            ]*/
         });
     }
 
@@ -102,6 +105,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.name = data.data.name;
             itemData.type = data.data.type;
             itemData.img = data.data.img;
+            itemData._id = data.data.id;
             itemData.data.type = data.data.data.type;
             itemData.data.group = data.data.data.group;
             itemData.data.attack = data.data.data.attack;
@@ -135,12 +139,30 @@ export class ExpanseItemSheet extends ItemSheet {
             callback: clicked => this._sheetTab = clicked.data("tab")
         });
 
-        html.find(".learn-specialization").click(e => {
+        html.find(".learn-specialization").click(async e => {
             const data = super.getData()
             const item = data.data;
+            let itemId = e.currentTarget.getAttribute("data-item-id");
+            const spec = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             if (item.type === "talent") {
                 item.data.specialization = !item.data.specialization;
             }
+            await this.actor.updateEmbeddedDocuments("Item", [spec])
+        });
+
+        html.find(".learn-talent").click(e => {
+            const data = super.getData()
+            const item = data.data;
+
+            let itemId = e.currentTarget.getAttribute("data-item-id");
+
+            const talent = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+
+            if (item.type === "talent") {
+                talent.data.ranks.active = !talent.data.ranks.active;
+            }
+            console.log(talent);
+            this.actor.updateEmbeddedDocuments("Item", [talent]);
         });
     }
 }

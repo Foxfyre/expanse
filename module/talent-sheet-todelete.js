@@ -45,7 +45,6 @@ export class ExpanseTalentSheet extends ItemSheet {
         html.find(".item-delete").click((ev) => {
             let li = $(ev.currentTarget).parents(".item"),
                 itemId = li.attr("data-item-id");
-            // this.actor.deleteOwnedItem(itemId);
             this.actor.deleteEmbeddedEntity("OwnedItem", itemId);
             li.slideUp(200, () => this.render(false));
         });

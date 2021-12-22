@@ -154,9 +154,9 @@
 
 body {
     background-image: url("../ui/expanse_background.jpg");
-    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-color: #005971;
+    background-size: contain;
 }
 
 img {
@@ -180,7 +180,7 @@ img {
 }
 
 .sheet header.sheet-header img {
-    height: auto;
+    height: 100%;
 }
 
 .sheet header.sheet-header {
