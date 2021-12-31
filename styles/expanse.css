@@ -155,8 +155,8 @@
 body {
     background-image: url("../ui/expanse_background.jpg");
     background-repeat: no-repeat;
-    background-color: #005971;
-    background-size: contain;
+    /*background-color: #005971;*/
+    background-size: auto;
 }
 
 img {
