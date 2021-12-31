@@ -336,6 +336,7 @@
             "shield"
         ],
         "talent": {
+            "description": "",
             "highest": "",
             "requirement": "",
             "specialization": false,

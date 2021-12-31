@@ -12,13 +12,15 @@
                 <div class="talents-section">
                     <div class="talents-name-block">
                         <div class="talents-titles">
-                            <span class="margin-l-5" name="name">{{name}}</span>
+                            <span class="margin-l-5">
+                                <input type="text" name="name" value="{{name}}" data-dtype="String" />
+                            </span>
                         </div>
 
                         <div class="talents-titles" style="align-self:center;">
                             <span>Specialization</span>
-                            <input type="checkbox" class="expanse-checkbox learn-specialization" name="data.specialization"
-                                data-item-id={{_id}} {{checked data.specialization}}>
+                            <input type="checkbox" class="expanse-checkbox learn-specialization"
+                                name="data.specialization" data-item-id={{_id}} {{checked data.specialization}}>
                         </div>
 
                     </div>
@@ -28,6 +30,19 @@
                         </div>
                         <div class="talents-requirements">
                             {{editor content=data.requirement target="data.requirement" button=true owner=owner
+                            editable=editable}}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="talents-section">
+                    <div class="talents-requirement-block">
+                        <div class="talents-titles">
+                            <span class="margin-l-5">Description:</span>
+                        </div>
+                        <div class="talents-requirements">
+                            {{editor content=data.description target="data.description" button=true owner=owner
                             editable=editable}}
                         </div>
                     </div>

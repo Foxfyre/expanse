@@ -157,8 +157,10 @@
     justify-content: space-between;
 }
 
-.talents .talents-titles {
-    margin: 0 5px 0 5px;
+.talents .talents-titles input {
+    color: #f3f3f3;
+    border: none;
+    text-align: left;
 }
 
 .talents .margin-l-5 {
@@ -169,16 +171,22 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 75px;
+    height: 100%;
     background-color: #D6E7ED;
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
 }
 
+.talents .talents-requirement-block .talents-titles {
+    margin: 0 5px 0 5px;
+    width: 100px;
+    text-align: start;
+}
+
 .talents .talents-requirements {
     display: flex;
     text-align: start;
-    height: 75px;
+    height: 100px;
     width: 100%;
     background-color: transparent;
     font-family: inherit;
@@ -188,6 +196,7 @@
     height: 100%;
     background-color: transparent;
     font-family: inherit;
+    padding-left: 10px;
 }
 
 .talents .editor-content > p {
@@ -198,7 +207,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 130px;
+    min-height: 100px;
+    height: 100%;
     background-color: #D6E7ED;
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -221,7 +231,8 @@
 .talents .talents-effect {
     display: flex;
     text-align: start;
-    height: 150px;
+    min-height: 50px;
+    height: 100%;
     width: 100%;
     background-color: transparent;
     font-family: inherit;

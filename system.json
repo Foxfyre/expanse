@@ -2,7 +2,7 @@
   "name": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "minimumCoreVersion": "0.8.7",
   "compatibleCoreVersion": "9",
   "templateVersion": 3,

@@ -10,7 +10,7 @@ export class ExpanseItemSheet extends ItemSheet {
                 break;
             case "talent":
                 this.options.width = this.position.width = "600";
-                this.options.height = this.position.height = "610";
+                this.options.height = this.position.height = "660";
                 break;
             case "stunt":
                 // this.options.width = this.position.width = "400";
