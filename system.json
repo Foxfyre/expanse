@@ -61,6 +61,6 @@
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/Foxfyre/expanse",
   "manifest": "https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json",
-  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.7.2/expanse.zip",
+  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.8.0/expanse.zip",
   "license": "LICENSE.txt"
 }
