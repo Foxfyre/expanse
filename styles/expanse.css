@@ -1316,6 +1316,7 @@ a.entity-link, a.inline-roll {
 
 .window-app.app h1,.window-app.app  h2 {
     border-bottom: 2px solid #005971;
+    text-transform: uppercase;
 }
 
 .window-app.app h4 {
