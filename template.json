@@ -404,7 +404,8 @@
             "type": "",
             "bonus": 0,
             "cost": 0,
-            "equip": false
+            "equip": false,
+            "description": ""
         }
     }
 }

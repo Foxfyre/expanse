@@ -1075,6 +1075,7 @@ input[type=checkbox] {
     min-height: 100px;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 5px;
 }
 
 .sheet .biography-container .editor {
