@@ -1,6 +1,6 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    <div class="sheet"> 
+    <div class="sheet">
 
         <header class="sheet-header">
 
@@ -96,16 +96,16 @@
                         <div class="box-header">
                             <span>{{localize "EXPANSE.Defense"}}</span>
                         </div>
-                        <input type="text" name="data.attributes.defense.modified" value="{{attributes.defense.modified}}"
-                            data-dtype="Number" />
+                        <input type="text" name="data.attributes.defense.modified"
+                            value="{{attributes.defense.modified}}" data-dtype="Number" />
                     </div>
 
                     <div id="toughness" class="attribute-box">
                         <div class="box-header">
                             <span>{{localize "EXPANSE.Toughness"}}</span>
                         </div>
-                        <input type="text" name="data.attributes.toughness.modified" value="{{attributes.toughness.modified}}"
-                            data-dtype="Number" />
+                        <input type="text" name="data.attributes.toughness.modified"
+                            value="{{attributes.toughness.modified}}" data-dtype="Number" />
                     </div>
 
                     <div id="armor" class="attribute-box">
@@ -120,8 +120,8 @@
                         <div class="box-header">
                             <span>{{localize "EXPANSE.Penalty"}}</span>
                         </div>
-                        <input type="text" name="data.attributes.penalty.modified" value="{{attributes.penalty.modified}}"
-                            data-dtype="Number" />
+                        <input type="text" name="data.attributes.penalty.modified"
+                            value="{{attributes.penalty.modified}}" data-dtype="Number" />
                     </div>
 
                     <div id="move" class="attribute-box">
@@ -160,8 +160,8 @@
                         <div class="box-header">
                             <span>{{localize "EXPANSE.Stuntpoints"}}</span>
                         </div>
-                        <input type="text" name="data.attributes.stuntpoints.modified" value="{{attributes.stuntpoints.modified}}"
-                            data-dtype="Number" />
+                        <input type="text" name="data.attributes.stuntpoints.modified"
+                            value="{{attributes.stuntpoints.modified}}" data-dtype="Number" />
                     </div>
 
                 </div>
@@ -242,7 +242,7 @@
 
                         {{#each conditions as |conditions key|}}
 
-                        <div class="condition" title="{{localize (concat "EXPANSE." key) }}">
+                        <div class="condition" title="{{localize (concat " EXPANSE." key) }}">
 
                             <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
                                 conditions.active}}>
@@ -273,7 +273,8 @@
 
                         <ul class="items talent-list">
                             {{#each talent as |talent id|}}
-                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent.id}}" {{#if data.data.specialization}} style="padding-left: 10px;"{{/if}} >
+                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent.id}}"
+                                {{#if data.data.specialization}} style="padding-left: 10px;" {{/if}}>
                                 <div class="talent-column item-control item-edit">
                                     <div class="talent-list-name">
                                         {{data.name}}
@@ -367,49 +368,48 @@
                                         {{#if weapon.data.data.hasBonusDamage}}
                                         {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
                                         {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
-                                            {{weapon.data.data.bonusDamage}} {{/if}} 
-                                    </div>
-                                    <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
-                                    <div class="weapon-list-item">
-                                        {{weapon.data.data.attack}}
-                                    </div>
+                                            {{weapon.data.data.bonusDamage}} {{/if}} </div>
+                                            <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
+                                            <div class="weapon-list-item">
+                                                {{weapon.data.data.attack}}
+                                            </div>
 
-                                    <div class="weapon-list-item">
-                                        {{weapon.data.data.rangemax}}
-                                    </div>
+                                            <div class="weapon-list-item">
+                                                {{weapon.data.data.rangemax}}
+                                            </div>
 
-                                    <div class="weapon-list-item">
-                                        <span>+2</span>
-                                        <input type="checkbox" class="expanse-checkbox weapon-usefocus"
-                                            name="weapon.data.data.usefocus" data-item-id={{weapon.id}} {{checked
-                                            weapon.data.data.usefocus}}>
-                                        {{#ifCond weapon.data.data.usefocus '&&' ../attributes.level.bonus}}
-                                        <span>+1</span>
-                                        <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
-                                            name="weapon.data.data.usefocusplus" data-item-id={{weapon.id}} {{checked
-                                            weapon.data.data.usefocusplus}}>
-                                        {{/ifCond}}
-                                    </div>
+                                            <div class="weapon-list-item">
+                                                <span>+2</span>
+                                                <input type="checkbox" class="expanse-checkbox weapon-usefocus"
+                                                    name="weapon.data.data.usefocus" data-item-id={{weapon.id}}
+                                                    {{checked weapon.data.data.usefocus}}>
+                                                {{#ifCond weapon.data.data.usefocus '&&' ../attributes.level.bonus}}
+                                                <span>+1</span>
+                                                <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
+                                                    name="weapon.data.data.usefocusplus" data-item-id={{weapon.id}}
+                                                    {{checked weapon.data.data.usefocusplus}}>
+                                                {{/ifCond}}
+                                            </div>
 
-                                    <div class="weapon-list-item">
-                                        <div class="roll-button pc-attack" data-roll="weapon-attack"
-                                            data-item-id="{{weapon.id}}"
-                                            data-item-abil="{{weapon.data.data.tohitabil}}"></div>
-                                    </div>
+                                            <div class="weapon-list-item">
+                                                <div class="roll-button pc-attack" data-roll="weapon-attack"
+                                                    data-item-id="{{weapon.id}}"
+                                                    data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                                            </div>
 
-                                    <div class="weapon-list-item">
-                                        <div class="roll-button pc-damage" data-roll="weapon-damage"
-                                            data-item-id="{{weapon.id}}"
-                                            data-item-abil="{{weapon.data.data.tohitabil}}"></div>
-                                    </div>
+                                            <div class="weapon-list-item">
+                                                <div class="roll-button pc-damage" data-roll="weapon-damage"
+                                                    data-item-id="{{weapon.id}}"
+                                                    data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                                            </div>
 
-                                    <div class="item-controls weapon-list-item">
-                                        <a class="item-control item-edit" title="Edit Weapon"><i
-                                                class="fas fa-edit"></i></a>
-                                        <a class="item-control item-delete" title="Delete Weapon"><i
-                                                class="fas fa-trash"></i></a>
+                                            <div class="item-controls weapon-list-item">
+                                                <a class="item-control item-edit" title="Edit Weapon"><i
+                                                        class="fas fa-edit"></i></a>
+                                                <a class="item-control item-delete" title="Delete Weapon"><i
+                                                        class="fas fa-trash"></i></a>
+                                            </div>
                                     </div>
-                                </div>
 
                             </li>
                             {{/each}}
@@ -551,10 +551,9 @@
                     <div class="box-header">
                         <span>DESCRIPTION</span>
                     </div>
-
                     <div class="biography-container">
-                        {{editor content=data.bio.appearance target="data.bio.appearance" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=bio.appearance target="bio.appearance" button=true owner=owner
+                        editable=true}}
                     </div>
                 </div>
 
@@ -565,8 +564,8 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.relationships target="data.bio.relationships" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=bio.relationships target="bio.relationships" button=true owner=owner
+                        editable=true}}
                     </div>
                 </div>
 
@@ -577,8 +576,8 @@
                     </div>
 
                     <div class="biography-container">
-                        {{editor content=data.bio.goals target="data.bio.goals" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=bio.goals target="bio.goals" button=true owner=owner
+                        editable=true}}
                     </div>
                 </div>
 
@@ -593,8 +592,8 @@
                     </div>
 
                     <div class="notes-container">
-                        {{editor content=data.bio.notes target="data.bio.notes" button=true owner=owner
-                        editable=editable}}
+                        {{editor content=bio.notes target="bio.notes" button=true owner=owner
+                        editable=true}}
                     </div>
                 </div>
             </div>

@@ -108,8 +108,9 @@ export class ExpanseActorSheet extends ActorSheet {
                 v._id = v.data._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
+            
         }
-
+        
         // Go through the Degrees of Talents and record the highest talent to display on the character sheet. 
         for (let [k, v] of Object.entries(sheetData.talent)) {
             const talent = duplicate(this.actor.getEmbeddedDocument("Item", v.id));

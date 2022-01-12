@@ -98,6 +98,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.cost = data.data.data.cost;
             itemData.data.equip = data.data.data.equip;
             itemData.data.type = data.data.data.type;
+            itemData.data.description = data.data.data.description;
         }
 
         if (data.data.type === "weapon") {
@@ -127,6 +128,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.quality = data.data.data.quality;
             itemData.data.dieFaces = data.data.data.dieFaces;
         }
+        console.log(itemData)
         return itemData;
     }
 

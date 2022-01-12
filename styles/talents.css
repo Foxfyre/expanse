@@ -236,6 +236,7 @@
     width: 100%;
     background-color: transparent;
     font-family: inherit;
+    padding: 2px 2px 2px 5px;
 }
   
 .talents .talents-effect .editor {
