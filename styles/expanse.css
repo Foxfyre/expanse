@@ -702,7 +702,9 @@ input[type=checkbox] {
 }
 
 .sheet .stunts-header-block input[type=text] {
-    color: whitesmoke
+    color: whitesmoke;
+    text-align: center;
+    border: none;
 }
 
 .sheet .stunts-box-sp {
@@ -787,6 +789,10 @@ input[type=checkbox] {
 
 .sheet .margin-l-5 {
     margin-left: 5px;
+}
+
+.sheet .editor-content {
+    padding: 3px;
 }
 
 .sheet .editor-content > p {
