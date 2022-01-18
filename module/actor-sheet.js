@@ -51,7 +51,7 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-
+ 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
                 //const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
@@ -157,6 +157,8 @@ export class ExpanseActorSheet extends ActorSheet {
             li.slideUp(200, () => this.render(false));
         });
 
+        html.find(".item-create").click(this._itemCreate.bind(this));
+
         html.find(".active-condition").click(async e => {
             const data = super.getData()
             const actorData = data.actor;
@@ -250,6 +252,19 @@ export class ExpanseActorSheet extends ActorSheet {
 
         html.find('.income-roll').click(this._IncomeRoll.bind(this));
 
+    }
+
+    _itemCreate(event) {
+        event.preventDefault();
+        const header = event.currentTarget;
+        const type = header.dataset.type;
+        const itemData = {
+            name: game.i18n.format("ITEM.ItemNew", { type: game.i18n.localize(`ITEM.ItemType${type.capitalize()}`) }),
+            type: type,
+            data: foundry.utils.deepClone(header.dataset)
+        };
+        delete itemData.data.type;
+        return this.actor.createEmbeddedDocuments("Item", [itemData], { renderSheet: true });
     }
 
     _onAttack(event) {
