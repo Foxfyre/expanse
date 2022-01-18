@@ -32,6 +32,7 @@ export class ExpanseActorSheet extends ActorSheet {
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
+        console.log(data)
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = data.actor.data.name;
         sheetData.stunts = data.actor.items.filter(i => i.type === "stunt");
@@ -128,6 +129,7 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
         //return data;
+        console.log(sheetData)
         return sheetData;
     }
 
