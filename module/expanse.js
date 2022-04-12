@@ -21,7 +21,7 @@ Hooks.once("init", async function () {
   CONFIG.Actor.documentClass = ExpanseActor;
   CONFIG.Item.documentClass = ExpanseItem;
   CONFIG.Combat.initiative = {
-    formula: "3d6",
+    formula: "3d6 + @abilities.dexterity.rating",
     decimals: 2
   }
   CONFIG.Dice.terms["a"] = TheExpanseEarthDark;
