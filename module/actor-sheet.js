@@ -185,7 +185,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             for (let [k, v] of Object.entries(items)) {
                 // Confirming only one armour equipped
-                if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
+                /*if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
                     Dialog.prompt({
                         title: "Cannot Equip",
                         content: "<p>You can only have one piece of armour and shield equipped at one time. Please remove your current armor before continuing",
@@ -193,7 +193,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         callback: () => console.log("denied!")
                     });
                     return;
-                }
+                }*/
                 // If targeting same armor, cycle on off;
                 if (v.type === "armor" && v._id === itemId) {
                     armor.data.equip = !armor.data.equip;

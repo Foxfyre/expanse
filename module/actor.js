@@ -42,7 +42,8 @@ export class ExpanseActor extends Actor {
   }
 
   prepareEmbeddedEntities() {
-    const actorData = this.data;
+    /*const actorData = this.data;
+    console.log(actorData)
     if (actorData.type === "character") {
       for (let items of actorData.items) {
         if (items.data.type === "armor" && items.data.data.equip === true) {
@@ -60,7 +61,7 @@ export class ExpanseActor extends Actor {
           actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
         }
       }
-    }
+    }*/
     // if armour is equipped, set modified value to bonus. else set to original value
 
   }
@@ -70,6 +71,23 @@ export class ExpanseActor extends Actor {
     const actorData = this.data;
     const data = actorData.data;
     if (actorData.type === "character") {
+
+      for (let items of actorData.items) {
+        if (items.data.type === "armor" && items.data.data.equip === true) {
+          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
+          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
+        } else if (items.data.type === "armor" && items.data.data.equip === false) {
+          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
+          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
+        }
+        //shields
+        if (items.data.type === "shield" && items.data.data.equip === true) {
+          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
+        }
+      }
+
+
+
       data.attributes.speed.modified = 10 + Number(data.abilities.dexterity.rating);
       data.attributes.defense.modified = 10 + Number(data.abilities.dexterity.rating) + Number(data.attributes.defense.bonus);
       data.attributes.toughness.modified = Number(data.abilities.constitution.rating);

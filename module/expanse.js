@@ -21,7 +21,7 @@ Hooks.once("init", async function () {
   CONFIG.Actor.documentClass = ExpanseActor;
   CONFIG.Item.documentClass = ExpanseItem;
   CONFIG.Combat.initiative = {
-    formula: "3d6",
+    formula: "3d6+@abilities.dextterity.rating",
     decimals: 2
   }
   CONFIG.Dice.terms["a"] = TheExpanseEarthDark;
@@ -117,12 +117,22 @@ Hooks.once("init", () => {
     },
     onChange: debouncedReload
   });
+
+  game.settings.register("expanse", "initial-welcome", {
+    name: "Hide Welcome Message",
+    hint: "Hide the welcome message The Expanse system.",
+    scope: "user",
+    config: !0,
+    type: Boolean,
+    default: !1
+  })
 })
 
 Hooks.on("ready", async () => {
-  new Dialog({
-    title: "The Expanse RPG",
-    content: `<div class="popup">
+  if (!game.settings.get("expanse", "initial-welcome")) {
+    new Dialog({
+      title: "The Expanse RPG",
+      content: `<div class="popup">
     <img src="systems/expanse/ui/The expanse RPG logo - black.png" width="350px" height="62px" style="margin-bottom: 10px;">
     <h2>Welcome to <i>The Expanse RPG!</i></h2>
     <p>Green Ronin Publishing is proud to present the official Foundry VTT system for <i>The Expanse RPG</i>! <br><br>
@@ -144,10 +154,17 @@ Hooks.on("ready", async () => {
             and their associated logos are trademarks of Green Ronin Publishing, LLC. The Expanse is © 2011-2019 Daniel Abraham and Ty Franck.</br>
             <div class="popup-img"><img src="systems/expanse/ui//roninlogo02_color300.png" width="69" height="120" />    <img src="systems/expanse/ui/AGE_logo_Expanse.png" width="161" height="100" /></div>
     </p></div>`,
-    buttons: {
-      ok: {
-        label: "Here comes the juice!",
+      buttons: {
+        dont_show: {
+          label: "Don't Show Again",
+          callback: async () => {
+            await game.settings.set("expanse", "initial-welcome", true)
+          }
+        },
+        ok: {
+          label: "Here comes the juice!",
+        }
       }
-    }
-  }).render(true)
+    }).render(true)
+  }
 })

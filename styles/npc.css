@@ -29,7 +29,7 @@
     border-bottom-right-radius: 10px;
     border-top-left-radius: 10px;
     background-color: #D6E7ED;
-} 
+}
 
 .npc .npc-header-block {
     display: flex;
@@ -42,7 +42,7 @@
     color: whitesmoke;
 }
 
-.npc .npc-header-block > span {
+.npc .npc-header-block>span {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -69,8 +69,8 @@
     background-color: rgba(0, 0, 0, .9);
     height: 15px;
 }
-  
-.npc .box-header > span {
+
+.npc .box-header>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -95,7 +95,7 @@
     width: 50%;
 }
 
-.npc .npc-ability > span {
+.npc .npc-ability>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -115,7 +115,7 @@
     height: 20px;
 }
 
-.npc .npc-ability-focus { 
+.npc .npc-ability-focus {
     display: flex;
     width: 100%;
 }
@@ -153,6 +153,7 @@
     width: 25px;
     height: 20px;
 }
+
 /****************/
 
 .npc .npc-weapon-box {
@@ -191,9 +192,11 @@
     flex-direction: row;
     justify-content: center;
 }
+
 .npc .npc-weapon-row a:first-child {
     margin-right: 5px;
 }
+
 /*****************************/
 
 
@@ -241,7 +244,7 @@
     flex-direction: column;
     width: 100%;
     min-height: 150px;
-    
+
     background-color: #D6E7ED;
 }
 
@@ -252,13 +255,19 @@
     padding: 5px 0;
 }
 
+.npc .npc-images .npc-char-image img {
+    width: 150px;
+    object-fit: contain;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
+}
+
 
 .npc .npc-notes-box {
     display: flex;
     flex-direction: column;
     text-align: center;
     width: 100%;
-    min-height:100px;
+    min-height: 100px;
     margin: 0px 0px 10px 0px;
     background-color: #f3f3f3;
 }
