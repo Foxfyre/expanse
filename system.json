@@ -2,7 +2,7 @@
   "name": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "Charlotte Hamilton",
