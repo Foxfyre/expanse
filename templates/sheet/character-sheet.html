@@ -156,6 +156,14 @@
                             data-dtype="Number" />
                     </div>
 
+                    <div id="fortune" class="attribute-box">
+                        <div class="box-header">
+                            <span>{{localize "EXPANSE.MaxFortune"}}</span>
+                        </div>
+                        <input type="text" name="data.attributes.fortune.max" value="{{attributes.fortune.max}}"
+                            data-dtype="Number" />
+                    </div>
+
                     <div id="stuntpoints" class="attribute-box">
                         <div class="box-header">
                             <span>{{localize "EXPANSE.Stuntpoints"}}</span>
@@ -242,7 +250,7 @@
 
                         {{#each conditions as |conditions key|}}
 
-                        <div class="condition" title="{{localize (concat " EXPANSE." key) }}">
+                        <div class="condition" title="{{localize (concat "EXPANSE." key) }}">
 
                             <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
                                 conditions.active}}>
