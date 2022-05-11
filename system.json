@@ -2,7 +2,7 @@
   "name": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "minimumCoreVersion": "9",
   "compatibleCoreVersion": "9",
   "author": "Charlotte Hamilton",
@@ -60,6 +60,6 @@
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/Foxfyre/expanse",
   "manifest": "https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json",
-  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.8.4/expanse.zip",
+  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.8.5/expanse.zip",
   "license": "LICENSE.txt"
 }
