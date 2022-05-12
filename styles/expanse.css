@@ -464,6 +464,22 @@ blockquote {
     text-transform: uppercase;
     align-items: center;
 }
+
+.ability-penalty-box {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0px 0px 0px 50px;
+}
+
+.ability-penalty-box > span {
+    font-size: .8em;
+    text-transform: uppercase;
+    align-items: center;
+}
+
   
 .age-abilities input[type=text] {
     display: flex;

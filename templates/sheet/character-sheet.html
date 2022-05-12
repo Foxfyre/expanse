@@ -202,6 +202,14 @@
 
                             <span>{{key}}</span>
 
+                            {{#ifCond key '==' 'dexterity'}}
+                            <div class="ability-penalty-box">
+                                <span>Penalty</span>
+                                <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.usePenalty"
+                                       {{checked ability.usePenalty}}>
+                            </div>
+                            {{/ifCond}}
+
                             <div class="ability-focus-box">
                                 <span>Focus +2</span>
                                 <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"

@@ -103,7 +103,8 @@
                     "rating": 0,
                     "focus": "",
                     "useFocus": false,
-                    "useFocusPlus": false
+                    "useFocusPlus": false,
+                    "usePenalty": false
                 },
                 "fighting": {
                     "rating": 0,

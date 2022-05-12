@@ -648,7 +648,9 @@ export class ExpanseActorSheet extends ActorSheet {
             let condModName;
             let rollCard;
             let condModWarning;
+            let armorPenaltyWarning;
             let resultsSum;
+            let armorPenalty = 0;
             let useFocusPlus = 0;
             // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
             if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
@@ -664,14 +666,21 @@ export class ExpanseActorSheet extends ActorSheet {
             if (roll.data.abilities[dataset.label].usefocus === true && roll.data.abilities[dataset.label].usefocusplus === true) {
                 useFocusPlus = 1
             }
+            if (dataset.label === 'dexterity' && roll.data.abilities[dataset.label].usePenalty === true) {
+                armorPenalty = roll.data.attributes.penalty.modified
+            }
+
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
 
-            if (roll.data.conditions.wounded.active === true) {
+
+            //TODO: Should probably roll these roll modifiers into it's own function and then localize it
+
+            if (roll.data.conditions.wounded.active === "true") {
                 condMod = -2;
                 condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
+            } else if ((roll.data.conditions.injured.active === "true") && (roll.data.conditions.wounded.active === false)) {
                 condMod = -1;
                 condModName = "injured";
             } else {
@@ -685,6 +694,13 @@ export class ExpanseActorSheet extends ActorSheet {
             } else {
                 condModWarning = ``;
             }
+
+            if(armorPenalty < 0) {
+                armorPenaltyWarning = `<i>Your armor is restrictive and receive a ${armorPenalty} modifier to your roll</i> <br>`;
+            } else {
+                armorPenaltyWarning = ``;
+            }
+
 
             const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
             <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
@@ -700,7 +716,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod + armorPenalty;
 
             // Stunt Points Generation
             let chatStunts = "";
@@ -723,7 +739,8 @@ export class ExpanseActorSheet extends ActorSheet {
                         ${chatMod}
                         ${chatAddMod}
                         ${chatFocus}
-                        ${condModWarning} 
+                        ${condModWarning}
+                        ${armorPenaltyWarning} 
                         <b>Ability Test Results:</b> ${resultsSum} <br> 
                         ${chatStunts}
                     `
@@ -743,6 +760,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 ${chatMod}
                 ${chatFocus}
                 ${condModWarning} 
+                ${armorPenaltyWarning}
                 <b>Ability Test Results:</b> ${resultsSum} <br> 
                 ${chatStunts}`
 

@@ -113,6 +113,7 @@ export class ExpanseItemSheet extends ItemSheet {
             itemData.data.npcAttack = data.data.data.npcattack;
             itemData.data.usefocus = data.data.data.usefocus;
             itemData.data.usefocusplus = data.data.data.usefocusplus;
+            itemData.data.usepenalty = data.data.data.usepenalty;
             itemData.data.damage = data.data.data.damage;
             itemData.data.manualDamage = data.data.data.manualDamage;
             itemData.data.hasBonusDamage = data.data.data.hasBonusDamage;
