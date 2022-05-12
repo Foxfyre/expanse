@@ -686,10 +686,10 @@ export class ExpanseActorSheet extends ActorSheet {
 
             //TODO: Should probably roll these roll modifiers into it's own function and then localize it
 
-            if (roll.data.conditions.wounded.active === "true") {
+            if (roll.data.conditions.wounded.active === true) {
                 condMod = -2;
                 condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === "true") && (roll.data.conditions.wounded.active === false)) {
+            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
                 condMod = -1;
                 condModName = "injured";
             } else {
