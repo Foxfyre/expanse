@@ -179,11 +179,11 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".item-equip").click(async e => {
             const data = super.getData()
             const items = data.items;
-
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const armor = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
 
             for (let [k, v] of Object.entries(items)) {
+                let curArmor = duplicate(this.actor.getEmbeddedDocument("Item", v._id));
+
                 // Confirming only one armour equipped
                 /*if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
                     Dialog.prompt({
@@ -195,12 +195,21 @@ export class ExpanseActorSheet extends ActorSheet {
                     return;
                 }*/
                 // If targeting same armor, cycle on off;
+
                 if (v.type === "armor" && v._id === itemId) {
-                    armor.data.equip = !armor.data.equip;
-                } else if (v.type === "shield" && v._id === itemId) {
-                    armor.data.equip = !armor.data.equip;
+                    curArmor.data.equip =  !curArmor.data.equip
+                } else if (v.type === "armor") {
+                    curArmor.data.equip =  false
                 }
-                this.actor.updateEmbeddedDocuments("Item", [armor])
+
+
+                if (v.type === "shield" && v._id === itemId) {
+                    curArmor.data.equip = !curArmor.data.equip;
+                } else if (v.type === "shield") {
+                    curArmor.data.equip =  false
+                }
+
+                this.actor.updateEmbeddedDocuments("Item", [curArmor]);
             }
         });
 

@@ -72,13 +72,13 @@ export class ExpanseActor extends Actor {
     const data = actorData.data;
     if (actorData.type === "character") {
 
+      actorData.data.attributes.armor.modified = 0;
+      actorData.data.attributes.penalty.modified = 0;
+
       for (let items of actorData.items) {
         if (items.data.type === "armor" && items.data.data.equip === true) {
           actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
           actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
-        } else if (items.data.type === "armor" && items.data.data.equip === false) {
-          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
-          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
         }
         //shields
         if (items.data.type === "shield" && items.data.data.equip === true) {
@@ -88,7 +88,7 @@ export class ExpanseActor extends Actor {
 
 
 
-      data.attributes.speed.modified = 10 + Number(data.abilities.dexterity.rating);
+      data.attributes.speed.modified = 10 + Number(data.abilities.dexterity.rating) + Number(data.attributes.penalty.modified);
       data.attributes.defense.modified = 10 + Number(data.abilities.dexterity.rating) + Number(data.attributes.defense.bonus);
       data.attributes.toughness.modified = Number(data.abilities.constitution.rating);
       data.attributes.move.modified = Number(data.attributes.speed.modified);
