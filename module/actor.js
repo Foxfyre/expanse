@@ -74,6 +74,7 @@ export class ExpanseActor extends Actor {
 
       actorData.data.attributes.armor.modified = 0;
       actorData.data.attributes.penalty.modified = 0;
+      actorData.data.attributes.defense.bonus = 0;
 
       for (let items of actorData.items) {
         if (items.data.type === "armor" && items.data.data.equip === true) {
