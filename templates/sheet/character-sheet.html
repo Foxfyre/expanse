@@ -38,8 +38,7 @@
 
                         <div class="information">
 
-                            <label for="data.info.background" class="info-label">{{localize "EXPANSE.Background"
-                                }}</label>
+                            <label for="data.info.background" class="info-label">{{localize "EXPANSE.Background"}}</label>
 
                             <input class="info-input" type="text" name="data.info.background"
                                 value="{{info.background}}" data-dtype="String" />
@@ -181,11 +180,11 @@
         </header>
 
         <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="abilities">Abilities</a>
-            <a class="item" data-tab="talents">Talents & Stunts</a>
-            <a class="item" data-tab="gear">Equipment</a>
-            <a class="item" data-tab="biography">Biography</a>
-            <a class="item" data-tab="notes">Notes</a>
+            <a class="item" data-tab="abilities">{{localize "EXPANSE.Abilities" }}</a>
+            <a class="item" data-tab="talents">{{localize "EXPANSE.TalentsStunts" }}</a>
+            <a class="item" data-tab="gear">{{localize "EXPANSE.Equipment" }}</a>
+            <a class="item" data-tab="biography">{{localize "EXPANSE.Biography" }}</a>
+            <a class="item" data-tab="notes">{{localize "EXPANSE.Notes" }}</a>
         </nav>
 
         <section class="sheet-body">
@@ -200,10 +199,10 @@
 
                         <div class="ability-name">
 
-                            <span>{{key}}</span>
+                            <span>{{localize (concat "EXPANSE." key) }}</span>
 
                             <div class="ability-focus-box">
-                                <span>Focus +2</span>
+                                <span>{{localize "EXPANSE.Focus" }} +2</span>
                                 <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
                                     {{checked ability.useFocus}}>
                                 {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
@@ -242,7 +241,7 @@
 
                         <!-- Header -->
 
-                        <span>conditions</span>
+                        <span>{{localize "EXPANSE.Conditions" }}</span>
 
                     </div>
 
@@ -250,12 +249,12 @@
 
                         {{#each conditions as |conditions key|}}
 
-                        <div class="condition" title="{{localize (concat "EXPANSE." key) }}">
+                        <div class="condition" title="{{localize (concat "EXPANSE." key "Desc") }}">
 
                             <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
                                 conditions.active}}>
 
-                            <span class="condition-hover">{{key}}</span>
+                            <span class="condition-hover">{{localize (concat "EXPANSE." key) }}</span>
 
                         </div>
 
@@ -275,7 +274,7 @@
 
                         <div class="talent-header">
 
-                            <span class="talent-header-name">Talents</span>
+                            <span class="talent-header-name">{{localize "EXPANSE.Talents" }}</span>
 
                         </div>
 
@@ -309,9 +308,9 @@
                     <!-- Stunts on character sheet are referred to by Stunt. On the stunt sheet they are Stunts-->
                     <div class="stunt-box">
                         <div class="stunt-header">
-                            <span class="stunt-header-title">Stunt Type</span>
-                            <span class="stunt-header-title">Cost</span>
-                            <span class="stunt-header-effect">Name</span>
+                            <span class="stunt-header-title">{{localize "EXPANSE.StuntType" }}</span>
+                            <span class="stunt-header-title">{{localize "EXPANSE.Cost" }}</span>
+                            <span class="stunt-header-effect">{{localize "EXPANSE.Name" }}</span>
                             <span class="stunt-header-blank"></span>
                         </div>
 
@@ -355,19 +354,19 @@
 
                         <div class="weapon-header">
 
-                            <span>Weapons</span>
+                            <span>{{localize "EXPANSE.Weapons" }}</span>
 
                         </div>
 
                         <ul class="items weapon-list">
                             <div class="box-header">
-                                <span>Name</span>
-                                <span>Damage</span>
-                                <span>Attack Bonus</span>
-                                <span>Range Max</span>
-                                <span>Focus</span>
-                                <span>Hit</span>
-                                <span>Damage</span>
+                                <span>{{localize "EXPANSE.Name" }}</span>
+                                <span>{{localize "EXPANSE.Damage" }}</span>
+                                <span>{{localize "EXPANSE.AttackBonus" }}</span>
+                                <span>{{localize "EXPANSE.RangeMax" }}</span>
+                                <span>{{localize "EXPANSE.Focus" }}</span>
+                                <span>{{localize "EXPANSE.Hit" }}</span>
+                                <span>{{localize "EXPANSE.Damage" }}</span>
                                 <span></span>
                             </div>
 
@@ -437,17 +436,17 @@
 
                         <div class="armor-header">
 
-                            <span>Armor</span>
+                            <span>{{localize "EXPANSE.Armor" }}</span>
 
                         </div>
 
                         <ul class="items armor-list">
                             <div class="box-header">
-                                <span>Name</span>
-                                <span>Type</span>
-                                <span>Armor Bonus</span>
-                                <span>Armor Penalty</span>
-                                <span>Equipped</span>
+                                <span>{{localize "EXPANSE.Name" }}</span>
+                                <span>{{localize "EXPANSE.Type" }}</span>
+                                <span>{{localize "EXPANSE.ArmorBonus" }}</span>
+                                <span>{{localize "EXPANSE.ArmorPenalty" }}</span>
+                                <span>{{localize "EXPANSE.Equipped" }}</span>
                                 <span></span>
                             </div>
                             {{#each armor as |armor key|}}
@@ -488,16 +487,16 @@
 
                         <div class="armor-header">
 
-                            <span>Shield</span>
+                            <span>{{localize "EXPANSE.Shield" }}</span>
 
                         </div>
 
                         <ul class="items armor-list">
                             <div class="box-header">
-                                <span>Name</span>
-                                <span>Type</span>
-                                <span>Defense Bonus</span>
-                                <span>Equipped</span>
+                                <span>{{localize "EXPANSE.Name" }}</span>
+                                <span>{{localize "EXPANSE.Type" }}</span>
+                                <span>{{localize "EXPANSE.DefenseBonus" }}</span>
+                                <span>{{localize "EXPANSE.Equipped" }}</span>
                                 <span></span>
                             </div>
 
@@ -537,14 +536,14 @@
 
                     <div class="misc-gear">
                         <div class="box-header">
-                            <span>Miscellaneous items</span>
+                            <span>{{localize "EXPANSE.MiscellaneousItems" }}</span>
                         </div>
 
                         <div class="income-items-row">
                             <div class="income">
                                 <div class="income-col">
 
-                                    <span>Income</span>
+                                    <span>{{localize "EXPANSE.Income" }}</span>
 
                                     <input class="age-income" type="text" name="data.info.income"
                                         value="{{info.income}}" data-dtype="Number" />
@@ -555,7 +554,7 @@
 
                             </div>
                             <div class="extra-equipment">
-                                <span>Equipment</span>
+                                <span>{{localize "EXPANSE.Equipment" }}</span>
                                 <input type="text" name="data.info.equipment" value="{{info.equipment}}"
                                     data-dtype="String" />
                             </div>
@@ -571,7 +570,7 @@
                 <div class="biography-box">
 
                     <div class="box-header">
-                        <span>DESCRIPTION</span>
+                        <span>{{localize "EXPANSE.Description" }}</span>
                     </div>
                     <div class="biography-container">
                         {{editor content=bio.appearance target="data.bio.appearance" button=true owner=owner
@@ -582,7 +581,7 @@
                 <div class="biography-box">
 
                     <div class="box-header">
-                        <span>RELATIONSHIPS</span>
+                        <span>{{localize "EXPANSE.Relationships" }}</span>
                     </div>
 
                     <div class="biography-container">
@@ -594,7 +593,7 @@
                 <div class="biography-box">
 
                     <div class="box-header">
-                        <span>GOALS</span>
+                        <span>{{localize "EXPANSE.Goals" }}</span>
                     </div>
 
                     <div class="biography-container">
@@ -610,7 +609,7 @@
                 <div class="notes-box">
 
                     <div class="box-header">
-                        <span>NOTES</span>
+                        <span>{{localize "EXPANSE.Notes" }}</span>
                     </div>
 
                     <div class="notes-container">
