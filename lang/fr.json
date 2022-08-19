@@ -32,7 +32,8 @@
     "EXPANSE.Roll": "Lancer",
     "EXPANSE.Cost": "Coût",
     "EXPANSE.itemCost": "Prix de l'objet",
-    "EXPANSE.DamageModifier": "Modificateur de dommage",
+    "EXPANSE.DamageModifier": "Modificateur de dommages",
+    "EXPANSE.DamageModifiers": "Modificateurs de dommages",
     "EXPANSE.DamageDiceModifier": "Dé de dommage",
     "EXPANSE.RollModifier": "Modificateur de jet",
     "EXPANSE.blinded": "Aveuglé",
@@ -147,5 +148,8 @@
     "EXPANSE.HeavyMelee" : "Arme Lourde",
     "EXPANSE.Pistol" : "Pistolet",
     "EXPANSE.Rifle" : "Fusil",
-    "EXPANSE.Grenade" : "Grenade"
+    "EXPANSE.Grenade" : "Grenade",
+    "EXPANSE.AddExtraDice" : "Ajouter des Dés",
+    "EXPANSE.AddExtraDamage" : "Ajouter des Dommages",
+    "EXPANSE.AddRollModifier" : "Ajouter un Modificateur au jet"
 }

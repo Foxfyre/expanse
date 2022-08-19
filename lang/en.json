@@ -35,6 +35,7 @@
     "EXPANSE.Cost": "Cost",
     "EXPANSE.itemCost": "Item Cost.",
     "EXPANSE.DamageModifier": "Damage Modifier",
+    "EXPANSE.DamageModifiers": "Damage Modifiers",
     "EXPANSE.DamageDiceModifier": "Damage Dice",
     "EXPANSE.RollModifier": "Roll Modifier",
     "EXPANSE.blinded": "Blinded",
@@ -148,6 +149,9 @@
     "EXPANSE.HeavyMelee" : "Heavy Melee",
     "EXPANSE.Pistol" : "Pistol",
     "EXPANSE.Rifle" : "Rifle",
-    "EXPANSE.Grenade" : "Grenade"
+    "EXPANSE.Grenade" : "Grenade",
+    "EXPANSE.AddExtraDice" : "Add Extra Dice",
+    "EXPANSE.AddExtraDamage" : "Add Extra Damage",
+    "EXPANSE.AddRollModifier" : "Add Roll Modifier"
 
 }
