@@ -14,7 +14,7 @@
                     <input class="info-input" type="text" name="name" value="{{actor.name}}" data-dtype="String" />
                 </div>
                 <div class="ship-type ship-input">
-                    <label for="data.type" class="info-label">Type</label>
+                    <label for="data.type" class="info-label">Size</label>
                     <input class="info-input" type="text" name="data.type" value="{{actor.data.data.type}}"
                         data-dtype="String" />
                 </div>
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="ship-notes-container">
-                    {{editor content=data.data.notes target="data.notes" button=true owner=owner editable=editable}}
+                    {{editor content=data.data.notes target="data.notes" button=true owner=owner editable=true}}
                 </div>
             </div>
 

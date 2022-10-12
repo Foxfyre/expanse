@@ -15,7 +15,7 @@
             </div>
 
         </div>
- 
+
         <div class="npc-ability-block">
             {{#each abilities as |ability key|}}
             <div class="npc-ability" data-item-id="{{item.id}}">
@@ -74,8 +74,12 @@
                         </div>
 
                         <div class="npc-weapon-list-item">
-                            {{weapon.data.data.damage}}D6{{#if
-                            weapon.data.data.hasBonusDamage}}+{{weapon.data.data.bonusDamage}}{{/if}}
+                            {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}
+                            {{#if
+                            weapon.data.data.hasBonusDamage}}
+                            {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
+                            {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
+                                {{weapon.data.data.bonusDamage}} {{/if}} 
                         </div>
 
                         <div class="npc-weapon-list-item">
@@ -84,30 +88,115 @@
                         <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
 
                         <div class="npc-weapon-list-item">
-                            <input type="checkbox" class="expanse-checkbox weapon-usefocus" name="weapon.data.data.usefocus"
-                                data-item-id={{weapon.id}} {{checked weapon.data.data.usefocus}}>
+                            <input type="checkbox" class="expanse-checkbox weapon-usefocus"
+                                name="weapon.data.data.usefocus" data-item-id={{weapon.id}} {{checked
+                                weapon.data.data.usefocus}}>
                         </div>
 
                         <div class="weapon-list-item">
                             <div class="roll-button npc-attack" data-roll="weapon-attack"
-                                data-item-id="{{weapon.id}}"
-                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                            </div>
                         </div>
 
                         <div class="weapon-list-item">
                             <div class="roll-button npc-damage" data-roll="weapon-damage"
-                                data-item-id="{{weapon.id}}"
-                                data-item-abil="{{weapon.data.data.tohitabil}}"></div>
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                            </div>
                         </div>
 
                         <div class="item-controls npc-weapon-list-item">
-                            <a class="item-control item-edit" title="Edit Talent"><i class="fas fa-edit"></i></a>
-                            <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                            <a class="item-control item-edit" title="Edit Talent"><i
+                                    class="fas fa-edit"></i></a>
+                            <a class="item-control item-delete" title="Delete Talent"><i
+                                    class="fas fa-trash"></i></a>
                         </div>
-                    </div>
+                        </div>
                 </li>
                 {{/each}}
             </ul>
+
+            {{#if armor}}
+            <!--<div class="armor-header">
+
+                <span>Armor</span>
+
+            </div>-->
+
+            <ul class="items armor-list">
+                <div class="box-header">
+                    <span>Name</span>
+                    <span>Type</span>
+                    <span>Armor Bonus</span>
+                    <span>Armor Penalty</span>
+                    <span></span>
+                </div>
+                {{#each armor as |armor key|}}
+                <li class="item armor" data-item-id="{{armor.id}}">
+                    <div class="armor-row">
+                        <div class="armor-list-item">
+                            {{armor.data.name}}
+                        </div>
+                        <div class="armor-list-item">
+                            {{armor.data.data.type}}
+                        </div>
+                        <div class="armor-list-item">
+                            {{armor.data.data.bonus}}
+                        </div>
+                        <div class="armor-list-item">
+                            {{armor.data.data.penalty}}
+                        </div>
+                    </div>
+
+                    <div class="item-controls talent-item-control">
+                        <a class="item-control item-edit" title="Edit Talent"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                    </div>
+
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
+
+            {{#if shield}}
+            <!--<div class="armor-header">
+
+                <span>Shield</span>
+
+            </div>-->
+
+            <ul class="items armor-list">
+                <div class="box-header">
+                    <span>Name</span>
+                    <span>Type</span>
+                    <span>Defense Bonus</span>
+                    <span>Equipped</span>
+                    <span></span>
+                </div>
+
+                {{#each shield as |shield key|}}
+                <li class="item armor" data-item-id="{{shield.id}}">
+                    <div class="armor-row">
+                        <div class="armor-list-item">
+                            {{shield.name}}
+                        </div>
+                        <div class="armor-list-item">
+                            {{shield.data.data.type}}
+                        </div>
+                        <div class="armor-list-item">
+                            {{shield.data.data.bonus}}
+                        </div>
+                    </div>
+
+                    <div class="item-controls talent-item-control">
+                        <a class="item-control item-edit" title="Edit Talent"><i class="fas fa-edit"></i></a>
+                        <a class="item-control item-delete" title="Delete Talent"><i class="fas fa-trash"></i></a>
+                    </div>
+
+                </li>
+                {{/each}}
+            </ul>
+            {{/if}}
         </div>
 
         <div class="npc-specials-block">
@@ -143,9 +232,9 @@
             <div class="box-header">
                 <span>DESCRIPTION</span>
             </div>
- 
+
             <div class="npc-notes-container">
-                {{editor content=data.notes target="data.notes" button=true owner=owner editable=editable}}
+                {{editor content=notes target="data.notes" button=true owner=owner editable=true}}
             </div>
         </div>
 
@@ -155,7 +244,7 @@
             </div>
 
             <div class="npc-images">
-                <div class="char-image">
+                <div class="npc-char-image">
                     <img class="profile-img" src="{{img}}" data-edit="img" name="img" title="Character Portrait" />
                 </div>
             </div>
@@ -169,4 +258,4 @@
 
     </div>
 
-</form>  
+</form>

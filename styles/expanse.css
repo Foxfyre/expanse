@@ -154,9 +154,9 @@
 
 body {
     background-image: url("../ui/expanse_background.jpg");
-    background-size: cover;
-    background-repeat: none;
-    background-position: center;
+    background-repeat: no-repeat;
+    /*background-color: #005971;*/
+    background-size: auto;
 }
 
 img {
@@ -180,7 +180,7 @@ img {
 }
 
 .sheet header.sheet-header img {
-    height: auto;
+    height: 100%;
 }
 
 .sheet header.sheet-header {
@@ -233,7 +233,9 @@ ul {
 }
 
 blockquote {
-    border-color: #005971
+    border-color: transparent;
+    padding: 0px 10px 5px 10px; 
+    color: black;
 }
 
 /* New CSS */
@@ -700,7 +702,9 @@ input[type=checkbox] {
 }
 
 .sheet .stunts-header-block input[type=text] {
-    color: whitesmoke
+    color: whitesmoke;
+    text-align: center;
+    border: none;
 }
 
 .sheet .stunts-box-sp {
@@ -787,9 +791,12 @@ input[type=checkbox] {
     margin-left: 5px;
 }
 
+.sheet .editor-content {
+    padding: 3px;
+}
+
 .sheet .editor-content > p {
     margin-top: 0;
-    padding: 3px;
 }
 
 .sheet .stunt-degree-block {
@@ -1074,6 +1081,7 @@ input[type=checkbox] {
     min-height: 100px;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding: 5px;
 }
 
 .sheet .biography-container .editor {
@@ -1315,11 +1323,19 @@ a.entity-link, a.inline-roll {
 
 .window-app.app h1,.window-app.app  h2 {
     border-bottom: 2px solid #005971;
+    text-transform: uppercase;
+}
+
+.window-app.app h4 {
+    border-bottom: 1px solid #005971;
+    padding: 0 0 5px 5px;
+    text-transform: uppercase;
 }
 
 .window-app.app.journal-sheet h5 {
     font-size: 1.125em;
     font-weight: normal;
+    text-transform: uppercase;
     border-bottom: 1px solid #005971;
     padding: 0 0 5px 5px;
     margin-block-start: 0.55em;
@@ -1333,6 +1349,16 @@ a.entity-link, a.inline-roll {
     padding: 0 0 5px 5px;
     margin-block-start: 0.55em;
     margin-block-end: 0.55em;
+}
+
+.window-app.app.journal-sheet p {
+    text-indent: 2ch;
+    padding: 0 5px;
+}
+
+.window-app.app.journal-sheet blockquote p {
+    text-indent: -1ch;
+    margin: 1px 0px 0px -6px;
 }
 
 /* Damage Mod CSS  */
@@ -1415,7 +1441,7 @@ a.entity-link, a.inline-roll {
 .modifier-section-left {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 50%;
 }
@@ -1468,3 +1494,4 @@ a.entity-link, a.inline-roll {
     align-items: baseline;
     justify-content: space-around;
 }
+

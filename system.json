@@ -2,10 +2,9 @@
   "name": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.7.0",
-  "minimumCoreVersion": "0.8.7",
-  "compatibleCoreVersion": "0.8.9",
-  "templateVersion": 3,
+  "version": "0.8.5",
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "9",
   "author": "Charlotte Hamilton",
   "authors": [
     {
@@ -37,6 +36,16 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    },
+    {
+      "lang": "es",
+      "Name": "Spanish",
+      "path": "lang/es.json"
+    },
+    {
+      "lang": "fr",
+      "Name": "French",
+      "path": "lang/fr.json"
     }
   ],
   "media": [
@@ -51,6 +60,6 @@
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/elexisvenator/expanse",
   "manifest": "https://raw.githubusercontent.com/elexisvenator/expanse/main/system.json",
-  "download": "https://github.com/elexisvenator/expanse/releases/download/v0.7.1/expanse.zip",
+  "download": "https://github.com/elexisvenator/expanse/releases/download/v0.8.5/expanse.zip",
   "license": "LICENSE.txt"
 }

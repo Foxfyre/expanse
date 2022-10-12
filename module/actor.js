@@ -39,90 +39,31 @@ export class ExpanseActor extends Actor {
     }
 
     data.update(createData);
-    /*async _preCreate(data, options, user) {
-      if (data._id)
-        options.keepId = WFRP_Utility._keepID(data._id, this)
-  
-      await super._preCreate(data, options, user)
-  
-      // If the created actor has items (only applicable to duplicated actors) bypass the new actor creation logic
-      if (data.items)
-        return
-  
-      let createData = {};
-      createData.items = await this._getNewActorItems()
-  
-      // Default auto calculation to true
-      createData.flags =
-      {
-        autoCalcRun: true,
-        autoCalcWalk: true,
-        autoCalcWounds: true,
-        autoCalcCritW: true,
-        autoCalcCorruption: true,
-        autoCalcEnc: true,
-        autoCalcSize: true,
-      }
-  
-      // Set wounds, advantage, and display name visibility
-      if (!data.token)
-        mergeObject(createData,
-          {
-            "token.bar1": { "attribute": "status.wounds" },                 // Default Bar 1 to Wounds
-            "token.bar2": { "attribute": "status.advantage" },               // Default Bar 2 to Advantage
-            "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display name to be on owner hover
-            "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display bars to be on owner hover
-            "token.disposition": CONST.TOKEN_DISPOSITIONS.NEUTRAL,         // Default disposition to neutral
-            "token.name": data.name                                       // Set token name to actor name
-          })
-      else if (data.token)
-        createDate.token = data.token
-  
-      // Set custom default token
-      if (!data.img) {
-        createData.img = "systems/wfrp4e/tokens/unknown.png"
-        if (data.type == "vehicle")
-          createData.img = "systems/wfrp4e/tokens/vehicle.png"
-      }
-  
-  
-      // Default characters to HasVision = true and Link Data = true
-      if (data.type == "character") {
-        createData.token.vision = true;
-        createData.token.actorLink = true;
-      }
-  
-      this.data.update(createData)
-    }*/
-
-
-
-
-
-
-
   }
 
   prepareEmbeddedEntities() {
-    const actorData = this.data;
+    /*const actorData = this.data;
+    console.log(actorData)
+    if (actorData.type === "character") {
+      for (let items of actorData.items) {
+        if (items.data.type === "armor" && items.data.data.equip === true) {
+          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
+          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
+        } else if (items.data.type === "armor" && items.data.data.equip === false) {
+          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
+          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
+        }
+      }
 
+      //shields
+      for (let items of actorData.items) {
+        if (items.data.type === "shield" && items.data.data.equip === true) {
+          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
+        }
+      }
+    }*/
     // if armour is equipped, set modified value to bonus. else set to original value
-    for (let items of actorData.items) {
-      if (items.data.type === "armor" && items.data.data.equip === true) {
-        actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
-        actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
-      } else if (items.data.type === "armor" && items.data.data.equip === false) {
-        actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
-        actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
-      }
-    }
 
-    //shields
-    for (let items of actorData.items) {
-      if (items.data.type === "shield" && items.data.data.equip === true) {
-        actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
-      }
-    }
   }
 
 
@@ -130,6 +71,23 @@ export class ExpanseActor extends Actor {
     const actorData = this.data;
     const data = actorData.data;
     if (actorData.type === "character") {
+
+      for (let items of actorData.items) {
+        if (items.data.type === "armor" && items.data.data.equip === true) {
+          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
+          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
+        } else if (items.data.type === "armor" && items.data.data.equip === false) {
+          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
+          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
+        }
+        //shields
+        if (items.data.type === "shield" && items.data.data.equip === true) {
+          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
+        }
+      }
+
+
+
       data.attributes.speed.modified = 10 + Number(data.abilities.dexterity.rating);
       data.attributes.defense.modified = 10 + Number(data.abilities.dexterity.rating) + Number(data.attributes.defense.bonus);
       data.attributes.toughness.modified = Number(data.abilities.constitution.rating);

@@ -6,7 +6,7 @@ export class ExpanseNPCSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "npc"],
-            width: 480,
+            width: 500,
             height: 450,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
@@ -52,7 +52,6 @@ export class ExpanseNPCSheet extends ActorSheet {
             return a.name.localeCompare(b.name);
         });
 
-
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
                 const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
@@ -62,7 +61,6 @@ export class ExpanseNPCSheet extends ActorSheet {
                 let focusBonus = useFocus ? 2 : 0;
                 let toHitMod = v.data.data.type;
                 let modType = "";
-
                 switch (modifierStat) {
                     case 'Dexterity':
                         bonusDamage = data.actor.data.data.abilities.dexterity.rating;
@@ -73,9 +71,11 @@ export class ExpanseNPCSheet extends ActorSheet {
                     case 'Strength':
                         bonusDamage = data.actor.data.data.abilities.strength.rating;
                         break;
+                    case 'Manual':
+                        bonusDamage = weapon.data.manualDamage;
+                        break;
                 }
-
-                if (bonusDamage > 0) {
+                if (bonusDamage !== 0) {
                     v.data.data.hasBonusDamage = true;
                 } else {
                     v.data.data.hasBonusDamage = false;
@@ -103,6 +103,7 @@ export class ExpanseNPCSheet extends ActorSheet {
                 }
                 v.data.data.tohitabil = modType;
                 v.data.data.attack += focusBonus;
+                v._id = v.data._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
@@ -131,7 +132,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         html.find(".item-delete").click((ev) => {
             let li = $(ev.currentTarget).parents(".item"),
                 itemId = li.attr("data-item-id");
-            this.actor.deleteEmbeddedEntity("Item", itemId);
+            this.actor.deleteEmbeddedDocuments("Item", [itemId]);
             li.slideUp(200, () => this.render(false));
         });
 
@@ -169,14 +170,6 @@ export class ExpanseNPCSheet extends ActorSheet {
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
 
-        // pull this out into a function
-        /*if (actorData.data.data.attributes.stuntpoints.thisround === true) {
-            let spData = actorData.data.data.attributes.stuntpoints;
-            spData.modified = 0;
-            spData.thisround = false;
-            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
-        }*/
-
         if (dataset.roll) {
             const diceData = diceRollType();
             let die1, die2, die3;
@@ -197,33 +190,13 @@ export class ExpanseNPCSheet extends ActorSheet {
             }
 
             let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
-            //console.log(dataset)
-            //console.log(toHitRoll)
-            console.log(itemUsed.data.data.usefocus);
             let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
             let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
             let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
-            /*if (actorData.data.data.conditions.wounded.active === true) {
-                condMod = -2;
-                condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
-                condMod = -1;
-                condModName = "injured";
-            } else {
-                condMod = 0;
-            }*/
-
             let label = useFocus ? `<b> Rolling ${weaponToHitAbil} to hit with focus </b>` : `Rolling to hit with ${weaponToHitAbil}`;
-            console.log(useFocus)
-
-            /*if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
-            } else {
-                condModWarning = ``;
-            }*/
 
             const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
             <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
@@ -244,10 +217,6 @@ export class ExpanseNPCSheet extends ActorSheet {
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 chatStunts = `</br><b>${die3} Stunt Points have been generated!</b>`;
-                /*let spData = actorData.data.data.attributes.stuntpoints;
-                spData.modified = die3;
-                spData.thisround = true;
-                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });*/
             }
 
             if (event.shiftKey) {
@@ -305,6 +274,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
+        let damageD3 = (itemUsed.data.data.dieFaces === 3) ? true : false;
 
         let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -322,15 +292,19 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         if (!e.shiftKey) {
             let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-            let totalDamage = damageRoll.total + bonusDamage;
-            let resultRoll = damageRoll.terms[0].results.map(i => i.result);
+            let damageOutput = damageD3 ? Math.ceil(damageRoll.total/2) : damageRoll.total;
+            let totalDamage = damageOutput + bonusDamage;
+
+
+
+            let resultRoll = damageRoll.terms[0].results.map(i => i.result);       
             for (let i = 0; i < resultRoll.length; i++) {
                 diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
             }
 
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
-            let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+            let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${damageOutput}</br>`;
             let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
@@ -353,10 +327,11 @@ export class ExpanseNPCSheet extends ActorSheet {
             RollDamageModifier().then(r => {
                 let testData = r;
                 diceFormula += testData[0];
-
+                const reducer = (previousValue, currentValue) => previousValue + currentValue;
                 let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-
-                let totalDamage = damageRoll.total + bonusDamage + testData[1];
+                let damageOutput = damageD3 ? damageRoll.terms[0].results.map(i => Math.ceil(i.result / 2)) : damageRoll.terms[0].results.map(i => (i.result));
+                let cDmg = damageOutput.reduce(reducer);
+                let totalDamage = cDmg + bonusDamage + testData[1];
                 let resultRoll = damageRoll.terms[0].results.map(i => i.result);
                 for (let i = 0; i < resultRoll.length; i++) {
                     diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
@@ -364,7 +339,7 @@ export class ExpanseNPCSheet extends ActorSheet {
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
-                let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+                let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${cDmg}</br>`;
                 let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
@@ -508,53 +483,6 @@ export class ExpanseNPCSheet extends ActorSheet {
             }
         }
     }
- 
-    /*_onRoll(event) {
-        event.preventDefault();
-        const element = event.currentTarget;
-        const dataset = element.dataset;
-        console.log(dataset);
-        if (dataset.roll) {
-            let roll = new Roll(dataset.roll, this.actor.data.data).roll({async: false});
-
-            let rollCard;
-            let die1 = 0; let die2 = 0; let die3 = 0;
-            let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
-            let abilityMod = roll.data.abilities[dataset.label].rating;
-
-            [die1, die2, die3] = roll.terms[0].results.map(i => i.result);
-
-            let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
-            let results = [die1, die2, die3];
-            let resultsSum = die1 + die2 + die3 + useFocus + abilityMod;
-
-            if (die1 == die2 || die1 == die3 || die2 == die3) {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
-              <b>Ability Test Results:</b> ${resultsSum} <br>
-              <b>${die3} Stunt Points have been generated!</b>
-              `
-            } else {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
-              <b>Ability Test Results:</b> ${resultsSum}
-              `
-            }
-            console.log(rollCard);
-
-            ChatMessage.create({
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                flavor: label,
-                content: rollCard
-            });
-            /*let label = dataset.label ? `Rolling ${dataset.label}` : '';*/
-            /*roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-              flavor: label,
-              rollCard
-            });
-        }
-    }*/
 
     TargetNumber() {
         let tn = new Promise((resolve) => {

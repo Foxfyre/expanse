@@ -1,3 +1,4 @@
+import { diceRollType } from "./rolling/dice-rolling.js";
 import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
 
 export class ExpanseActorSheet extends ActorSheet {
@@ -8,8 +9,7 @@ export class ExpanseActorSheet extends ActorSheet {
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [
-                { dragSelector: ".item-list .item", dropSelector: null },
-                { dragSelector: ".talent-item", dropSelector: ".talent-item"}
+                { dragSelector: ".item-list .item", dropSelector: null }
             ]
         });
     }
@@ -28,70 +28,11 @@ export class ExpanseActorSheet extends ActorSheet {
         return this.actorData.data;
     }
 
-    diceRollType() {
-        let diceData = {}
-        let diceStyle; let diceFaction; let diceStunt; let diceSoNice;
-
-        let diceSettings = game.settings.get("expanse", "diceStyle");
-
-        if (diceSettings === "0") {
-            diceStyle = "dark";
-            diceFaction = "earth";
-            diceStunt = "light";
-            diceSoNice = ["a", "l"]
-        } else if (diceSettings === "1") {
-            diceStyle = "light";
-            diceFaction = "earth";
-            diceStunt = "dark";
-            diceSoNice = ["l", "a"];
-        } else if (diceSettings === "2") {
-            diceStyle = "dark";
-            diceFaction = "mars";
-            diceStunt = "light";
-            diceSoNice = ["c", "d"];
-        } else if (diceSettings === "3") {
-            diceStyle = "light";
-            diceFaction = "mars";
-            diceStunt = "dark";
-            diceSoNice = ["d", "c"];
-        } else if (diceSettings === "4") {
-            diceStyle = "dark";
-            diceFaction = "belt";
-            diceStunt = "light";
-            diceSoNice = ["e", "f"];
-        } else if (diceSettings === "5") {
-            diceStyle = "light";
-            diceFaction = "belt";
-            diceStunt = "dark";
-            diceSoNice = ["f", "e"];
-        } else if (diceSettings === "6") {
-            diceStyle = "dark";
-            diceFaction = "protogen";
-            diceStunt = "light";
-            diceSoNice = ["g", "h"];
-        } else if (diceSettings === "7") {
-            diceStyle = "light";
-            diceFaction = "protogen";
-            diceStunt = "dark";
-            diceSoNice = ["h", "g"];
-        } else {
-            diceStyle = "dark";
-            diceFaction = "earth";
-            diceStunt = "light";
-            diceSoNice = ["a", "l"];
-        }
-
-        diceData.style = diceStyle;
-        diceData.faction = diceFaction;
-        diceData.stunt = diceStunt;
-        diceData.nice = diceSoNice;
-        return diceData;
-    }
-
     getData() {
         const data = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
         let sheetData = {};
+        console.log(data)
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = data.actor.data.name;
         sheetData.stunts = data.actor.items.filter(i => i.type === "stunt");
@@ -111,10 +52,10 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
-
+ 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
-                const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
+                //const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
                 let modifierStat = v.data.data.modifier
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.data.data.usefocus;
@@ -137,7 +78,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         break;
                 }
 
-                if (bonusDamage > 0) {
+                if (bonusDamage !== 0) {
                     v.data.data.hasBonusDamage = true;
                 } else {
                     v.data.data.hasBonusDamage = false;
@@ -165,10 +106,12 @@ export class ExpanseActorSheet extends ActorSheet {
                 }
                 v.data.data.tohitabil = modType;
                 v.data.data.attack += totalFocusBonus;
+                v._id = v.data._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
+            
         }
-
+        
         // Go through the Degrees of Talents and record the highest talent to display on the character sheet. 
         for (let [k, v] of Object.entries(sheetData.talent)) {
             const talent = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
@@ -186,6 +129,7 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
         //return data;
+        console.log(sheetData)
         return sheetData;
     }
 
@@ -211,9 +155,11 @@ export class ExpanseActorSheet extends ActorSheet {
         html.find(".item-delete").click((ev) => {
             let li = $(ev.currentTarget).parents(".item"),
                 itemId = li.attr("data-item-id");
-            this.actor.deleteEmbeddedEntity("Item", itemId);
+            this.actor.deleteEmbeddedDocuments("Item", [itemId]);
             li.slideUp(200, () => this.render(false));
         });
+
+        html.find(".item-create").click(this._itemCreate.bind(this));
 
         html.find(".active-condition").click(async e => {
             const data = super.getData()
@@ -239,7 +185,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             for (let [k, v] of Object.entries(items)) {
                 // Confirming only one armour equipped
-                if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
+                /*if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
                     Dialog.prompt({
                         title: "Cannot Equip",
                         content: "<p>You can only have one piece of armour and shield equipped at one time. Please remove your current armor before continuing",
@@ -247,7 +193,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         callback: () => console.log("denied!")
                     });
                     return;
-                }
+                }*/
                 // If targeting same armor, cycle on off;
                 if (v.type === "armor" && v._id === itemId) {
                     armor.data.equip = !armor.data.equip;
@@ -300,18 +246,6 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
         });
 
-        html.find(".learn-talent").click(e => {
-            const data = super.getData()
-            const item = data.data;
-
-            let itemId = e.currentTarget.getAttribute("data-item-id");
-            const talent = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
-            if (item.type === "talent") {
-                talent.data.ranks.active = !talent.data.ranks.active;
-            }
-            this.actor.updateEmbeddedDocuments("item", [talent.data]);
-        });
-
         html.find('.rollable').click(this._onRoll.bind(this));
 
         html.find('.pc-attack').click(this._onAttack.bind(this));
@@ -320,6 +254,19 @@ export class ExpanseActorSheet extends ActorSheet {
 
         html.find('.income-roll').click(this._IncomeRoll.bind(this));
 
+    }
+
+    _itemCreate(event) {
+        event.preventDefault();
+        const header = event.currentTarget;
+        const type = header.dataset.type;
+        const itemData = {
+            name: game.i18n.format("ITEM.ItemNew", { type: game.i18n.localize(`ITEM.ItemType${type.capitalize()}`) }),
+            type: type,
+            data: foundry.utils.deepClone(header.dataset)
+        };
+        delete itemData.data.type;
+        return this.actor.createEmbeddedDocuments("Item", [itemData], { renderSheet: true });
     }
 
     _onAttack(event) {
@@ -345,7 +292,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
 
         if (dataset.roll) {
-            const diceData = this.diceRollType();
+            const diceData = diceRollType();
             let die1, die2, die3;
             let d2; let d1;
             let condMod;
@@ -467,7 +414,7 @@ export class ExpanseActorSheet extends ActorSheet {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
-        const diceData = this.diceRollType();
+        const diceData = diceRollType();
         const data = super.getData()
         const actorData = data.actor;
         const items = actorData.items;
@@ -475,6 +422,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let itemToUse = actorData.data.items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
+        let damageD3 = (itemUsed.data.data.dieFaces === 3) ? true : false;
 
         let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -492,15 +440,15 @@ export class ExpanseActorSheet extends ActorSheet {
 
         if (!e.shiftKey) {
             let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-            let totalDamage = damageRoll.total + bonusDamage;
+            let damageOutput = damageD3 ? Math.ceil(damageRoll.total / 2) : damageRoll.total;
+            let totalDamage = damageOutput + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
                 diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
             }
-
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
-            let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+            let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${damageOutput}</br>`;
             let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
@@ -524,10 +472,11 @@ export class ExpanseActorSheet extends ActorSheet {
             RollDamageModifier().then(r => {
                 let testData = r;
                 diceFormula += testData[0];
-
+                const reducer = (previousValue, currentValue) => previousValue + currentValue;
                 let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
-
-                let totalDamage = damageRoll.total + bonusDamage + testData[1];
+                let damageOutput = damageD3 ? damageRoll.terms[0].results.map(i => Math.ceil(i.result / 2)) : damageRoll.terms[0].results.map(i => (i.result));
+                let cDmg = damageOutput.reduce(reducer);
+                let totalDamage = cDmg + bonusDamage + testData[1];
                 let resultRoll = damageRoll.terms[0].results.map(i => i.result);
                 for (let i = 0; i < resultRoll.length; i++) {
                     diceImageArray += `<img height="75px" width="75px" style="margin-top: 5px;" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
@@ -535,7 +484,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
-                let chatDamage = `<b>Weapon Damage</b>: ${damageRoll.total}</br>`;
+                let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${cDmg}</br>`;
                 let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
@@ -570,7 +519,7 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceImageArray = "";
         let ic; let d2;
 
-        const diceData = this.diceRollType();
+        const diceData = diceRollType();
 
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
         if (game.modules.get("dice-so-nice") && game.modules.get("dice-so-nice").active) {
@@ -692,7 +641,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
         // This is the start of a refactoring test. If things go bad, undo to here.
         if (dataset.roll) {
-            const diceData = this.diceRollType();
+            const diceData = diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
             let d2; let d1;
             let condMod;
