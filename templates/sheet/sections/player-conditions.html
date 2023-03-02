@@ -1,0 +1,25 @@
+<!-- Conditions Row -->
+
+<div class="box-header">
+
+    <!-- Header -->
+
+    <span>conditions</span>
+
+</div>
+
+<div class="condition-container">
+
+    {{#each conditions as |conditions key|}}
+
+    <div class="condition" title="{{localize (concat " EXPANSE." key) }}">
+
+        <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked conditions.active}}>
+
+        <span class="condition-hover">{{key}}</span>
+
+    </div>
+
+    {{/each}}
+
+</div>
