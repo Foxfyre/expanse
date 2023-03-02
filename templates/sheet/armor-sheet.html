@@ -3,7 +3,7 @@
     <div class="armors-box">
         <div class="armors-header-box">
             <div class="armors-header-block">
-                <input name="name" type="text" value="{{name}}" data-dtype="String"  />
+                <input name="name" type="text" value="{{item.name}}" data-dtype="String"  />
             </div>
         </div>
 
@@ -17,16 +17,16 @@
  
             <div class="armors-detail-box">
                 <div class="armors-attribute">
-                    <input type="text" name="data.type" value="{{data.type}}"  data-dtype="String" />
+                    <input type="text" name="system.type" value="{{system.type}}"  data-dtype="String" />
                 </div>
                 <div class="armors-attribute">
-                    <input type="text" name="data.bonus" value="{{data.bonus}}" data-dtype="Number" />
+                    <input type="text" name="system.bonus" value="{{system.bonus}}" data-dtype="Number" />
                 </div>
                 <div class="armors-attribute">
-                    <input type="text" name="data.penalty" value="{{data.penalty}}" data-dtype="Number" />
+                    <input type="text" name="system.penalty" value="{{system.penalty}}" data-dtype="Number" />
                 </div>
                 <div class="armors-attribute">
-                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+                    <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
                 </div>
                 <div class="hidden-value">
                     <input type="checkbox" class="expanse-checkbox" name="equip"
@@ -40,7 +40,7 @@
                 <span class="">Description</span>
             </div>
             <div class="armors-desc-box">
-                {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+                {{editor enrichment.system.description target="system.description" button=true owner=owner editable=true}}
             </div>
         </div>
 

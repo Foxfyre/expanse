@@ -3,7 +3,7 @@
     <div class="weapons-box">
         <div class="weapons-header-box">
             <div class="weapons-header-block">
-                <input name="name" type="text" value="{{name}}" data-dtype="String" />
+                <input name="name" type="text" value="{{item.name}}" data-dtype="String" />
             </div>
         </div>
 
@@ -17,8 +17,8 @@
             <div class="weapons-detail-box">
 
                 <div class="weapons-attribute">
-                    <select type="text" name="data.type" data-dtype="String">
-                        {{#select data.type}}
+                    <select type="text" name="system.type" data-dtype="String">
+                        {{#select system.type}}
                         <option value="unarmed" mod-type="fighting">Unarmed</option>
                         <option value="makeshift" mod-type="fighting">Makeshift</option>
                         <option value="light_melee" mod-type="fighting">Light Melee</option>
@@ -31,9 +31,9 @@
                 </div>
 
                 <div class="weapons-attribute">
-                    <input class="weapons-attribute-input" type="number" name="data.damage" value="{{data.damage}}" />
-                    <select type="number" name="data.dieFaces" value="{{data.dieFaces}}" data-dtype="Number">
-                        {{#select data.dieFaces}}
+                    <input class="weapons-attribute-input" type="number" name="system.damage" value="{{system.damage}}" />
+                    <select type="number" name="system.dieFaces" value="{{system.dieFaces}}" data-dtype="Number">
+                        {{#select system.dieFaces}}
                         <option value="6">D6</option>
                         <option value="3">D3</option>
                         {{/select}}
@@ -41,8 +41,8 @@
                 </div>
 
                 <div class="weapons-attribute">
-                    <select type="text" name="data.modifier" value="{{data.modifier}}" data-dtype="String">
-                        {{#select data.modifier}}
+                    <select type="text" name="system.modifier" value="{{system.modifier}}" data-dtype="String">
+                        {{#select system.modifier}}
                         <option value="None">None</option>
                         <option value="Strength">Strength</option>
                         <option value="Dexterity">Dexterity</option>
@@ -51,9 +51,9 @@
                         {{/select}}
                     </select>
 
-                    {{#ifCond data.modifier '===' "Manual"}}
-                    <input class="weapons-attribute-input" type="number" name="data.manualDamage"
-                        value="{{data.manualDamage}}" data-dtype="Number" />
+                    {{#ifCond system.modifier '===' "Manual"}}
+                    <input class="weapons-attribute-input" type="number" name="system.manualDamage"
+                        value="{{system.manualDamage}}" data-dtype="Number" />
                     {{/ifCond}}
                 </div>
             </div>
@@ -68,19 +68,19 @@
 
             <div class="weapons-detail-box">
                 <div class="weapons-attribute">
-                    <input type="text" name="data.quality" value="{{data.quality}}" data-dtype="String" />
+                    <input type="text" name="system.quality" value="{{system.quality}}" data-dtype="String" />
                 </div>
 
                 <div class="weapons-attribute">
-                    <input type="text" name="data.rangemin" value="{{data.rangemin}}" data-dtype="String" />
+                    <input type="text" name="system.rangemin" value="{{system.rangemin}}" data-dtype="String" />
                 </div>
 
                 <div class="weapons-attribute">
-                    <input type="text" name="data.rangemax" value="{{data.rangemax}}" data-dtype="String" />
+                    <input type="text" name="system.rangemax" value="{{system.rangemax}}" data-dtype="String" />
                 </div>
 
                 <div class="weapons-attribute">
-                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+                    <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
                 </div>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 <span class="">Description</span>
             </div>
             <div class="weapons-desc-box">
-                {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+                {{editor enrichment.system.description target="system.description" button=true owner=owner editable=true}}
             </div>
         </div>
 

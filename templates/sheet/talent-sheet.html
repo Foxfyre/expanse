@@ -8,19 +8,21 @@
         <div class="talents" data-group="primary" data-tab="talents">
 
             <div class="talents-box" data-item-id="{{id}}">
-
+                {{log system}}
+                {{log item}}
+                {{log data}}
                 <div class="talents-section">
                     <div class="talents-name-block">
                         <div class="talents-titles">
                             <span class="margin-l-5">
-                                <input type="text" name="name" value="{{name}}" data-dtype="String" />
+                                <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
                             </span>
                         </div>
 
                         <div class="talents-titles" style="align-self:center;">
                             <span>Specialization</span>
                             <input type="checkbox" class="expanse-checkbox learn-specialization"
-                                name="data.specialization" data-item-id={{_id}} {{checked data.specialization}}>
+                                name="system.specialization" data-item-id={{item._id}} {{checked system.specialization}}>
                         </div>
 
                     </div>
@@ -29,7 +31,7 @@
                             <span class="margin-l-5">Requirements:</span>
                         </div>
                         <div class="talents-requirements">
-                            {{editor content=data.requirement target="data.requirement" button=true owner=owner
+                            {{editor enrichment.system.requirements target="system.requirements" button=true owner=owner
                             editable=true}}
                         </div>
                     </div>
@@ -42,7 +44,7 @@
                             <span class="margin-l-5">Description:</span>
                         </div>
                         <div class="talents-requirements">
-                            {{editor content=data.description target="data.description" button=true owner=owner
+                            {{editor enrichment.system.description target="system.description" button=true owner=owner
                             editable=true}}
                         </div>
                     </div>
@@ -51,12 +53,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.novice.active"
-                                data-item-id={{_id}} {{checked data.ranks.novice.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="system.ranks.novice.active"
+                                data-item-id={{item._id}} data-rank="novice" {{checked system.ranks.novice.active}}>
                             <span>Novice</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.ranks.novice.effect target="data.ranks.novice.effect" button=true
+                            {{editor enrichment.system.ranks.novice.effect target="system.ranks.novice.effect" button=true
                             owner=owner editable=true}}
                         </div>
                     </div>
@@ -65,12 +67,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.expert.active"
-                                data-item-id={{_id}} {{checked data.ranks.expert.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="system.ranks.expert.active"
+                                data-item-id={{item._id}} data-rank="expert" {{checked system.ranks.expert.active}}>
                             <span>Expert</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.ranks.expert.effect target="data.ranks.expert.effect" button=true
+                            {{editor enrichment.system.ranks.expert.effect target="system.ranks.expert.effect" button=true
                             owner=owner editable=true}}
                         </div>
                     </div>
@@ -79,12 +81,12 @@
                 <div class="talents-section">
                     <div class="talents-degree-block">
                         <div class="talents-degree-titles">
-                            <input type="checkbox" class="expanse-checkbox learn-talent" name="data.ranks.master.active"
-                                data-item-id={{_id}} {{checked data.ranks.master.active}}>
+                            <input type="checkbox" class="expanse-checkbox learn-talent" name="system.ranks.master.active"
+                                data-item-id={{item._id}} data-rank="master" {{checked system.ranks.master.active}}>
                             <span>Master</span>
                         </div>
                         <div class="talents-effect">
-                            {{editor content=data.ranks.master.effect target="data.ranks.master.effect" button=true
+                            {{editor enrichment.system.ranks.master.effect target="system.ranks.master.effect" button=true
                             owner=owner editable=true}}
                         </div>
                     </div>
