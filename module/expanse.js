@@ -4,6 +4,7 @@ import { ExpanseItem } from "./item.js";
 import { ExpanseActor } from "./actor.js";
 import { ExpanseNPCSheet } from "./npc-sheet.js";
 import { ExpanseShipSheet } from "./ship-sheet.js";
+import { initializeHandlebars } from "../scripts/handlebars.js";
 import { registerDiceSoNice } from "./hooks/dice-so-nice.js";
 import { TheExpanseEarthDark } from "./dice-so-nice/expanse-earth-dark-die.js";
 import { TheExpanseEarthLight } from "./dice-so-nice/expanse-earth-light-die.js";
@@ -50,6 +51,8 @@ Hooks.once("init", async function () {
   Items.registerSheet("expanse", ExpanseItemSheet, {
     makeDefault: true
   });
+
+  initializeHandlebars();
 
   Handlebars.registerHelper('concat', function () {
     let arg = Array.prototype.slice.call(arguments, 0);
@@ -126,6 +129,8 @@ Hooks.once("init", () => {
     type: Boolean,
     default: !1
   })
+
+  //CONFIG.debug.hooks = true;
 })
 
 Hooks.on("ready", async () => {

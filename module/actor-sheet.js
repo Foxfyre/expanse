@@ -16,75 +16,79 @@ export class ExpanseActorSheet extends ActorSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/expanse/templates/sheet"
-        return `${path}/${this.actor.data.type}-sheet.html`;
+        let type = this.actor.type;
+        return `systems/expanse/templates/sheet/${type}-sheet.html`;
     }
 
     get actorData() {
-        return this.actor.data;
+        return this.actor.system;
     }
 
     get actorProperties() {
-        return this.actorData.data;
+        return this.actorData.system;
     }
 
     getData() {
-        const data = super.getData();
+        const sheetData = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
-        let sheetData = {};
-        console.log(data)
+        //let sheetData = {};
+
+        sheetData.system = sheetData.data.system;
+
+        const actorData = sheetData.actor;
+
         sheetData.dtypes = ["String", "Number", "Boolean"];
-        sheetData.name = data.actor.data.name;
-        sheetData.stunts = data.actor.items.filter(i => i.type === "stunt");
-        sheetData.talent = data.actor.items.filter(i => i.type === "talent");
-        sheetData.items = data.actor.items.filter(i => i.type === "items");
-        sheetData.weapon = data.actor.items.filter(i => i.type === "weapon");
-        sheetData.armor = data.actor.items.filter(i => i.type === "armor");
-        sheetData.shield = data.actor.items.filter(i => i.type === "shield");
-        sheetData.conditions = data.data.data.conditions;
-        sheetData.level = data.data.data.attributes.level;
-        sheetData.attributes = data.data.data.attributes;
-        sheetData.abilities = data.data.data.abilities;
-        sheetData.bio = data.data.data.bio;
+        sheetData.name = actorData.name;
+        sheetData.stunts = actorData.items.filter(i => i.type === "stunt");
+        sheetData.talent = actorData.items.filter(i => i.type === "talent");
+        sheetData.items = actorData.items.filter(i => i.type === "items");
+        sheetData.weapon = actorData.items.filter(i => i.type === "weapon");
+        sheetData.armor = actorData.items.filter(i => i.type === "armor");
+        sheetData.shield = actorData.items.filter(i => i.type === "shield");
+        sheetData.conditions = actorData.system.conditions;
+        sheetData.level = actorData.system.attributes.level;
+        sheetData.attributes = actorData.system.attributes;
+        sheetData.abilities = actorData.system.abilities;
+        sheetData.bio = actorData.system.bio;
         //temp fix. new actors shouldnt need this
-        sheetData.info = data.data.data.info;
-        sheetData.img = data.actor.data.img;
+        sheetData.info = actorData.system.info;
+        sheetData.img = actorData.system.img;
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
- 
+
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
                 //const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
-                let modifierStat = v.data.data.modifier
+                let modifierStat = v.system.modifier
                 let bonusDamage = 0; // get stat from actorData
-                let useFocus = v.data.data.usefocus;
-                let useFocusPlus = v.data.data.usefocusplus;
+                let useFocus = v.system.usefocus;
+                let useFocusPlus = v.system.usefocusplus;
                 let focusBonus = useFocus ? 2 : 0;
                 let focusPlusBonus = useFocusPlus ? 1 : 0;
                 const totalFocusBonus = focusBonus + focusPlusBonus;
-                let toHitMod = v.data.data.type;
+                let toHitMod = v.system.type;
                 let modType = "";
 
                 switch (modifierStat) {
                     case 'Dexterity':
-                        bonusDamage = data.actor.data.data.abilities.dexterity.rating;
+                        bonusDamage = actorData.system.abilities.dexterity.rating;
                         break;
                     case 'Perception':
-                        bonusDamage = data.actor.data.data.abilities.perception.rating;
+                        bonusDamage = actorData.system.abilities.perception.rating;
                         break;
                     case 'Strength':
-                        bonusDamage = data.actor.data.data.abilities.strength.rating;
+                        bonusDamage = actorData.system.abilities.strength.rating;
                         break;
                 }
 
                 if (bonusDamage !== 0) {
-                    v.data.data.hasBonusDamage = true;
+                    v.system.hasBonusDamage = true;
                 } else {
-                    v.data.data.hasBonusDamage = false;
+                    v.system.hasBonusDamage = false;
                 }
 
-                v.data.data.bonusDamage = bonusDamage;
+                v.system.bonusDamage = bonusDamage;
 
                 switch (toHitMod) {
                     case "unarmed":
@@ -92,31 +96,32 @@ export class ExpanseActorSheet extends ActorSheet {
                     case "light_melee":
                     case "heavy_melee":
                         modType = "fighting";
-                        v.data.data.attack = data.actor.data.data.abilities.fighting.rating;
+                        v.system.attack = actorData.system.abilities.fighting.rating;
                         break;
                     case "pistol":
                     case "rifle":
                         modType = "accuracy";
-                        v.data.data.attack = data.actor.data.data.abilities.accuracy.rating;
+                        v.system.attack = actorData.system.abilities.accuracy.rating;
                         break;
                     default:
                         modType = "fighting";
-                        v.data.data.attack = data.actor.data.data.abilities.fighting.rating;
+                        v.system.attack = actorData.system.abilities.fighting.rating;
                         break;
                 }
-                v.data.data.tohitabil = modType;
-                v.data.data.attack += totalFocusBonus;
-                v._id = v.data._id;
+                v.system.tohitabil = modType;
+                v.system.attack += totalFocusBonus;
+                //v._id = v._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
-            
         }
-        
+
+        sheetData.enrichment = this._enrichBio();
+
         // Go through the Degrees of Talents and record the highest talent to display on the character sheet. 
         for (let [k, v] of Object.entries(sheetData.talent)) {
             const talent = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
             let highest = "";
-            for (let [s, t] of Object.entries(v.data.data.ranks)) {
+            for (let [s, t] of Object.entries(v.system.ranks)) {
                 if (t.label === "novice" && t.active === true) {
                     highest = "Novice";
                 } else if (t.label === "expert" && t.active === true) {
@@ -125,12 +130,21 @@ export class ExpanseActorSheet extends ActorSheet {
                     highest = "Master";
                 }
             }
-            talent.data.highest = highest;
+            talent.system.highest = highest;
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
         //return data;
-        console.log(sheetData)
+        //console.log(sheetData)
         return sheetData;
+    }
+
+    _enrichBio() {
+        let enrichment = {};
+        enrichment[`system.bio.notes`] = TextEditor.enrichHTML(this.actor.system.bio.notes, { async: false, relativeTo: this.actor });
+        enrichment[`system.bio.appearance`] = TextEditor.enrichHTML(this.actor.system.bio.appearance, { async: false, relativeTo: this.actor });
+        enrichment[`system.bio.relationships`] = TextEditor.enrichHTML(this.actor.system.bio.relationships, { async: false, relativeTo: this.actor });
+        enrichment[`system.bio.goals`] = TextEditor.enrichHTML(this.actor.system.bio.goals, { async: false, relativeTo: this.actor });
+        return expandObject(enrichment);
     }
 
     activateListeners(html) {
@@ -165,43 +179,75 @@ export class ExpanseActorSheet extends ActorSheet {
             const data = super.getData()
             const actorData = data.actor;
             let conditionName = e.currentTarget.getAttribute("name");
-            const conditionData = actorData.data.data.conditions;
+            const conditionData = actorData.system.conditions;
 
             for (let [k, v] of Object.entries(conditionData)) {
                 if (k === conditionName) {
-                    actorData.data.data.conditions[conditionName].active = !v.active;
+                    actorData.system.conditions[conditionName].active = !v.active;
                 }
             }
-            await this.actor.update({ data: { conditions: data.actor.data.data.conditions } });
+            await this.actor.update({ system: { conditions: this.actor.system.conditions } });
+        })
+
+        html.find(".shield-equip").click(async e => {
+            const items = this.actor.items;
+
+            let itemId = e.currentTarget.getAttribute("data-item-id");
+            const shield = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            items.map(x => {
+                if ((x.type === "shield")) {
+                    if (x.id === itemId) {
+                        let isEquipped = x.system.equip;
+                        isEquipped = !isEquipped;
+                        shield.system.equip = isEquipped;
+                        this.actor.updateEmbeddedDocuments("Item", [shield])
+                        return;
+                    } else if (x.system.equip === true && x._id !== itemId) {
+                        Dialog.prompt({
+                            title: "Cannot Equip",
+                            content: "<p>You can only have one shield equipped at one time. Please remove your current shield before continuing",
+                            label: "OK",
+                            callback: () => {
+                                console.log("denied!")
+                                shield.system.equip = false;
+                                this.actor.updateEmbeddedDocuments("Item", [shield]);
+                                return;
+                            }
+                        });
+                    }
+                }
+            })
         })
 
         // Limit armor able to be equipped to 1
-        html.find(".item-equip").click(async e => {
-            const data = super.getData()
-            const items = data.items;
+        html.find(".armor-equip").click(async e => {
+            const items = this.actor.items;
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
             const armor = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
-
-            for (let [k, v] of Object.entries(items)) {
-                // Confirming only one armour equipped
-                /*if ((v.type === "armor" || v.type === "shield") && v.data.equip === true && v._id !== itemId) {
-                    Dialog.prompt({
-                        title: "Cannot Equip",
-                        content: "<p>You can only have one piece of armour and shield equipped at one time. Please remove your current armor before continuing",
-                        label: "OK",
-                        callback: () => console.log("denied!")
-                    });
-                    return;
-                }*/
-                // If targeting same armor, cycle on off;
-                if (v.type === "armor" && v._id === itemId) {
-                    armor.data.equip = !armor.data.equip;
-                } else if (v.type === "shield" && v._id === itemId) {
-                    armor.data.equip = !armor.data.equip;
+            items.map(x => {
+                if ((x.type === "armor")) {
+                    if (x.id === itemId) {
+                        let isEquipped = x.system.equip;
+                        isEquipped = !isEquipped;
+                        armor.system.equip = isEquipped;
+                        this.actor.updateEmbeddedDocuments("Item", [armor])
+                        return;
+                    } else if (x.system.equip === true && x._id !== itemId) {
+                        Dialog.prompt({
+                            title: "Cannot Equip",
+                            content: "<p>You can only have one piece of armour equipped at one time. Please remove your current armor before continuing",
+                            label: "OK",
+                            callback: () => {
+                                console.log("denied!")
+                                armor.system.equip = false;
+                                this.actor.updateEmbeddedDocuments("Item", [armor]);
+                                return;
+                            }
+                        });
+                    }
                 }
-                this.actor.updateEmbeddedDocuments("Item", [armor])
-            }
+            })
         });
 
         html.find(".weapon-usefocus").click(e => {
@@ -211,7 +257,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
-                    weapon.data.usefocus = !weapon.data.usefocus;
+                    weapon.system.usefocus = !weapon.system.usefocus;
                 }
             }
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
@@ -225,7 +271,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
-                    weapon.data.usefocusplus = !weapon.data.usefocusplus;
+                    weapon.system.usefocusplus = !weapon.system.usefocusplus;
                 }
             }
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
@@ -239,8 +285,8 @@ export class ExpanseActorSheet extends ActorSheet {
             const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
 
             for (let [k, v] of Object.entries(items)) {
-                if (v.type === "weapon" && v._id === itemId && actorData.data.data.attributes.stuntpoints.modified >= 2) {
-                    weapon.data.extraDamage = !weapon.data.extraDamage;
+                if (v.type === "weapon" && v._id === itemId && actorData.system.attributes.stuntpoints.modified >= 2) {
+                    weapon.system.extraDamage = !weapon.system.extraDamage;
                 }
             }
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
@@ -279,16 +325,16 @@ export class ExpanseActorSheet extends ActorSheet {
 
         // Set variables for to hit
         let itemId = dataset.itemId;
-        let itemToUse = actorData.data.items.filter(i => i.id === itemId);
+        let itemToUse = items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
 
         // pull this out into a function
-        if (actorData.data.data.attributes.stuntpoints.thisround === true) {
-            let spData = actorData.data.data.attributes.stuntpoints;
+        if (actorData.system.attributes.stuntpoints.thisround === true) {
+            let spData = actorData.system.attributes.stuntpoints;
             spData.modified = 0;
             spData.thisround = false;
-            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+            this.actor.update({ data: { attributes: data.actor.system.attributes } });
         }
 
         if (dataset.roll) {
@@ -312,18 +358,18 @@ export class ExpanseActorSheet extends ActorSheet {
             }
 
             let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
-            let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
-            if (itemUsed.data.data.usefocus === true && itemUsed.data.data.usefocusplus === true) {
+            let useFocus = itemUsed.system.usefocus ? 2 : 0;
+            if (itemUsed.system.usefocus === true && itemUsed.system.usefocusplus === true) {
                 useFocusPlus = 1
             }
-            let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
+            let abilityMod = actorData.system.abilities[dataset.itemAbil].rating;
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
-            if (actorData.data.data.conditions.wounded.active === true) {
+            if (actorData.system.conditions.wounded.active === true) {
                 condMod = -2;
                 condModName = "wounded";
-            } else if ((actorData.data.data.conditions.injured.active === true) && (actorData.data.data.conditions.wounded.active === false)) {
+            } else if ((actorData.system.conditions.injured.active === true) && (actorData.system.conditions.wounded.active === false)) {
                 condMod = -1;
                 condModName = "injured";
             } else {
@@ -357,10 +403,10 @@ export class ExpanseActorSheet extends ActorSheet {
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
-                let spData = actorData.data.data.attributes.stuntpoints;
+                let spData = actorData.system.attributes.stuntpoints;
                 spData.modified = die3;
                 spData.thisround = true;
-                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+                this.actor.update({ data: { attributes: data.actor.system.attributes } });
             }
 
             if (event.shiftKey) {
@@ -419,10 +465,10 @@ export class ExpanseActorSheet extends ActorSheet {
         const actorData = data.actor;
         const items = actorData.items;
         let itemId = dataset.itemId;
-        let itemToUse = actorData.data.items.filter(i => i.id === itemId);
+        let itemToUse = items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
-        let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
-        let damageD3 = (itemUsed.data.data.dieFaces === 3) ? true : false;
+        let weaponMod = itemUsed.system.modifier; // Modifier for extra damage
+        let damageD3 = (itemUsed.system.dieFaces === 3) ? true : false;
 
         let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -432,8 +478,8 @@ export class ExpanseActorSheet extends ActorSheet {
             d2 = 6
         }
 
-        let diceFormula = itemUsed.data.data.damage;
-        let bonusDamage = itemUsed.data.data.bonusDamage;
+        let diceFormula = itemUsed.system.damage;
+        let bonusDamage = itemUsed.system.bonusDamage;
 
         let damageOnHit;
         let diceImageArray = "";
@@ -448,7 +494,7 @@ export class ExpanseActorSheet extends ActorSheet {
             }
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
-            let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${damageOutput}</br>`;
+            let chatDamage = `<b>Weapon Damage (D${itemUsed.system.dieFaces})</b>: ${damageOutput}</br>`;
             let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
@@ -484,7 +530,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
-                let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${cDmg}</br>`;
+                let chatDamage = `<b>Weapon Damage (D${itemUsed.system.dieFaces})</b>: ${cDmg}</br>`;
                 let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
@@ -515,7 +561,8 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = e.currentTarget;
         const dataset = element.dataset;
         const data = super.getData()
-        let income = data.data.data.info.income;
+        console.log(data)
+        let income = data.actor.system.info.income;
         let diceImageArray = "";
         let ic; let d2;
 
@@ -633,11 +680,11 @@ export class ExpanseActorSheet extends ActorSheet {
         const actorData = data.actor;
         let testData;
         // pull this out into a function
-        if (actorData.data.data.attributes.stuntpoints.thisround === true) {
-            let spData = actorData.data.data.attributes.stuntpoints;
+        if (actorData.system.attributes.stuntpoints.thisround === true) {
+            let spData = actorData.system.attributes.stuntpoints;
             spData.modified = 0;
             spData.thisround = false;
-            this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+            this.actor.update({ data: { attributes: data.actor.system.attributes } });
         }
         // This is the start of a refactoring test. If things go bad, undo to here.
         if (dataset.roll) {
@@ -659,7 +706,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
+            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system).roll({ async: false });
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             if (roll.data.abilities[dataset.label].usefocus === true && roll.data.abilities[dataset.label].usefocusplus === true) {
                 useFocusPlus = 1
@@ -706,14 +753,14 @@ export class ExpanseActorSheet extends ActorSheet {
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
-                let spData = actorData.data.data.attributes.stuntpoints;
+                let spData = actorData.system.attributes.stuntpoints;
                 spData.modified = die3;
                 spData.thisround = true;
-                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });
+                this.actor.update({ data: { attributes: data.actor.system.attributes } });
             }
 
             if (event.shiftKey) {
-                this.RollModifier().then(r => {
+                RollModifier().then(r => {
                     testData = r;
 
                     resultsSum += testData;
@@ -799,52 +846,4 @@ export class ExpanseActorSheet extends ActorSheet {
         })
         return ic;
     }
-
-    RollDamageModifier() {
-        let dMod = new Promise((resolve) => {
-            renderTemplate("/systems/expanse/templates/dialog/damageModifiers.html").then(dlg => {
-                new Dialog({
-                    title: game.i18n.localize("EXPANSE.DamageModifier"),
-                    content: dlg,
-                    buttons: {
-                        roll: {
-                            label: game.i18n.localize("EXPANSE.Roll"),
-                            callback: (html) => {
-                                resolve([
-                                    Number(html.find(`[name="add1D6"]`).val()),
-                                    Number(html.find(`[name="addDamage"]`).val())
-                                ])
-                            }
-                        }
-                    },
-                    default: "Roll"
-                }).render(true)
-            });
-        })
-        return dMod;
-    }
-
-    RollModifier() {
-        let rMod = new Promise((resolve) => {
-            renderTemplate("/systems/expanse/templates/dialog/rollModifiers.html").then(dlg => {
-                new Dialog({
-                    title: game.i18n.localize("EXPANSE.RollModifier"),
-                    content: dlg,
-                    buttons: {
-                        roll: {
-                            label: game.i18n.localize("EXPANSE.Roll"),
-                            callback: (html) => {
-                                resolve(
-                                    rMod.addModifier = Number(html.find(`[name="addRollModifier"]`).val())
-                                )
-                            }
-                        }
-                    },
-                    default: "Roll"
-                }).render(true)
-            });
-        })
-        return rMod;
-    }
-
 }
