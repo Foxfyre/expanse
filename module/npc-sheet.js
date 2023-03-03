@@ -6,7 +6,7 @@ export class ExpanseNPCSheet extends ActorSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "npc"],
-            width: 500,
+            width: 600,
             height: 450,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [{ dragSelector: ".item-list .item", dropSelector: null }]
