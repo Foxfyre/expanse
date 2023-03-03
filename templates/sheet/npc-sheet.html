@@ -6,7 +6,7 @@
 
             <div class="npc-header-block">
                 <span>
-                    <input type="text" name="name" value="{{name}}" data-dtype="String" />
+                    <input type="text" name="name" value="{{actor.name}}" data-dtype="String" />
                 </span>
             </div>
 
@@ -22,13 +22,13 @@
                 <span class="npc-ability-name rollable" data-roll="3d6+@abilities.{{key}}.rating"
                     data-label="{{key}}"><b>{{localize (concat "EXPANSE." key) }}</b></span>
                 <div class="npc-ability-value">
-                    <input type="text" name="data.abilities.{{key}}.rating" value="{{rating}}" data-dtype="Number" />
+                    <input type="text" name="system.abilities.{{key}}.rating" value="{{rating}}" data-dtype="Number" />
                 </div>
                 <div class="npc-ability-focus">
-                    <input type="text" name="data.abilities.{{key}}.focus" value="{{focus}}" data-dtype="String" />
+                    <input type="text" name="system.abilities.{{key}}.focus" value="{{focus}}" data-dtype="String" />
                 </div>
                 <div class="npc-ability-usefocus">
-                    <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus" {{checked
+                    <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocus" {{checked
                         useFocus}}>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <div class="npc-attributes-box">
                 {{#each attributes as |attribute key|}}
                 <div class="npc-attribute-value">
-                    <input type="text" name="data.attributes.{{key}}.value" value="{{value}}" data-dtype="Number" />
+                    <input type="text" name="system.attributes.{{key}}.value" value="{{value}}" data-dtype="Number" />
                 </div>
                 {{/each}}
             </div>
@@ -70,38 +70,38 @@
                 <li class="item npc-weapon" data-item-id="{{weapon.id}}">
                     <div class="npc-weapon-row">
                         <div class="npc-weapon-list-item">
-                            {{weapon.data.name}}
+                            {{weapon.name}}
                         </div>
 
                         <div class="npc-weapon-list-item">
-                            {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}
+                            {{weapon.system.damage}}D{{weapon.system.dieFaces}}
                             {{#if
-                            weapon.data.data.hasBonusDamage}}
-                            {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
-                            {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
-                                {{weapon.data.data.bonusDamage}} {{/if}} 
+                            weapon.system.hasBonusDamage}}
+                            {{#ifCond weapon.system.bonusDamage '>' '0'}}+{{/ifCond}}
+                            {{#ifCond weapon.system.bonusDamage '<' '0' }}{{/ifCond}}
+                                {{weapon.system.bonusDamage}} {{/if}} 
                         </div>
 
                         <div class="npc-weapon-list-item">
-                            {{weapon.data.data.attack}}
+                            {{weapon.system.attack}}
                         </div>
                         <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
 
                         <div class="npc-weapon-list-item">
                             <input type="checkbox" class="expanse-checkbox weapon-usefocus"
-                                name="weapon.data.data.usefocus" data-item-id={{weapon.id}} {{checked
-                                weapon.data.data.usefocus}}>
+                                name="weapon.system.usefocus" data-item-id={{weapon.id}} {{checked
+                                weapon.system.usefocus}}>
                         </div>
 
                         <div class="weapon-list-item">
                             <div class="roll-button npc-attack" data-roll="weapon-attack"
-                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.system.tohitabil}}">
                             </div>
                         </div>
 
                         <div class="weapon-list-item">
                             <div class="roll-button npc-damage" data-roll="weapon-damage"
-                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.data.data.tohitabil}}">
+                                data-item-id="{{weapon.id}}" data-item-abil="{{weapon.system.tohitabil}}">
                             </div>
                         </div>
 
@@ -135,16 +135,16 @@
                 <li class="item armor" data-item-id="{{armor.id}}">
                     <div class="armor-row">
                         <div class="armor-list-item">
-                            {{armor.data.name}}
+                            {{armor.name}}
                         </div>
                         <div class="armor-list-item">
-                            {{armor.data.data.type}}
+                            {{armor.system.type}}
                         </div>
                         <div class="armor-list-item">
-                            {{armor.data.data.bonus}}
+                            {{armor.system.bonus}}
                         </div>
                         <div class="armor-list-item">
-                            {{armor.data.data.penalty}}
+                            {{armor.system.penalty}}
                         </div>
                     </div>
 
@@ -181,10 +181,10 @@
                             {{shield.name}}
                         </div>
                         <div class="armor-list-item">
-                            {{shield.data.data.type}}
+                            {{shield.system.type}}
                         </div>
                         <div class="armor-list-item">
-                            {{shield.data.data.bonus}}
+                            {{shield.system.bonus}}
                         </div>
                     </div>
 
@@ -205,22 +205,26 @@
             </div>
             <div class="npc-special-box">
                 <div class="npc-special-rows">
+
                     <span>{{localize "EXPANSE.Stunts" }}:</span>
-                    <input type="text" name="data.stunts" value="{{stunts}}" data-dtype="String" />
+                    <input type="text" name="system.stunts" value="{{system.stunts}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
                     <span>{{localize "EXPANSE.Talents" }}:</span>
-                    <input type="text" name="data.talent1" value="{{talent1}}" data-dtype="String" />
+                    <input type="text" name="system.talent1" value="{{system.talent1}}" data-dtype="String" />
+
                 </div>
                 <div class="npc-special-rows">
-                    <input type="text" name="data.talent2" value="{{talent2}}" data-dtype="String" />
+                    <input type="text" name="system.talent2" value="{{system.talent2}}" data-dtype="String" />
                 </div>
                 <div class="npc-special-rows">
-                    <span>{{localize "EXPANSE.Equipment" }}:</span>
-                    <input type="text" name="data.equipment1" value="{{equipment1}}" data-dtype="String" />
+
+                     <span>{{localize "EXPANSE.Equipment" }}:</span>
+                    <input type="text" name="system.equipment1" value="{{system.equipment1}}" data-dtype="String" />
+
                 </div>
                 <div class="npc-special-rows">
-                    <input type="text" name="data.equipment2" value="{{equipment2}}" data-dtype="String" />
+                    <input type="text" name="system.equipment2" value="{{system.equipment2}}" data-dtype="String" />
                 </div>
 
             </div>
@@ -234,7 +238,7 @@
             </div>
 
             <div class="npc-notes-container">
-                {{editor content=notes target="data.notes" button=true owner=owner editable=true}}
+                {{editor enrichment.system.notes target="system.notes" button=true owner=owner editable=true}}
             </div>
         </div>
 
@@ -245,14 +249,16 @@
 
             <div class="npc-images">
                 <div class="npc-char-image">
-                    <img class="profile-img" src="{{img}}" data-edit="img" name="img" title="Character Portrait" />
+                    <img class="profile-img" src="{{actor.img}}" data-edit="img" name="img" title="Character Portrait" />
                 </div>
             </div>
         </div>
 
         <div class="npc-threat-footer">
+
             <span>{{localize "EXPANSE.Threat" }}:</span>
-            <input type="text" name="data.threat" value="{{threat}}" data-dtype="String" />
+            <input type="text" name="system.threat" value="{{system.threat}}" data-dtype="String" />
+
         </div>
 
 

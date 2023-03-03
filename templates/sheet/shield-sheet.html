@@ -3,7 +3,7 @@
     <div class="shields-box">
         <div class="shields-header-box">
             <div class="shields-header-block">
-                <input type="text" name="name" value="{{name}}" data-dtype="String" />
+                <input type="text" name="name" value="{{item.name}}" data-dtype="String" />
             </div>
         </div>
 
@@ -16,17 +16,17 @@
 
             <div class="shields-detail-box">
                 <div class="shields-attribute">
-                    <input type="text" name="data.type" value="{{data.type}}"  data-dtype="String" />
+                    <input type="text" name="system.type" value="{{system.type}}"  data-dtype="String" />
                 </div>
                 <div class="shields-attribute">
-                    <input type="text" name="data.bonus" value="{{data.bonus}}" data-dtype="Number" />
+                    <input type="text" name="system.bonus" value="{{system.bonus}}" data-dtype="Number" />
                 </div>
                 <div class="shields-attribute">
-                    <input type="text" name="data.cost" value="{{data.cost}}" data-dtype="Number" />
+                    <input type="text" name="system.cost" value="{{system.cost}}" data-dtype="Number" />
                 </div>
                 <div class="hidden-value">
-                    <input type="checkbox" class="expanse-checkbox" name="data.equip"
-                        {{checked data.equip}} data-dtype="Boolean">
+                    <input type="checkbox" class="expanse-checkbox" name="system.equip"
+                        {{checked system.equip}} data-dtype="Boolean">
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <span class="">{{localize "EXPANSE.Description" }}</span>
             </div>
             <div class="shields-desc-box">
-                {{editor content=data.description target="data.description" button=true owner=owner editable=true}}
+                {{editor enrichment.system.description target="system.description" button=true owner=owner editable=true}}
             </div>
         </div>
 

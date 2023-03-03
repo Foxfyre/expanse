@@ -14,7 +14,7 @@
     flex: 1;
     height: 60px;
     margin: 5px;
-    border: 1px solid rgba(0,0,0,0.5);
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .sheet .charname {
@@ -58,7 +58,7 @@
     text-shadow: #00c9e8 1px 0 10px;
 }
 
-.sheet .sheet-body{
+.sheet .sheet-body {
     height: calc(100% - 60px);
     margin: 5px
 }
@@ -130,7 +130,7 @@
 .sheet {
     display: flex;
     flex-direction: column;
-    background-color: rgba(116,189,220, 0.5);
+    background-color: rgba(116, 189, 220, 0.5);
     margin: 0;
     padding: 0;
     max-height: none !important;
@@ -140,14 +140,15 @@
     border: 1px solid;
 }
 
-.window-app.sheet.actor .window-content{
+.window-app.sheet.actor .window-content {
     background: none;
 }
 
 .window-app.journal-sheet .window-content {
     background: none;
 }
-.window-app.sheet.item .window-content{
+
+.window-app.sheet.item .window-content {
     background: none;
 }
 
@@ -173,10 +174,11 @@ img {
     background-position: center;
     cursor: pointer;
 }
+
 /* Global styles override */
 
 .window-app {
-  font-family: 'Anton', sans-serif;
+    font-family: 'Anton', sans-serif;
 }
 
 .sheet header.sheet-header img {
@@ -184,14 +186,14 @@ img {
 }
 
 .sheet header.sheet-header {
-    flex-direction:column;
+    flex-direction: column;
 }
 
-.sheet header.sheet-header > * {
-     flex: none; 
+.sheet header.sheet-header>* {
+    flex: none;
 }
 
-.sheet > * {
+.sheet>* {
     flex: unset;
 }
 
@@ -218,9 +220,9 @@ ul {
     min-height: 200px;
     min-width: 200px;
 }
-   
+
 .sheet .tox.tox-tinymce .tox-tbtn[title="Formats"] {
-     width: 50px !important;
+    width: 50px !important;
 }
 
 .sheet nav.sheet-tabs {
@@ -234,7 +236,7 @@ ul {
 
 blockquote {
     border-color: transparent;
-    padding: 0px 10px 5px 10px; 
+    padding: 0px 10px 5px 10px;
     color: black;
 }
 
@@ -262,7 +264,7 @@ blockquote {
     margin-right: 10px;
 }
 
-.char-image img{
+.char-image img {
     height: 150px;
     width: 150px;
     object-fit: cover;
@@ -280,7 +282,7 @@ blockquote {
 
 .expanse-title {
     display: flex;
-    flex-direction:  row;
+    flex-direction: row;
     justify-content: center;
     /*align-items: center;*/
     width: 100%;
@@ -312,11 +314,11 @@ blockquote {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
     border-bottom-right-radius: 10px;
 }
-  
+
 .information .info-label {
     text-transform: uppercase;
 }
-  
+
 .info-label {
     display: flex;
     justify-content: center;
@@ -327,7 +329,7 @@ blockquote {
     height: 100%;
     padding: 5px;
 }
-  
+
 .information input[type=text] {
     font-weight: bold;
     text-align: start;
@@ -368,7 +370,7 @@ blockquote {
     height: 100%;
     width: 100%;
 }
-  
+
 .attribute-box input[type=text] {
     display: flex;
     margin: auto 0 auto 0;
@@ -391,8 +393,8 @@ blockquote {
     background-color: rgba(0, 0, 0, .9);
     height: 15px;
 }
-  
-.box-header > span {
+
+.box-header>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -430,14 +432,14 @@ blockquote {
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-  
+
 .ability-name {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-  
-.ability-name > span {
+
+.ability-name>span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -445,7 +447,7 @@ blockquote {
     font-size: .8em;
     padding: 0 0 0 3px;
 }
-  
+
 .ability-name input[type=checkbox] {
     height: 15px;
     width: 15px;
@@ -459,12 +461,12 @@ blockquote {
     justify-content: flex-end;
 }
 
-.ability-focus-box > span {
+.ability-focus-box>span {
     font-size: .8em;
     text-transform: uppercase;
     align-items: center;
 }
-  
+
 .age-abilities input[type=text] {
     display: flex;
     width: 100%;
@@ -483,8 +485,8 @@ blockquote {
     background-color: #f3f3f3;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
-  }
-  
+}
+
 .age-abilities input[type=number] {
     display: flex;
     text-align: center;
@@ -493,7 +495,7 @@ blockquote {
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-  
+
 .ability-btn {
     display: flex;
     justify-content: center;
@@ -519,7 +521,7 @@ blockquote {
     flex-direction: column;
     text-align: center;
     width: 100%;
-    height:130px;
+    height: 130px;
     margin: 0px 5px 10px 5px;
     background-color: #f3f3f3;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
@@ -534,7 +536,7 @@ blockquote {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-  
+
 .condition {
     display: flex;
     flex-direction: row;
@@ -542,8 +544,8 @@ blockquote {
     height: 18px;
     align-items: center;
 }
-  
-.condition > span {
+
+.condition>span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -551,7 +553,7 @@ blockquote {
     font-size: .8em;
     padding: 0 0 0 3px;
 }
-  
+
 .condition input[type=checkbox] {
     height: 15px;
     width: 15px;
@@ -594,7 +596,7 @@ input[type=checkbox] {
     height: 15px;
 }
 
-.stunt-header > span {
+.stunt-header>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -629,7 +631,7 @@ input[type=checkbox] {
 .stunt-list-type {
     display: flex;
     flex-direction: column;
-    width: 20% ;
+    width: 20%;
     height: 30px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
     justify-content: center;
@@ -641,7 +643,7 @@ input[type=checkbox] {
 .stunt-list-repeat {
     display: flex;
     flex-direction: column;
-    width: 10% ;
+    width: 10%;
     height: 30px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
     justify-content: center;
@@ -653,7 +655,7 @@ input[type=checkbox] {
 .stunt-list-name {
     display: flex;
     flex-direction: column;
-    width: 40% ;
+    width: 40%;
     height: 30px;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
     justify-content: center;
@@ -695,10 +697,10 @@ input[type=checkbox] {
     color: whitesmoke;
 }
 
-.sheet .stunts-header-block > span {
+.sheet .stunts-header-block>span {
     font-size: 100%;
     line-height: 100%;
-    
+
 }
 
 .sheet .stunts-header-block input[type=text] {
@@ -795,7 +797,7 @@ input[type=checkbox] {
     padding: 3px;
 }
 
-.sheet .editor-content > p {
+.sheet .editor-content>p {
     margin-top: 0;
 }
 
@@ -855,8 +857,8 @@ input[type=checkbox] {
     background-color: rgba(0, 0, 0, .9);
     height: 15px;
 }
-  
-.sheet .weapon-header > span {
+
+.sheet .weapon-header>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -893,6 +895,7 @@ input[type=checkbox] {
     flex-direction: row;
     justify-content: center;
 }
+
 .sheet .weapon-row a:first-child {
     margin-right: 5px;
 }
@@ -918,8 +921,8 @@ input[type=checkbox] {
     background-color: rgba(0, 0, 0, .9);
     height: 15px;
 }
-  
-.sheet .armor-header > span {
+
+.sheet .armor-header>span {
     display: flex;
     justify-content: center;
     align-self: center;
@@ -957,6 +960,7 @@ input[type=checkbox] {
     flex-direction: row;
     justify-content: center;
 }
+
 .sheet .armor-row a:first-child {
     margin-right: 5px;
 }
@@ -996,14 +1000,14 @@ input[type=checkbox] {
     justify-content: space-evenly;
     align-items: center;
 }
-  
+
 /*.sheet .income-name {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }*/
-  
-.sheet .income-name > span {
+
+.sheet .income-name>span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1016,7 +1020,7 @@ input[type=checkbox] {
     display: flex;
     justify-content: center;
 }
-  
+
 .sheet .income-col input[type=text] {
     display: flex;
     width: 50%;
@@ -1045,7 +1049,7 @@ input[type=checkbox] {
     border-bottom-right-radius: 10px;
 }
 
-.sheet .extra-equipment > span {
+.sheet .extra-equipment>span {
     margin: 5px;
 }
 
@@ -1066,7 +1070,7 @@ input[type=checkbox] {
     flex-direction: column;
     text-align: center;
     width: 100%;
-    min-height:200px;
+    min-height: 200px;
     margin: 0px 5px 10px 5px;
     background-color: #f3f3f3;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
@@ -1098,7 +1102,7 @@ input[type=checkbox] {
     flex-direction: column;
     text-align: center;
     width: 100%;
-    min-height:100px;
+    min-height: 100px;
     margin: 0px 5px 10px 5px;
     background-color: #f3f3f3;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .6);
@@ -1129,7 +1133,7 @@ input[type=checkbox] {
 }
 
 .window-app.dialog.target-number-dialog .dialog-buttons {
-    height:30px;
+    height: 30px;
     flex: 0;
 }
 
@@ -1167,7 +1171,7 @@ input[type=checkbox] {
     color: whitesmoke;
 }
 
-.window-app.dialog.target-number-dialog .tn-header-block > span {
+.window-app.dialog.target-number-dialog .tn-header-block>span {
     font-size: 100%;
     line-height: 100%;
 }
@@ -1200,10 +1204,10 @@ input[type=checkbox] {
     background-color: #f3f3f3;
 }
 
-.window-app.dialog.target-number-dialog .tn-row > span {
+.window-app.dialog.target-number-dialog .tn-row>span {
     display: flex;
     width: 100%;
-    justify-content: center; 
+    justify-content: center;
     text-align: center;
     align-items: center;
 }
@@ -1225,6 +1229,7 @@ input[type=checkbox] {
 .window-app.app.journal-sheet {
     min-width: 470px;
     min-height: 362px;
+    background-color: rgba(116, 189, 220, 0.3);
 }
 
 .window-app.app.journal-sheet.image-popout {
@@ -1243,13 +1248,44 @@ input[type=checkbox] {
     text-align: justify;
 }
 
+.journal-entry-content {
+    box-shadow: inset 0px 0px 20px 5px
+}
+
+.sheet.journal-entry .journal-entry-content, .editor {
+    background: none;
+    background-color: rgba(116, 189, 220, 0.3);
+}
+
+.journal-page-content {
+    color: whitesmoke;
+}
+
+.journal-page-content table tr {
+    color: black;
+}
+
+.journal-entry-pages {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.content-link {
+    background: #005971;
+    padding: 1px 4px;
+    border: 1px solid #4b4a44;
+    border-radius: 2px;
+    white-space: nowrap;
+    word-break: break-all;
+    color: #f3f3f3;
+}
+
 .window-app.app.journal-sheet .window-content form {
     display: flex;
     flex-direction: column;
     margin: 15px;
-    height: 100%;
+    /*height: 100%;*/
     padding: 5px;
-    background-color: rgba(116,189,220, 0.3);
+    /*background-color: rgba(116,189,220, 0.3);*/
 }
 
 .window-app.app.journal-sheet .window-content form button[type="submit"] {
@@ -1259,25 +1295,25 @@ input[type=checkbox] {
     background: rgba(0, 0, 0, 0.3);
     border: 2px groove #005971;
     color: whitesmoke;
-} 
+}
 
 .window-app.app.journal-sheet .window-content input[name="name"],
 .window-app.app.journal-sheet .window-content input[name="title"] {
     background: rgba(0, 0, 0, 0.3);
     border: 2px groove #005971;
     color: whitesmoke;
-}    
+}
 
 .window-app.app.journal-sheet .window-content select[name="folder"] {
-  padding: 5px 0px;
-  margin: 5px 0 0 0;
-  width: 100%;
-  height: fit-content;
-  text-overflow: ellipsis;
-  box-shadow: 0px 0px 2px #2700009e inset;
-  background: rgba(0, 0, 0, 0.3);
-  border: 2px groove #005971;
-  color: whitesmoke;
+    padding: 5px 0px;
+    margin: 5px 0 0 0;
+    width: 100%;
+    height: fit-content;
+    text-overflow: ellipsis;
+    box-shadow: 0px 0px 2px #2700009e inset;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px groove #005971;
+    color: whitesmoke;
 }
 
 .window-app.app.journal-sheet form.editable .editor {
@@ -1307,7 +1343,7 @@ input[type=checkbox] {
     color: #f3f3f3;
 }
 
-a.entity-link, a.inline-roll {
+a.content-link, a.inline-roll {
     background: #005971;
     padding: 1px 4px;
     border: 1px solid #4b4a44;
@@ -1321,7 +1357,7 @@ a.entity-link, a.inline-roll {
     padding: 5px 10px;
 }
 
-.window-app.app h1,.window-app.app  h2 {
+.window-app.app h1, .window-app.app h2 {
     border-bottom: 2px solid #005971;
     text-transform: uppercase;
 }
@@ -1332,7 +1368,7 @@ a.entity-link, a.inline-roll {
     text-transform: uppercase;
 }
 
-.window-app.app.journal-sheet h5 {
+.window-app.app.journal-sheet-entry h5 {
     font-size: 1.125em;
     font-weight: normal;
     text-transform: uppercase;
@@ -1351,12 +1387,12 @@ a.entity-link, a.inline-roll {
     margin-block-end: 0.55em;
 }
 
-.window-app.app.journal-sheet p {
+.window-app.app.journal-page-content p {
     text-indent: 2ch;
     padding: 0 5px;
 }
 
-.window-app.app.journal-sheet blockquote p {
+.window-app.app.journal-page-content blockquote p {
     text-indent: -1ch;
     margin: 1px 0px 0px -6px;
 }
@@ -1365,7 +1401,7 @@ a.entity-link, a.inline-roll {
 
 .damage-modifier-sheet-dialog, .income-cost-sheet {
     width: 450px !important;
-    background-color: rgba(116,189,220, 0.5);
+    background-color: rgba(116, 189, 220, 0.5);
 }
 
 .income-cost-sheet {
@@ -1485,7 +1521,7 @@ a.entity-link, a.inline-roll {
     font-size: 12px;
 }
 
-.popup > ul {
+.popup>ul {
     list-style: none;
 }
 
@@ -1494,4 +1530,3 @@ a.entity-link, a.inline-roll {
     align-items: baseline;
     justify-content: space-around;
 }
-

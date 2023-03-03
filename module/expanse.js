@@ -4,6 +4,7 @@ import { ExpanseItem } from "./item.js";
 import { ExpanseActor } from "./actor.js";
 import { ExpanseNPCSheet } from "./npc-sheet.js";
 import { ExpanseShipSheet } from "./ship-sheet.js";
+import { initializeHandlebars } from "../scripts/handlebars.js";
 import { registerDiceSoNice } from "./hooks/dice-so-nice.js";
 import { TheExpanseEarthDark } from "./dice-so-nice/expanse-earth-dark-die.js";
 import { TheExpanseEarthLight } from "./dice-so-nice/expanse-earth-light-die.js";
@@ -50,6 +51,8 @@ Hooks.once("init", async function () {
   Items.registerSheet("expanse", ExpanseItemSheet, {
     makeDefault: true
   });
+
+  initializeHandlebars();
 
   Handlebars.registerHelper('concat', function () {
     let arg = Array.prototype.slice.call(arguments, 0);
@@ -126,6 +129,8 @@ Hooks.once("init", () => {
     type: Boolean,
     default: !1
   })
+
+  //CONFIG.debug.hooks = true;
 })
 
 Hooks.on("ready", async () => {
@@ -136,6 +141,7 @@ Hooks.on("ready", async () => {
     <img src="systems/expanse/ui/The expanse RPG logo - black.png" width="350px" height="62px" style="margin-bottom: 10px;">
     <h2>Welcome to <i>The Expanse RPG!</i></h2>
     <p>Green Ronin Publishing is proud to present the official Foundry VTT system for <i>The Expanse RPG</i>! <br><br>
+    <h2> Make sure you back up all data when updating to a new version </h2>
     <h2>How to use</h2>
     <b>Standard Rolling</b>On the character and NPC sheets, the following image indicates rollable buttons. On the NPC sheet, the attribute name is the rollable trigger. 
     <br><br><img src="systems/expanse/ui/earth-5.png" width="25px" height="25px"><br>

@@ -1,20 +1,19 @@
 {
-  "name": "expanse",
+  "id": "expanse",
   "title": "The Expanse RPG (AGE)",
   "description": "The official system for The Expanse RPG (AGE) from Green Ronin Publishing",
-  "version": "0.8.5",
-  "minimumCoreVersion": "9",
-  "compatibleCoreVersion": "9",
-  "author": "Charlotte Hamilton",
+  "version": "1.0.0",
   "authors": [
     {
       "name": "Foxfyre",
       "email": "foxfyre2204@gmail.com",
-      "discord": "Foxfyre#2204"
+      "discord": "Foxfyre#2204",
+      "flags": {}
     },
     {
       "name": "Green Ronin Publishing",
-      "email": "letsplay@greenronin.com"
+      "email": "letsplay@greenronin.com",
+      "flags": {}
     }
   ],
   "esmodules": [
@@ -29,29 +28,32 @@
     "styles/armor.css",
     "styles/ship.css"
   ],
-  "scripts": [],
-  "packs": [],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     },
     {
       "lang": "es",
-      "Name": "Spanish",
-      "path": "lang/es.json"
+      "path": "lang/es.json",
+      "name": "",
+      "flags": {}
     },
     {
       "lang": "fr",
-      "Name": "French",
-      "path": "lang/fr.json"
+      "path": "lang/fr.json",
+      "name": "",
+      "flags": {}
     }
   ],
   "media": [
     {
       "type": "cover",
-      "url": "https://github.com/Foxfyre/expanse/blob/48754e8d372787dc421144561a92d8590410bac7/ui/expanse-cover.jpg"
+      "url": "https://github.com/Foxfyre/expanse/blob/48754e8d372787dc421144561a92d8590410bac7/ui/expanse-cover.jpg",
+      "loop": false,
+      "flags": {}
     }
   ],
   "gridDistance": 1,
@@ -59,7 +61,12 @@
   "primaryTokenAttribute": "attributes.fortune",
   "secondaryTokenAttribute": "resource2",
   "url": "https://github.com/Foxfyre/expanse",
-  "manifest": "https://raw.githubusercontent.com/Foxfyre/expanse/main/system.json",
-  "download": "https://github.com/Foxfyre/expanse/releases/download/v0.8.5/expanse.zip",
-  "license": "LICENSE.txt"
+  "manifest": "https://github.com/Foxfyre/expanse/releases/latest/download/system.json",
+  "download": "https://github.com/Foxfyre/expanse/releases/download/1.0.0/expanse.zip",
+  "license": "LICENSE.txt",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10.291",
+    "maximum": "10"
+  }
 }

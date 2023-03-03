@@ -5,51 +5,55 @@
 
 export class ExpanseItem extends Item {
 
-    _preCreate() {
-        const data = this.data;
+    prepareData() {
+        super.prepareData();
+    }
+
+    _preCreate(data) {
+        //const data = this.system;
         const path = "systems/expanse/ui/item-img/"
-        if (data.type === "armor") {
-            data.update({ img: `${path}item-armor.png` })
+        if (this.type === "armor") {
+            this.updateSource({ img: `${path}item-armor.png` })
         } else if (data.type === "shield") {
-            data.update({ img: `${path}item-shield.png` })
+            this.updateSource({ img: `${path}item-shield.png` })
         } else if (data.type === "talent") {
-            data.update({ img: `${path}talent-tablet.png` })
+            this.updateSource({ img: `${path}talent-tablet.png` })
         } else if (data.type === "stunt") {
-            data.update({ img: `${path}stunt.png` })
+            this.updateSource({ img: `${path}stunt.png` })
         }
     }
 
     _onUpdate(changed, options, userId) {
-        const data = this.data;
+        const data = this.toObject().system;
         const path = "systems/expanse/ui/item-img/"
-        if (data.type === "weapon") {
-            if (data.data.type === "pistol") {
-                this.update({ img: `${path}item-pistol.png` })
-            } else if (data.data.type === "rifle") {
-                this.update({ img: `${path}item-rifle1.png` })
-            } else if (data.data.type === "light_melee") {
-                this.update({ img: `${path}item-light_melee.png` })
-            } else if (data.data.type === "heavy_melee") {
-                this.update({ img: `${path}item-heavy_melee.png` })
-            } else if (data.data.type === "makeshift") {
-                this.update({ img: `${path}item-makeshift1.png` })
-            } else if (data.data.type === "grenade") {
-                this.update({ img: `${path}item-grenade.png` })
-            } else if (data.data.type === "unarmed") {
-                this.update({ img: `${path}item-unarmed.png` })
+        if (this.type === "weapon") {
+            if (this.type === "pistol") {
+                this.updateSource({ img: `${path}item-pistol.png` })
+            } else if (this.type === "rifle") {
+                this.updateSource({ img: `${path}item-rifle1.png` })
+            } else if (this.type === "light_melee") {
+                this.updateSource({ img: `${path}item-light_melee.png` })
+            } else if (this.type === "heavy_melee") {
+                this.updateSource({ img: `${path}item-heavy_melee.png` })
+            } else if (this.type === "makeshift") {
+                this.updateSource({ img: `${path}item-makeshift1.png` })
+            } else if (this.type === "grenade") {
+                this.updateSource({ img: `${path}item-grenade.png` })
+            } else if (this.type === "unarmed") {
+                this.updateSource({ img: `${path}item-unarmed.png` })
             }
         }
 
-        if (data.type === "talent" && data.data.specialization === true) {
-            this.update({ img: `${path}talent-book.png` })
+        if (this.type === "talent" && this.system.specialization === true) {
+            this.updateSource({ img: `${path}talent-book.png` })
         }
         
-        if (data.type === "talent" && data.data.specialization === false) {
-            this.update({ img: `${path}talent-tablet.png` })
+        if (this.type === "talent" && this.system.specialization === false) {
+            this.updateSource({ img: `${path}talent-tablet.png` })
         }
 
-        if (data.type === "stunt") {
-            this.update({ img: `${path}stunt.png` })
+        if (this.type === "stunt") {
+            this.updateSource({ img: `${path}stunt.png` })
         }
     }
 }

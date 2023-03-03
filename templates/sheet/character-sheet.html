@@ -7,7 +7,7 @@
             <div class="info-header">
 
                 <div class="char-image">
-                    <img class="profile-img" src="{{img}}" data-edit="img" title="{{actor.name}}" />
+                    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" name="img" />
                 </div>
 
 
@@ -23,52 +23,53 @@
 
                             <label for="name" class="info-label">{{localize "EXPANSE.Name" }}</label>
 
-                            <input class="info-input" type="text" name="name" value="{{name}}" data-dtype="String" />
-
-                        </div>
-
-                        <div class="information">
-
-                            <label for="data.info.origin" class="info-label">{{localize "EXPANSE.Origin" }}</label>
-
-                            <input class="info-input" type="text" name="data.info.origin" value="{{info.origin}}"
+                            <input class="info-input" type="text" name="name" value="{{actor.name}}"
                                 data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.info.background" class="info-label">{{localize "EXPANSE.Background"}}</label>
+                            <label for="system.info.origin" class="info-label">{{localize "EXPANSE.Origin" }}</label>
 
-                            <input class="info-input" type="text" name="data.info.background"
+                            <input class="info-input" type="text" name="system.info.origin" value="{{info.origin}}"
+                                data-dtype="String" />
+
+                        </div>
+
+                        <div class="information">
+
+                            <label for="system.info.background" class="info-label">{{localize "EXPANSE.Background"}}</label>
+
+                            <input class="info-input" type="text" name="system.info.background"
                                 value="{{info.background}}" data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.info.social" class="info-label">{{localize "EXPANSE.Social" }}</label>
+                            <label for="system.info.social" class="info-label">{{localize "EXPANSE.Social" }}</label>
 
-                            <input class="info-input" type="text" name="data.info.social" value="{{info.social}}"
+                            <input class="info-input" type="text" name="system.info.social" value="{{info.social}}"
                                 data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.info.profession" class="info-label">{{localize "EXPANSE.Profession"
+                            <label for="system.info.profession" class="info-label">{{localize "EXPANSE.Profession"
                                 }}</label>
 
-                            <input class="info-input" type="text" name="data.info.profession"
+                            <input class="info-input" type="text" name="system.info.profession"
                                 value="{{info.profession}}" data-dtype="String" />
 
                         </div>
 
                         <div class="information">
 
-                            <label for="data.info.drive" class="info-label">{{localize "EXPANSE.Drive"}}</label>
+                            <label for="system.info.drive" class="info-label">{{localize "EXPANSE.Drive"}}</label>
 
-                            <input class="info-input" type="text" name="data.info.drive" value="{{info.drive}}"
+                            <input class="info-input" type="text" name="system.info.drive" value="{{info.drive}}"
                                 data-dtype="String" />
 
                         </div>
@@ -81,97 +82,7 @@
 
                 <!-- Attributes Row -->
 
-                <div class="attribute-row">
-
-                    <div id="speed" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Speed"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.speed.modified" value="{{attributes.speed.modified}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="defense" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Defense"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.defense.modified"
-                            value="{{attributes.defense.modified}}" data-dtype="Number" />
-                    </div>
-
-                    <div id="toughness" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Toughness"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.toughness.modified"
-                            value="{{attributes.toughness.modified}}" data-dtype="Number" />
-                    </div>
-
-                    <div id="armor" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Armor"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.armor.modified" value="{{attributes.armor.modified}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="penalty" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Penalty"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.penalty.modified"
-                            value="{{attributes.penalty.modified}}" data-dtype="Number" />
-                    </div>
-
-                    <div id="move" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Move"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.move.modified" value="{{attributes.move.modified}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="run" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Run"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.run.modified" value="{{attributes.run.modified}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="level" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Level"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.level.modified" value="{{attributes.level.modified}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="fortune" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Fortune"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.fortune.value" value="{{attributes.fortune.value}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="fortune" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.MaxFortune"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.fortune.max" value="{{attributes.fortune.max}}"
-                            data-dtype="Number" />
-                    </div>
-
-                    <div id="stuntpoints" class="attribute-box">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.Stuntpoints"}}</span>
-                        </div>
-                        <input type="text" name="data.attributes.stuntpoints.modified"
-                            value="{{attributes.stuntpoints.modified}}" data-dtype="Number" />
-                    </div>
-
-                </div>
+                {{> systems/expanse/templates/sheet/sections/player-attributes.html}}
 
                 <!-- Add Fortune doots here -->
 
@@ -180,87 +91,24 @@
         </header>
 
         <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="abilities">{{localize "EXPANSE.Abilities" }}</a>
-            <a class="item" data-tab="talents">{{localize "EXPANSE.TalentsStunts" }}</a>
-            <a class="item" data-tab="gear">{{localize "EXPANSE.Equipment" }}</a>
-            <a class="item" data-tab="biography">{{localize "EXPANSE.Biography" }}</a>
-            <a class="item" data-tab="notes">{{localize "EXPANSE.Notes" }}</a>
+
+            <a class="item" data-tab="abilities">{{localize "TAB.Abilities"}}</a>
+            <a class="item" data-tab="talents">{{localize "TAB.TalentsStunts"}}</a>
+            <a class="item" data-tab="gear">{{localize "TAB.Equipment"}}</a>
+            <a class="item" data-tab="biography">{{localize "TAB.Biography"}}</a>
+            <a class="item" data-tab="notes">{{localize "TAB.Notes"}}</a>
+
         </nav>
 
         <section class="sheet-body">
 
             <div class="tab abilities" data-group="primary" data-tab="abilities">
 
-                {{#each abilities as |ability key|}}
-
-                <div class="age-abilities">
-
-                    <div class="ability-field">
-
-                        <div class="ability-name">
-
-                            <span>{{localize (concat "EXPANSE." key) }}</span>
-
-                            <div class="ability-focus-box">
-                                <span>{{localize "EXPANSE.Focus" }} +2</span>
-                                <input type="checkbox" class="expanse-checkbox" name="data.abilities.{{key}}.useFocus"
-                                    {{checked ability.useFocus}}>
-                                {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
-                                <span>+1</span>
-                                <input type="checkbox" class="expanse-checkbox"
-                                    name="data.abilities.{{key}}.useFocusPlus" {{checked ability.useFocusPlus}}>
-                                {{/ifCond}}
-                            </div>
-
-                        </div>
-
-                        <input class="age-focus" type="text" name="data.abilities.{{key}}.focus"
-                            value="{{ability.focus}}" data-dtype="String" />
-
-                    </div>
-
-                    <div class="rating-box">
-
-                        <input class="age-ability" type="number" placeholder={{localize "EXPANSE.RatingTitle" }}
-                            name="data.abilities.{{key}}.rating" value="{{ability.rating}}" data-dtype="Number" />
-
-                        <div class="ability-btn rollable roll-button" data-roll="3d6+@abilities.{{key}}.rating"
-                            data-label="{{key}}">
-                        </div>
-
-                    </div>
-                </div>
-
-                {{/each}}
+                {{> systems/expanse/templates/sheet/sections/player-abilities.html}}
 
                 <div class="conditions-box">
 
-                    <!-- Conditions Row -->
-
-                    <div class="box-header">
-
-                        <!-- Header -->
-
-                        <span>{{localize "EXPANSE.Conditions" }}</span>
-
-                    </div>
-
-                    <div class="condition-container">
-
-                        {{#each conditions as |conditions key|}}
-
-                        <div class="condition" title="{{localize (concat "EXPANSE." key "Desc") }}">
-
-                            <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked
-                                conditions.active}}>
-
-                            <span class="condition-hover">{{localize (concat "EXPANSE." key) }}</span>
-
-                        </div>
-
-                        {{/each}}
-
-                    </div>
+                    {{> systems/expanse/templates/sheet/sections/player-conditions.html}}
 
                 </div>
 
@@ -268,81 +116,7 @@
 
             <div class="tab talents" data-group="primary" data-tab="talents">
 
-                <div class="talent-stunt">
-
-                    <div class="talent-box">
-
-                        <div class="talent-header">
-
-                            <span class="talent-header-name">{{localize "EXPANSE.Talents" }}</span>
-
-                        </div>
-
-                        <ul class="items talent-list">
-                            {{#each talent as |talent id|}}
-                            <li class="item talent item-controls item-list talent-item" data-item-id="{{talent.id}}"
-                                {{#if data.data.specialization}} style="padding-left: 10px;" {{/if}}>
-                                <div class="talent-column item-control item-edit">
-                                    <div class="talent-list-name">
-                                        {{data.name}}
-                                    </div>
-                                    <div class="talent-list-degree">
-                                        {{data.data.highest}}
-                                    </div>
-                                </div>
-
-                                <div class="item-controls talent-item-control">
-                                    <a class="item-control item-edit" title="Edit Talent"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="Delete Talent"><i
-                                            class="fas fa-trash"></i></a>
-                                </div>
-
-                            </li>
-                            {{/each}}
-                        </ul>
-                        <a class="item-control item-create" data-type="talent" title="Add Talent">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
-                    <!-- Stunts on character sheet are referred to by Stunt. On the stunt sheet they are Stunts-->
-                    <div class="stunt-box">
-                        <div class="stunt-header">
-                            <span class="stunt-header-title">{{localize "EXPANSE.StuntType" }}</span>
-                            <span class="stunt-header-title">{{localize "EXPANSE.Cost" }}</span>
-                            <span class="stunt-header-effect">{{localize "EXPANSE.Name" }}</span>
-                            <span class="stunt-header-blank"></span>
-                        </div>
-
-                        <ul class="items stunt-list">
-                            {{#each stunts as |stunt id|}}
-                            <li class="item stunt" data-item-id="{{stunt.id}}">
-                                <div class="stunt-list-type r-border-t-l">
-                                    {{data.data.type}}
-                                </div>
-                                <div class="stunt-list-type">
-                                    {{data.data.cost}}
-                                </div>
-                                <div class="stunt-list-name r-border-b-r">
-                                    {{name}}
-                                </div>
-
-                                <div class="item-controls">
-                                    <a class="item-control item-edit" title="Edit Stunt"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="Delete Stunt"><i
-                                            class="fas fa-trash"></i></a>
-                                </div>
-
-                            </li>
-                            {{/each}}
-
-                        </ul>
-                        <a class="item-control item-create" data-type="stunt" title="Add Stunt">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
-
-                </div>
+                {{> systems/expanse/templates/sheet/sections/player-talents.html}}
 
             </div>
 
@@ -350,273 +124,22 @@
 
                 <div class="equipment">
 
-                    <div class="weapon-box">
-
-                        <div class="weapon-header">
-
-                            <span>{{localize "EXPANSE.Weapons" }}</span>
-
-                        </div>
-
-                        <ul class="items weapon-list">
-                            <div class="box-header">
-                                <span>{{localize "EXPANSE.Name" }}</span>
-                                <span>{{localize "EXPANSE.Damage" }}</span>
-                                <span>{{localize "EXPANSE.AttackBonus" }}</span>
-                                <span>{{localize "EXPANSE.MaxRange" }}</span>
-                                <span>{{localize "EXPANSE.Focus" }}</span>
-                                <span>{{localize "EXPANSE.Hit" }}</span>
-                                <span>{{localize "EXPANSE.Damage" }}</span>
-                                <span></span>
-                            </div>
-
-                            {{#each weapon as |weapon id|}}
-                            <li class="item weapon" data-item-id="{{weapon.id}}">
-                                <div class="weapon-row">
-                                    <div class="weapon-list-item">
-                                        {{weapon.data.name}}
-                                    </div>
-                                    <div class="weapon-list-item">
-                                        {{weapon.data.data.damage}}D{{weapon.data.data.dieFaces}}
-                                        {{#if weapon.data.data.hasBonusDamage}}
-                                        {{#ifCond weapon.data.data.bonusDamage '>' '0'}}+{{/ifCond}}
-                                        {{#ifCond weapon.data.data.bonusDamage '<' '0' }}{{/ifCond}}
-                                            {{weapon.data.data.bonusDamage}} {{/if}} </div>
-                                            <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
-                                            <div class="weapon-list-item">
-                                                {{weapon.data.data.attack}}
-                                            </div>
-
-                                            <div class="weapon-list-item">
-                                                {{weapon.data.data.rangemax}}
-                                            </div>
-
-                                            <div class="weapon-list-item">
-                                                <span>+2</span>
-                                                <input type="checkbox" class="expanse-checkbox weapon-usefocus"
-                                                    name="weapon.data.data.usefocus" data-item-id={{weapon.id}}
-                                                    {{checked weapon.data.data.usefocus}}>
-                                                {{#ifCond weapon.data.data.usefocus '&&' ../attributes.level.bonus}}
-                                                <span>+1</span>
-                                                <input type="checkbox" class="expanse-checkbox weapon-usefocusplus"
-                                                    name="weapon.data.data.usefocusplus" data-item-id={{weapon.id}}
-                                                    {{checked weapon.data.data.usefocusplus}}>
-                                                {{/ifCond}}
-                                            </div>
-
-                                            <div class="weapon-list-item">
-                                                <div class="roll-button pc-attack" data-roll="weapon-attack"
-                                                    data-item-id="{{weapon.id}}"
-                                                    data-item-abil="{{weapon.data.data.tohitabil}}"></div>
-                                            </div>
-
-                                            <div class="weapon-list-item">
-                                                <div class="roll-button pc-damage" data-roll="weapon-damage"
-                                                    data-item-id="{{weapon.id}}"
-                                                    data-item-abil="{{weapon.data.data.tohitabil}}"></div>
-                                            </div>
-
-                                            <div class="item-controls weapon-list-item">
-                                                <a class="item-control item-edit" title="Edit Weapon"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <a class="item-control item-delete" title="Delete Weapon"><i
-                                                        class="fas fa-trash"></i></a>
-                                            </div>
-                                    </div>
-
-                            </li>
-                            {{/each}}
-                        </ul>
-                        <a class="item-control item-create" data-type="weapon" title="Add Weapon">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
-
-                    <div class="armor-box">
-
-                        <div class="armor-header">
-
-                            <span>{{localize "EXPANSE.Armor" }}</span>
-
-                        </div>
-
-                        <ul class="items armor-list">
-                            <div class="box-header">
-                                <span>{{localize "EXPANSE.Name" }}</span>
-                                <span>{{localize "EXPANSE.Type" }}</span>
-                                <span>{{localize "EXPANSE.ArmorBonus" }}</span>
-                                <span>{{localize "EXPANSE.ArmorPenalty" }}</span>
-                                <span>{{localize "EXPANSE.Equipped" }}</span>
-                                <span></span>
-                            </div>
-                            {{#each armor as |armor key|}}
-                            <li class="item armor" data-item-id="{{armor.id}}">
-                                <div class="armor-row">
-                                    <div class="armor-list-item">
-                                        {{armor.data.name}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        {{armor.data.data.type}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        {{armor.data.data.bonus}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        {{armor.data.data.penalty}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{armor.id}} name="armor.data.equip" {{checked
-                                            armor.data.data.equip}}>
-                                    </div>
-                                </div>
-
-                                <div class="item-controls talent-item-control">
-                                    <a class="item-control item-edit" title="Edit Armor"><i class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="Delete Armor"><i
-                                            class="fas fa-trash"></i></a>
-                                </div>
-
-                            </li>
-                            {{/each}}
-                        </ul>
-
-                        <a class="item-control item-create" data-type="armor" title="Add Armor">
-                            <i class="fas fa-plus"></i>
-                        </a>
-
-                        <div class="armor-header">
-
-                            <span>{{localize "EXPANSE.Shield" }}</span>
-
-                        </div>
-
-                        <ul class="items armor-list">
-                            <div class="box-header">
-                                <span>{{localize "EXPANSE.Name" }}</span>
-                                <span>{{localize "EXPANSE.Type" }}</span>
-                                <span>{{localize "EXPANSE.DefenseBonus" }}</span>
-                                <span>{{localize "EXPANSE.Equipped" }}</span>
-                                <span></span>
-                            </div>
-
-                            {{#each shield as |shield key|}}
-                            <li class="item armor" data-item-id="{{shield.id}}">
-                                <div class="armor-row">
-                                    <div class="armor-list-item">
-                                        {{shield.name}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        {{shield.data.data.type}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        {{shield.data.data.bonus}}
-                                    </div>
-                                    <div class="armor-list-item">
-                                        <input type="checkbox" class="expanse-checkbox item-equip"
-                                            data-item-id={{shield.id}} name="shield.data.equip" {{checked
-                                            shield.data.data.equip}}>
-                                    </div>
-                                </div>
-
-                                <div class="item-controls talent-item-control">
-                                    <a class="item-control item-edit" title="Edit Shield"><i
-                                            class="fas fa-edit"></i></a>
-                                    <a class="item-control item-delete" title="Delete Shield"><i
-                                            class="fas fa-trash"></i></a>
-                                </div>
-
-                            </li>
-                            {{/each}}
-                        </ul>
-                        <a class="item-control item-create" data-type="shield" title="Add Shield">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
-
-                    <div class="misc-gear">
-                        <div class="box-header">
-                            <span>{{localize "EXPANSE.MiscellaneousItems" }}</span>
-                        </div>
-
-                        <div class="income-items-row">
-                            <div class="income">
-                                <div class="income-col">
-
-                                    <span>{{localize "EXPANSE.Income" }}</span>
-
-                                    <input class="age-income" type="text" name="data.info.income"
-                                        value="{{info.income}}" data-dtype="Number" />
-                                </div>
-
-                                <div class="income-btn income-roll" data-roll="3d6+@data.info.income">
-                                </div>
-
-                            </div>
-                            <div class="extra-equipment">
-                                <span>{{localize "EXPANSE.Equipment" }}</span>
-                                <input type="text" name="data.info.equipment" value="{{info.equipment}}"
-                                    data-dtype="String" />
-                            </div>
-                        </div>
-                    </div>
+                    {{> systems/expanse/templates/sheet/sections/player-equipment.html}}
 
                 </div>
 
             </div>
 
             <div class="tab biography" data-group="primary" data-tab="biography">
-                {{log bio.appearance}}
-                <div class="biography-box">
 
-                    <div class="box-header">
-                        <span>{{localize "EXPANSE.Description" }}</span>
-                    </div>
-                    <div class="biography-container">
-                        {{editor content=bio.appearance target="data.bio.appearance" button=true owner=owner
-                        editable=true}}
-                    </div>
-                </div>
-
-                <div class="biography-box">
-
-                    <div class="box-header">
-                        <span>{{localize "EXPANSE.Relationships" }}</span>
-                    </div>
-
-                    <div class="biography-container">
-                        {{editor content=bio.relationships target="data.bio.relationships" button=true owner=owner
-                        editable=true}}
-                    </div>
-                </div>
-
-                <div class="biography-box">
-
-                    <div class="box-header">
-                        <span>{{localize "EXPANSE.Goals" }}</span>
-                    </div>
-
-                    <div class="biography-container">
-                        {{editor content=bio.goals target="data.bio.goals" button=true owner=owner
-                        editable=true}}
-                    </div>
-                </div>
+                {{> systems/expanse/templates/sheet/sections/player-biography.html}}
 
             </div>
 
             <div class="tab notes" data-group="primary" data-tab="notes">
 
-                <div class="notes-box">
+                {{> systems/expanse/templates/sheet/sections/player-notes.html}}
 
-                    <div class="box-header">
-                        <span>{{localize "EXPANSE.Notes" }}</span>
-                    </div>
-
-                    <div class="notes-container">
-                        {{editor content=bio.notes target="data.bio.notes" button=true owner=owner
-                        editable=true}}
-                    </div>
-                </div>
             </div>
 
         </section>

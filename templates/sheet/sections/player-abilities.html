@@ -1,0 +1,40 @@
+{{#each abilities as |ability key|}}
+
+<div class="age-abilities">
+
+    <div class="ability-field">
+
+        <div class="ability-name">
+
+            <span>{{key}}</span>
+
+            <div class="ability-focus-box">
+                <span>Focus +2</span>
+                <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocus" {{checked
+                    ability.useFocus}}>
+                {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
+                <span>+1</span>
+                <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocusPlus" {{checked
+                    ability.useFocusPlus}}>
+                {{/ifCond}}
+            </div>
+
+        </div>
+
+        <input class="age-focus" type="text" name="system.abilities.{{key}}.focus" value="{{ability.focus}}"
+            data-dtype="String" />
+
+    </div>
+
+    <div class="rating-box">
+
+        <input class="age-ability" type="number" placeholder={{localize "EXPANSE.RatingTitle" }}
+            name="system.abilities.{{key}}.rating" value="{{ability.rating}}" data-dtype="Number" />
+
+        <div class="ability-btn rollable roll-button" data-roll="3d6+@abilities.{{key}}.rating" data-label="{{key}}">
+        </div>
+
+    </div>
+</div>
+
+{{/each}}

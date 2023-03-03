@@ -10,13 +10,13 @@ export class ExpanseActor extends Actor {
     super.prepareData();
   }
 
-  _preCreate() {
-    const data = this.data;
+  _preCreate(data) {
+    // data = this.data;
     const path = "systems/expanse/ui/item-img/"
     if (data.type === "ship" && data.img === "icons/svg/mystery-man.svg") {
       data.update({ img: `${path}actor-ship.png` })
     }
-
+ 
     let createData = {};
 
     if (!data.token) {
@@ -38,87 +38,67 @@ export class ExpanseActor extends Actor {
       createData.token.actorLink = true;
     }
 
-    data.update(createData);
+    this.updateSource(createData);
   }
 
   prepareEmbeddedEntities() {
-    /*const actorData = this.data;
-    console.log(actorData)
-    if (actorData.type === "character") {
-      for (let items of actorData.items) {
-        if (items.data.type === "armor" && items.data.data.equip === true) {
-          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
-          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
-        } else if (items.data.type === "armor" && items.data.data.equip === false) {
-          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
-          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
-        }
-      }
-
-      //shields
-      for (let items of actorData.items) {
-        if (items.data.type === "shield" && items.data.data.equip === true) {
-          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
-        }
-      }
-    }*/
-    // if armour is equipped, set modified value to bonus. else set to original value
-
   }
 
 
-  prepareDerivedData() {
-    const actorData = this.data;
-    const data = actorData.data;
-    if (actorData.type === "character") {
-
-      for (let items of actorData.items) {
-        if (items.data.type === "armor" && items.data.data.equip === true) {
-          actorData.data.attributes.armor.modified = Number(items.data.data.bonus);
-          actorData.data.attributes.penalty.modified = Number(items.data.data.penalty);
-        } else if (items.data.type === "armor" && items.data.data.equip === false) {
-          actorData.data.attributes.armor.modified = actorData.data.attributes.armor.value;
-          actorData.data.attributes.penalty.modified = actorData.data.attributes.penalty.value;
+  prepareData() {
+    const actorData = this.system;
+    //console.log(this.items);
+    //console.log(actorData)
+    //console.log(this.type)
+    
+    if (this.type === "character") {
+      actorData.attributes.armor.modified = 0;
+      actorData.attributes.penalty.modified = 0;
+      for (let item of this.items) {
+        if (item.type === "armor" && item.system.equip === true) {
+          actorData.attributes.armor.modified = Number(item.system.bonus);
+          actorData.attributes.penalty.modified = Number(item.system.penalty);
+        } else if (item.type === "armor" && item.system.equip === false) {
+          //actorData.attributes.armor.modified = actorData.attributes.armor.value;
+          //actorData.attributes.penalty.modified = actorData.attributes.penalty.value;
         }
         //shields
-        if (items.data.type === "shield" && items.data.data.equip === true) {
-          actorData.data.attributes.defense.bonus = Number(items.data.data.bonus);
+        if (item.type === "shield" && item.system.equip === true) {
+          actorData.attributes.defense.bonus = Number(item.system.bonus);
         }
       }
 
+      actorData.attributes.speed.modified = 10 + Number(actorData.abilities.dexterity.rating);
+      actorData.attributes.defense.modified = 10 + Number(actorData.abilities.dexterity.rating) + Number(actorData.attributes.defense.bonus);
+      actorData.attributes.toughness.modified = Number(actorData.abilities.constitution.rating);
+      actorData.attributes.move.modified = Number(actorData.attributes.speed.modified);
+      actorData.attributes.run.modified = Number(actorData.attributes.speed.modified * 2)
 
-
-      data.attributes.speed.modified = 10 + Number(data.abilities.dexterity.rating);
-      data.attributes.defense.modified = 10 + Number(data.abilities.dexterity.rating) + Number(data.attributes.defense.bonus);
-      data.attributes.toughness.modified = Number(data.abilities.constitution.rating);
-      data.attributes.move.modified = Number(data.attributes.speed.modified);
-      data.attributes.run.modified = Number(data.attributes.speed.modified * 2)
-
-      if (data.attributes.level.modified >= 11) {
-        data.attributes.level.bonus = true;
+      if (actorData.attributes.level.modified >= 11) {
+        actorData.attributes.level.bonus = true;
       }
 
-      if (data.conditions.injured.active === true) {
-        data.conditions.fatigued.active = !data.conditions.fatigued.active;
+      if (actorData.conditions.injured.active === true) {
+        actorData.conditions.fatigued.active = !actorData.conditions.fatigued.active;
       }
-      if (data.conditions.hindered.active === true) {
-        data.attributes.move.modified = data.attributes.move.modified / 2;
-        data.attributes.run.modified = 0;
+      if (actorData.conditions.hindered.active === true) {
+        actorData.attributes.move.modified = actorData.attributes.move.modified / 2;
+        actorData.attributes.run.modified = 0;
       }
-      if (data.conditions.exhausted.active === true || data.conditions.prone.active === true || data.conditions.fatigued.active === true) {
-        data.attributes.run.modified = 0;
+      if (actorData.conditions.exhausted.active === true || actorData.conditions.prone.active === true || actorData.conditions.fatigued.active === true) {
+        actorData.attributes.run.modified = 0;
       }
-      if (data.conditions.helpless.active === true || data.conditions.restrained.active === true) {
-        data.attributes.run.modified = 0;
-        data.attributes.move.modified = 0;
+      if (actorData.conditions.helpless.active === true || actorData.conditions.restrained.active === true) {
+        actorData.attributes.run.modified = 0;
+        actorData.attributes.move.modified = 0;
       }
-      if (data.conditions.unconscious.active === true) {
-        data.conditions.prone.active = true;
-        data.attributes.move.modified = 0;
-        data.attributes.run.modified = 0;
+      if (actorData.conditions.unconscious.active === true) {
+        actorData.conditions.prone.active = true;
+        actorData.attributes.move.modified = 0;
+        actorData.attributes.run.modified = 0;
       }
     }
-    super.prepareDerivedData();
+    super.prepareData();
 
   }
 }

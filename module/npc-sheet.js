@@ -15,73 +15,78 @@ export class ExpanseNPCSheet extends ActorSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/expanse/templates/sheet"
-        return `${path}/${this.actor.data.type}-sheet.html`;
+        let type = this.actor.type;
+        return `systems/expanse/templates/sheet/${type}-sheet.html`;
     }
 
     getData() {
-        const data = super.getData();
+        const sheetData = super.getData();
         //data.dtypes = ["String", "Number", "Boolean"];
-        let sheetData = {};
+        //let sheetData = {};
 
+        sheetData.system = sheetData.data.system;
+        const actorData = sheetData.actor;
+        console.log(sheetData);
         sheetData.dtypes = ["String", "Number", "Boolean"];
-        sheetData.name = data.actor.data.name;
-        sheetData.stunts = data.actor.items.filter(i => i.type === "stunt");
-        sheetData.talent = data.actor.items.filter(i => i.type === "talent");
-        sheetData.items = data.actor.items.filter(i => i.type === "items");
-        sheetData.weapon = data.actor.items.filter(i => i.type === "weapon");
-        sheetData.armor = data.actor.items.filter(i => i.type === "armor");
-        sheetData.shield = data.actor.items.filter(i => i.type === "shield");
-        sheetData.conditions = data.data.data.conditions;
-        sheetData.level = data.data.data.attributes.level;
-        sheetData.attributes = data.data.data.attributes;
-        sheetData.abilities = data.data.data.abilities;
-        sheetData.bio = data.data.data.bio;
+        sheetData.name = actorData.name;
+        sheetData.stunts = actorData.items.filter(i => i.type === "stunt");
+        sheetData.talent = actorData.items.filter(i => i.type === "talent");
+        sheetData.items = actorData.items.filter(i => i.type === "items");
+        sheetData.weapon = actorData.items.filter(i => i.type === "weapon");
+        sheetData.armor = actorData.items.filter(i => i.type === "armor");
+        sheetData.shield = actorData.items.filter(i => i.type === "shield");
+        sheetData.conditions = actorData.system.conditions;
+        sheetData.level = actorData.system.attributes.level;
+        sheetData.attributes = actorData.system.attributes;
+        sheetData.abilities = actorData.system.abilities;
+        sheetData.bio = actorData.system.bio;
         //temp fix. new actors shouldnt need this
-        sheetData.info = data.data.data;
-        sheetData.img = data.actor.data.img;
-        sheetData.threat = data.data.data.threat;
-        sheetData.notes = data.data.data.notes;
-        sheetData.stunts = data.data.data.stunts;
-        sheetData.talent1 = data.data.data.talent1;
-        sheetData.talent2 = data.data.data.talent2;
-        sheetData.equipment1 = data.data.data.equipment1;
-        sheetData.equipment2 = data.data.data.equipment2;
+        sheetData.info = actorData.system.info;
+        sheetData.img = actorData.system.img;
+        sheetData.threat = actorData.system.threat;
+        sheetData.notes = actorData.system.notes;
+        sheetData.stunts = actorData.system.stunts;
+        sheetData.talent1 = actorData.system.talent1;
+        sheetData.talent2 = actorData.system.talent2;
+        sheetData.equipment1 = actorData.system.equipment1;
+        sheetData.equipment2 = actorData.system.equipment2;
 
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
 
+        sheetData.enrichment = this._enrichBio();
+
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
                 const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
-                let modifierStat = v.data.data.modifier
+                let modifierStat = v.system.modifier
                 let bonusDamage = 0; // get stat from actorData
-                let useFocus = v.data.data.usefocus;
+                let useFocus = v.system.usefocus;
                 let focusBonus = useFocus ? 2 : 0;
-                let toHitMod = v.data.data.type;
+                let toHitMod = v.system.type;
                 let modType = "";
                 switch (modifierStat) {
                     case 'Dexterity':
-                        bonusDamage = data.actor.data.data.abilities.dexterity.rating;
+                        bonusDamage = actorData.system.abilities.dexterity.rating;
                         break;
                     case 'Perception':
-                        bonusDamage = data.actor.data.data.abilities.perception.rating;
+                        bonusDamage = actorData.system.abilities.perception.rating;
                         break;
                     case 'Strength':
-                        bonusDamage = data.actor.data.data.abilities.strength.rating;
+                        bonusDamage = actorData.system.abilities.strength.rating;
                         break;
                     case 'Manual':
-                        bonusDamage = weapon.data.manualDamage;
+                        bonusDamage = weapon.system.manualDamage;
                         break;
                 }
                 if (bonusDamage !== 0) {
-                    v.data.data.hasBonusDamage = true;
+                    v.system.hasBonusDamage = true;
                 } else {
-                    v.data.data.hasBonusDamage = false;
+                    v.system.hasBonusDamage = false;
                 }
 
-                v.data.data.bonusDamage = bonusDamage;
+                v.system.bonusDamage = bonusDamage;
 
                 switch (toHitMod) {
                     case "unarmed":
@@ -89,25 +94,31 @@ export class ExpanseNPCSheet extends ActorSheet {
                     case "light_melee":
                     case "heavy_melee":
                         modType = "fighting";
-                        v.data.data.attack = data.actor.data.data.abilities.fighting.rating;
+                        v.system.attack = actorData.system.abilities.fighting.rating;
                         break;
                     case "pistol":
                     case "rifle":
                         modType = "accuracy";
-                        v.data.data.attack = data.actor.data.data.abilities.accuracy.rating;
+                        v.system.attack = actorData.system.abilities.accuracy.rating;
                         break;
                     default:
                         modType = "fighting";
-                        v.data.data.attack = data.actor.data.data.abilities.fighting.rating;
+                        v.system.attack = actorData.system.abilities.fighting.rating;
                         break;
                 }
-                v.data.data.tohitabil = modType;
-                v.data.data.attack += focusBonus;
-                v._id = v.data._id;
+                v.system.tohitabil = modType;
+                v.system.attack += focusBonus;
+                //v._id = v._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
         return sheetData;
+    }
+
+    _enrichBio() {
+        let enrichment = {};
+        enrichment[`system.notes`] = TextEditor.enrichHTML(this.actor.system.notes, { async: false, relativeTo: this.actor });
+        return expandObject(enrichment);
     }
 
     activateListeners(html) {
@@ -143,7 +154,7 @@ export class ExpanseNPCSheet extends ActorSheet {
             const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
-                    weapon.data.usefocus = !weapon.data.usefocus;
+                    weapon.system.usefocus = !weapon.system.usefocus;
                 }
             }
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
@@ -166,7 +177,7 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         // Set variables for to hit
         let itemId = dataset.itemId;
-        let itemToUse = actorData.data.items.filter(i => i.id === itemId);
+        let itemToUse = items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
         let weaponToHitAbil = dataset.itemAbil;
 
@@ -190,9 +201,9 @@ export class ExpanseNPCSheet extends ActorSheet {
             }
 
             let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
-            let useFocus = itemUsed.data.data.usefocus ? 2 : 0;
-            let useFocusPlus = itemUsed.data.data.usefocusplus ? 1 : 0;
-            let abilityMod = actorData.data.data.abilities[dataset.itemAbil].rating;
+            let useFocus = itemUsed.system.usefocus ? 2 : 0;
+            let useFocusPlus = itemUsed.system.usefocusplus ? 1 : 0;
+            let abilityMod = actorData.system.abilities[dataset.itemAbil].rating;
             [die1, die2] = toHitRoll.terms[0].results.map(i => i.result);
             [die3] = toHitRoll.terms[2].results.map(i => i.result);
 
@@ -271,10 +282,10 @@ export class ExpanseNPCSheet extends ActorSheet {
         const actorData = data.actor;
         const items = actorData.items;
         let itemId = dataset.itemId;
-        let itemToUse = actorData.data.items.filter(i => i.id === itemId);
+        let itemToUse = items.filter(i => i.id === itemId);
         let itemUsed = itemToUse[0];
-        let weaponMod = itemUsed.data.data.modifier; // Modifier for extra damage
-        let damageD3 = (itemUsed.data.data.dieFaces === 3) ? true : false;
+        let weaponMod = itemUsed.system.modifier; // Modifier for extra damage
+        let damageD3 = (itemUsed.system.dieFaces === 3) ? true : false;
 
         let d2;
         // need to conditionally set d2 d1. if game.module for dsn is true, use the dice data, if not use 6;
@@ -284,8 +295,8 @@ export class ExpanseNPCSheet extends ActorSheet {
             d2 = 6
         }
 
-        let diceFormula = itemUsed.data.data.damage;
-        let bonusDamage = itemUsed.data.data.bonusDamage;
+        let diceFormula = itemUsed.system.damage;
+        let bonusDamage = itemUsed.system.bonusDamage;
 
         let damageOnHit;
         let diceImageArray = "";
@@ -304,7 +315,7 @@ export class ExpanseNPCSheet extends ActorSheet {
 
             let label = `<b>Attacking with ${itemUsed.name}</b>`;
 
-            let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${damageOutput}</br>`;
+            let chatDamage = `<b>Weapon Damage (D${itemUsed.system.dieFaces})</b>: ${damageOutput}</br>`;
             let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
             let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
             Subtract the enemies Toughness and Armor for total damage received`;
@@ -339,7 +350,7 @@ export class ExpanseNPCSheet extends ActorSheet {
 
                 let label = `<b>Attacking with ${itemUsed.name}</b></br>`;
 
-                let chatDamage = `<b>Weapon Damage (D${itemUsed.data.data.dieFaces})</b>: ${cDmg}</br>`;
+                let chatDamage = `<b>Weapon Damage (D${itemUsed.system.dieFaces})</b>: ${cDmg}</br>`;
                 let chatBonusDamage = `<b>Damage Modifier (${weaponMod})</b>: ${bonusDamage}</br>`
                 let chatExtraDamage = `<b>Extra Damage</b>: ${testData[1]}</br>`
                 let chatDamageTotal = `You do <b>${totalDamage}</b> points of damage.</br></br>
@@ -391,7 +402,7 @@ export class ExpanseNPCSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.data.data).roll({ async: false });
+            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system).roll({ async: false });
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
@@ -436,10 +447,10 @@ export class ExpanseNPCSheet extends ActorSheet {
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
-                /*let spData = actorData.data.data.attributes.stuntpoints;
+                /*let spData = actorData.system.attributes.stuntpoints;
                 spData.modified = die3;
                 spData.thisround = true;
-                this.actor.update({ data: { attributes: data.actor.data.data.attributes } });*/
+                this.actor.update({ data: { attributes: data.actor.system.attributes } });*/
             }
 
             if (event.shiftKey) {

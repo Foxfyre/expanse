@@ -12,16 +12,22 @@ export class ExpanseShipSheet extends ActorSheet {
 
     // Picks between available/listed templates
     get template() {
-        const path = "systems/expanse/templates/sheet"
-        return `${path}/${this.actor.data.type}-sheet.html`;
+        let type = this.actor.type;
+        return `systems/expanse/templates/sheet/${type}-sheet.html`;
     }
 
     getData() {
-        const data = super.getData();
+        const sheetData = super.getData();
 
-        data.dtypes = ["String", "Number", "Boolean"];
+        sheetData.dtypes = ["String", "Number", "Boolean"];
 
-        const arrangedItem = data.items.sort(function (a, b) {
+        sheetData.system = sheetData.data.system;
+
+        const actorData = sheetData.actor;
+        console.log(sheetData);
+
+        sheetData.enrichment = this._enrichBio();
+        /*const arrangedItem = actorData.items.sort(function (a, b) {
             const nameA = a.name.toLowerCase();
             const nameB = b.name.toLowerCase();
 
@@ -34,16 +40,16 @@ export class ExpanseShipSheet extends ActorSheet {
             return 0;
         })
 
-        data.stunts = arrangedItem.filter(i => i.type === "stunt");
-        data.talents = arrangedItem.filter(i => i.type === "talent");
-        data.items = arrangedItem.filter(i => i.type === "items");
-        data.weapon = arrangedItem.filter(i => i.type === "weapon");
-        data.armor = arrangedItem.filter(i => i.type === "armor");
-        data.shield = arrangedItem.filter(i => i.type === "shield");
-        data.conditions = data.data.conditions;
+        sheetData.stunts = arrangedItem.filter(i => i.type === "stunt");
+        sheetData.talents = arrangedItem.filter(i => i.type === "talent");
+        sheetData.items = arrangedItem.filter(i => i.type === "items");
+        sheetData.weapon = arrangedItem.filter(i => i.type === "weapon");
+        sheetData.armor = arrangedItem.filter(i => i.type === "armor");
+        sheetData.shield = arrangedItem.filter(i => i.type === "shield");
+        sheetData.conditions = actorData.system.conditions;*/
 
 
-        for (let [k, v] of Object.entries(data.weapon)) {
+        /*for (let [k, v] of Object.entries(data.weapon)) {
             if (v.type === "weapon") {
                 const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", v.id));
                 let modifierStat = v.data.modifier
@@ -84,8 +90,14 @@ export class ExpanseShipSheet extends ActorSheet {
                 // write to weapon
                 this.actor.updateEmbeddedEntity("OwnedItem", v)
             }
-        }
-        return data;
+        }*/
+        return sheetData;
+    }
+
+    _enrichBio() {
+        let enrichment = {};
+        enrichment[`system.notes`] = TextEditor.enrichHTML(this.actor.system.notes, { async: false, relativeTo: this.actor });
+        return expandObject(enrichment);
     }
 
     activateListeners(html) {
@@ -166,7 +178,7 @@ export class ExpanseShipSheet extends ActorSheet {
         toHitRoll.evaluate();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        
+
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
         };
