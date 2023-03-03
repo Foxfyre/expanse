@@ -1257,6 +1257,14 @@ input[type=checkbox] {
     background-color: rgba(116, 189, 220, 0.3);
 }
 
+.journal-entry-page .image {
+    background-color: rgba(116, 189, 220, 0.3);
+}
+
+.journal-page-header {
+    color: whitesmoke;
+}
+
 .journal-page-content {
     color: whitesmoke;
 }
