@@ -6,10 +6,10 @@
 
         <div class="ability-name">
 
-            <span>{{key}}</span>
+            <span>{{localize (concat "EXPANSE." key) }}</span>
 
             <div class="ability-focus-box">
-                <span>Focus +2</span>
+                <span>{{localize "EXPANSE.Focus" }} +2</span>
                 <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocus" {{checked
                     ability.useFocus}}>
                 {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}

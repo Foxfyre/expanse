@@ -2,19 +2,19 @@
 
     <div class="weapon-header">
 
-        <span>Weapons</span>
+        <span>{{localize "EXPANSE.Weapons" }}</span>
 
     </div>
 
     <ul class="items weapon-list">
         <div class="box-header">
-            <span>Name</span>
-            <span>Damage</span>
-            <span>Attack Bonus</span>
-            <span>Range Max</span>
-            <span>Focus</span>
-            <span>Hit</span>
-            <span>Damage</span>
+            <span>{{localize "EXPANSE.Name" }}</span>
+            <span>{{localize "EXPANSE.Damage" }}</span>
+            <span>{{localize "EXPANSE.AttackBonus" }}</span>
+            <span>{{localize "EXPANSE.MaxRange" }}</span>
+            <span>{{localize "EXPANSE.Focus" }}</span>
+            <span>{{localize "EXPANSE.Hit" }}</span>
+            <span>{{localize "EXPANSE.Damage" }}</span>
             <span></span>
         </div>
 
@@ -80,17 +80,17 @@
 
     <div class="armor-header">
 
-        <span>Armor</span>
+        <span>{{localize "EXPANSE.Armor" }}</span>
 
     </div>
 
     <ul class="items armor-list">
         <div class="box-header">
-            <span>Name</span>
-            <span>Type</span>
-            <span>Armor Bonus</span>
-            <span>Armor Penalty</span>
-            <span>Equipped</span>
+            <span>{{localize "EXPANSE.Name" }}</span>
+            <span>{{localize "EXPANSE.Type" }}</span>
+            <span>{{localize "EXPANSE.ArmorBonus" }}</span>
+            <span>{{localize "EXPANSE.ArmorPenalty" }}</span>
+            <span>{{localize "EXPANSE.Equipped" }}</span>
             <span></span>
         </div>
         {{#each armor as |armor key|}}
@@ -129,16 +129,16 @@
 
     <div class="armor-header">
 
-        <span>Shield</span>
+        <span>{{localize "EXPANSE.Shield" }}</span>
 
     </div>
 
     <ul class="items armor-list">
         <div class="box-header">
-            <span>Name</span>
-            <span>Type</span>
-            <span>Defense Bonus</span>
-            <span>Equipped</span>
+            <span>{{localize "EXPANSE.Name" }}</span>
+            <span>{{localize "EXPANSE.Type" }}</span>
+            <span>{{localize "EXPANSE.DefenseBonus" }}</span>
+            <span>{{localize "EXPANSE.Equipped" }}</span>
             <span></span>
         </div>
 
@@ -175,14 +175,14 @@
 
 <div class="misc-gear">
     <div class="box-header">
-        <span>Miscellaneous items</span>
+        <span>{{localize "EXPANSE.MiscellaneousItems" }}</span>
     </div>
 
     <div class="income-items-row">
         <div class="income">
             <div class="income-col">
 
-                <span>Income</span>
+                <span>{{localize "EXPANSE.Income" }}</span>
 
                 <input class="age-income" type="text" name="system.info.income" value="{{system.info.income}}"
                     data-dtype="Number" />

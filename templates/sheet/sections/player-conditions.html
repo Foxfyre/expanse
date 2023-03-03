@@ -4,7 +4,7 @@
 
     <!-- Header -->
 
-    <span>conditions</span>
+    <span>{{localize "EXPANSE.Conditions" }}</span>
 
 </div>
 
@@ -12,11 +12,11 @@
 
     {{#each conditions as |conditions key|}}
 
-    <div class="condition" title="{{localize (concat " EXPANSE." key) }}">
+    <div class="condition" title="{{localize (concat "EXPANSE." key "Desc") }}">
 
         <input type="checkbox" class="expanse-checkbox active-condition" name="{{key}}" {{checked conditions.active}}>
 
-        <span class="condition-hover">{{key}}</span>
+        <span class="condition-hover">{{localize (concat "EXPANSE." key) }}</span>
 
     </div>
 
