@@ -9,23 +9,25 @@
 
         <div class="item weapons-block">
             <div class="box-header">
-                <span class="">Type</span>
-                <span class="">Damage Dice</span>
-                <span class="">Modifier</span>
+                <span class="">{{localize "EXPANSE.Type" }}</span>
+                <span class="">{{localize "EXPANSE.DamageDice" }}</span>
+                <span class="">{{localize "EXPANSE.Modifier" }}</span>
             </div>
 
             <div class="weapons-detail-box">
 
                 <div class="weapons-attribute">
+
                     <select type="text" name="system.type" data-dtype="String">
                         {{#select system.type}}
-                        <option value="unarmed" mod-type="fighting">Unarmed</option>
-                        <option value="makeshift" mod-type="fighting">Makeshift</option>
-                        <option value="light_melee" mod-type="fighting">Light Melee</option>
-                        <option value="heavy_melee" mod-type="fighting">Heavy Melee</option>
-                        <option value="pistol" mod-type="accuracy">Pistol</option>
-                        <option value="rifle" mod-type="accuracy">Rifle</option>
-                        <option value="grenade">Grenade</option>
+                        <option value="unarmed" mod-type="fighting">{{localize "EXPANSE.Unarmed" }}</option>
+                        <option value="makeshift" mod-type="fighting">{{localize "EXPANSE.Makeshift" }}</option>
+                        <option value="light_melee" mod-type="fighting">{{localize "EXPANSE.LightMelee" }}</option>
+                        <option value="heavy_melee" mod-type="fighting">{{localize "EXPANSE.HeavyMelee" }}</option>
+                        <option value="pistol" mod-type="accuracy">{{localize "EXPANSE.Pistol" }}</option>
+                        <option value="rifle" mod-type="accuracy">{{localize "EXPANSE.Rifle" }}</option>
+                        <option value="grenade">{{localize "EXPANSE.Grenade" }}</option>
+
                         {{/select}}
                     </select>
                 </div>
@@ -41,13 +43,15 @@
                 </div>
 
                 <div class="weapons-attribute">
+
                     <select type="text" name="system.modifier" value="{{system.modifier}}" data-dtype="String">
                         {{#select system.modifier}}
-                        <option value="None">None</option>
-                        <option value="Strength">Strength</option>
-                        <option value="Dexterity">Dexterity</option>
-                        <option value="Perception">Perception</option>
-                        <option value="Manual">Manual</option>
+                        <option value="None">{{localize "EXPANSE.None" }}</option>
+                        <option value="Strength">{{localize "EXPANSE.strength" }}</option>
+                        <option value="Dexterity">{{localize "EXPANSE.dexterity" }}</option>
+                        <option value="Perception">{{localize "EXPANSE.perception" }}</option>
+                        <option value="Manual">{{localize "EXPANSE.Manual" }}</option>
+
                         {{/select}}
                     </select>
 
@@ -60,10 +64,10 @@
         </div>
         <div class="item weapons-block">
             <div class="box-header">
-                <span class="">Qualities</span>
-                <span class="">Range</span>
-                <span class="">Max Range</span>
-                <span class="">Cost</span>
+                <span class="">{{localize "EXPANSE.Qualities" }}</span>
+                <span class="">{{localize "EXPANSE.Range" }}</span>
+                <span class="">{{localize "EXPANSE.MaxRange" }}</span>
+                <span class="">{{localize "EXPANSE.Cost" }}</span>
             </div>
 
             <div class="weapons-detail-box">
