@@ -37,14 +37,14 @@
     },
     {
       "lang": "es",
+      "name": "Español",
       "path": "lang/es.json",
-      "name": "",
       "flags": {}
     },
     {
       "lang": "fr",
+      "name": "Français",
       "path": "lang/fr.json",
-      "name": "",
       "flags": {}
     }
   ],
