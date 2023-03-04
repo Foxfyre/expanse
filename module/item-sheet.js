@@ -87,12 +87,15 @@ export class ExpanseItemSheet extends ItemSheet {
             //itemData.data = this.item.system;
             itemData.specialization = this.item.system.specialization;
         }
-        console.log(itemData);
 
         if (this.item.type === "stunt") {
             //itemData.type = data.data.type;
             //itemData.name = data.data.name;
             //itemData.data = data.data.data;
+        }
+
+        if (this.item.type === "weapon") {
+            itemData.data.usePenalty = this.item.system.usePenalty;
         }
         /*
                 if (data.data.type === "shield") {
@@ -105,7 +108,7 @@ export class ExpanseItemSheet extends ItemSheet {
                     itemData.data.type = data.data.data.type;
                     itemData.data.description = data.data.data.description;
                 }
-        
+         
                 if (data.data.type === "weapon") {
                     itemData.data = {};
                     itemData.name = data.data.name;
@@ -133,6 +136,7 @@ export class ExpanseItemSheet extends ItemSheet {
                     itemData.data.quality = data.data.data.quality;
                     itemData.data.dieFaces = data.data.data.dieFaces;
                 }*/
+        //console.log(itemData);
         return itemData;
     }
 
@@ -161,22 +165,12 @@ export class ExpanseItemSheet extends ItemSheet {
         html.find(".learn-specialization").click(async e => {
             const data = super.getData()
             const item = data.item;
-            //let itemId = e.currentTarget.getAttribute("data-item-id");
-            //let spec = this.item.isOwned ? duplicate(this.actor.getEmbeddedDocument("Item", itemId)) : item;
-
-            //if (item.type === "talent") {
             item.system.specialization = !item.system.specialization;
             if (this.item.isOwned) {
                 await this.actor.updateEmbeddedDocuments("Item", [item])
             } else {
                 return item;
             }
-            //}
-            //console.log(spec);
-            /*if (item.type === "talent") {
-                item.data.specialization = !item.data.specialization;
-            }*/
-            //await this.actor.updateEmbeddedDocuments("Item", [spec])
         });
 
         html.find(".learn-talent").click(async e => {

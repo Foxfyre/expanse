@@ -277,6 +277,8 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [weapon]);
         });
 
+
+
         html.find(".weapon-extradamage").click(e => {
             const data = super.getData()
             const items = data.items;
@@ -561,7 +563,6 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = e.currentTarget;
         const dataset = element.dataset;
         const data = super.getData()
-        console.log(data)
         let income = data.actor.system.info.income;
         let diceImageArray = "";
         let ic; let d2;
@@ -687,13 +688,16 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.update({ data: { attributes: data.actor.system.attributes } });
         }
         // This is the start of a refactoring test. If things go bad, undo to here.
+
         if (dataset.roll) {
             const diceData = diceRollType();
             let die1 = 0; let die2 = 0; let die3 = 0;
             let d2; let d1;
             let condMod;
             let condModName;
+            let armorPenaltyWarning
             let rollCard;
+            let armorPenalty = 0;
             let condModWarning;
             let resultsSum;
             let useFocusPlus = 0;
@@ -710,6 +714,9 @@ export class ExpanseActorSheet extends ActorSheet {
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             if (roll.data.abilities[dataset.label].usefocus === true && roll.data.abilities[dataset.label].usefocusplus === true) {
                 useFocusPlus = 1
+            }
+            if (dataset.label === 'dexterity' && roll.data.abilities[dataset.label].usePenalty === true) {
+                armorPenalty = roll.data.attributes.penalty.modified
             }
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
@@ -733,6 +740,12 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModWarning = ``;
             }
 
+            if(armorPenalty > 0) {
+                armorPenaltyWarning = `<i>Your armor is restrictive, you receive a -${armorPenalty} modifier to your roll</i> <br>`;
+            } else {
+                armorPenaltyWarning = ``;
+            }
+
             const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
             <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
             <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die3}-${diceData.stunt}.png" />`
@@ -747,7 +760,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
             let chatMod = `<b>Ability Rating</b>: ${abilityMod}</br>`;
 
-            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod;
+            resultsSum = die1 + die2 + die3 + useFocus + useFocusPlus + abilityMod + condMod - armorPenalty;
 
             // Stunt Points Generation
             let chatStunts = "";
@@ -771,6 +784,7 @@ export class ExpanseActorSheet extends ActorSheet {
                         ${chatAddMod}
                         ${chatFocus}
                         ${condModWarning} 
+                        ${armorPenaltyWarning}
                         <b>Ability Test Results:</b> ${resultsSum} <br> 
                         ${chatStunts}
                     `
@@ -790,6 +804,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 ${chatMod}
                 ${chatFocus}
                 ${condModWarning} 
+                ${armorPenaltyWarning} 
                 <b>Ability Test Results:</b> ${resultsSum} <br> 
                 ${chatStunts}`
 

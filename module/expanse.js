@@ -18,11 +18,12 @@ import { TheExpanseProtogenLight } from "./dice-so-nice/expanse-protogen-light-d
 Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
 
+  //CONFIG.debug.hooks = true;
   // Define custom Entity classes
   CONFIG.Actor.documentClass = ExpanseActor;
   CONFIG.Item.documentClass = ExpanseItem;
   CONFIG.Combat.initiative = {
-    formula: "3d6+@abilities.dexterity.rating",
+    formula: "3d6+@abilities.dexterity.rating+@attributes.penalty.modified",
     decimals: 2
   }
   CONFIG.Dice.terms["a"] = TheExpanseEarthDark;
