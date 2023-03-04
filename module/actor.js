@@ -16,7 +16,7 @@ export class ExpanseActor extends Actor {
     if (data.type === "ship" && data.img === "icons/svg/mystery-man.svg") {
       data.update({ img: `${path}actor-ship.png` })
     }
- 
+
     let createData = {};
 
     if (!data.token) {
@@ -50,17 +50,16 @@ export class ExpanseActor extends Actor {
     //console.log(this.items);
     //console.log(actorData)
     //console.log(this.type)
-    
+
     if (this.type === "character") {
       actorData.attributes.armor.modified = 0;
       actorData.attributes.penalty.modified = 0;
+      actorData.attributes.defense.bonus = 0;
+
       for (let item of this.items) {
         if (item.type === "armor" && item.system.equip === true) {
           actorData.attributes.armor.modified = Number(item.system.bonus);
           actorData.attributes.penalty.modified = Number(item.system.penalty);
-        } else if (item.type === "armor" && item.system.equip === false) {
-          //actorData.attributes.armor.modified = actorData.attributes.armor.value;
-          //actorData.attributes.penalty.modified = actorData.attributes.penalty.value;
         }
         //shields
         if (item.type === "shield" && item.system.equip === true) {
@@ -68,7 +67,7 @@ export class ExpanseActor extends Actor {
         }
       }
 
-      actorData.attributes.speed.modified = 10 + Number(actorData.abilities.dexterity.rating);
+      actorData.attributes.speed.modified = 10 + Number(actorData.abilities.dexterity.rating) - Number(actorData.attributes.penalty.modified);
       actorData.attributes.defense.modified = 10 + Number(actorData.abilities.dexterity.rating) + Number(actorData.attributes.defense.bonus);
       actorData.attributes.toughness.modified = Number(actorData.abilities.constitution.rating);
       actorData.attributes.move.modified = Number(actorData.attributes.speed.modified);
