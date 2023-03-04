@@ -134,7 +134,7 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
         //return data;
-        console.log(sheetData)
+        //console.log(sheetData)
         return sheetData;
     }
 
@@ -563,7 +563,6 @@ export class ExpanseActorSheet extends ActorSheet {
         const element = e.currentTarget;
         const dataset = element.dataset;
         const data = super.getData()
-        console.log(data)
         let income = data.actor.system.info.income;
         let diceImageArray = "";
         let ic; let d2;
@@ -689,7 +688,6 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.update({ data: { attributes: data.actor.system.attributes } });
         }
         // This is the start of a refactoring test. If things go bad, undo to here.
-        console.log(dataset)
 
         if (dataset.roll) {
             const diceData = diceRollType();

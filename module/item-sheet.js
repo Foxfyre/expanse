@@ -136,7 +136,7 @@ export class ExpanseItemSheet extends ItemSheet {
                     itemData.data.quality = data.data.data.quality;
                     itemData.data.dieFaces = data.data.data.dieFaces;
                 }*/
-        console.log(itemData);
+        //console.log(itemData);
         return itemData;
     }
 
@@ -165,22 +165,12 @@ export class ExpanseItemSheet extends ItemSheet {
         html.find(".learn-specialization").click(async e => {
             const data = super.getData()
             const item = data.item;
-            //let itemId = e.currentTarget.getAttribute("data-item-id");
-            //let spec = this.item.isOwned ? duplicate(this.actor.getEmbeddedDocument("Item", itemId)) : item;
-
-            //if (item.type === "talent") {
             item.system.specialization = !item.system.specialization;
             if (this.item.isOwned) {
                 await this.actor.updateEmbeddedDocuments("Item", [item])
             } else {
                 return item;
             }
-            //}
-            //console.log(spec);
-            /*if (item.type === "talent") {
-                item.data.specialization = !item.data.specialization;
-            }*/
-            //await this.actor.updateEmbeddedDocuments("Item", [spec])
         });
 
         html.find(".learn-talent").click(async e => {
