@@ -235,9 +235,13 @@ ul {
 }
 
 blockquote {
-    border-color: transparent;
+    /*border-color: transparent;*/
     padding: 0px 10px 5px 10px;
-    color: black;
+    /*color: black;*/
+}
+
+.editor.prose-mirror.editing-source {
+    color: whitesmoke;
 }
 
 /* New CSS */
@@ -1288,6 +1292,12 @@ input[type=checkbox] {
     color: black;
 }
 
+.journal-page-content table h3 {
+    color: whitesmoke;
+    border-bottom: none;
+    text-transform: uppercase;
+}
+
 .journal-entry-pages {
     font-family: 'Montserrat', sans-serif;
 }
@@ -1415,7 +1425,7 @@ a.content-link, a.inline-roll {
     padding: 0 5px;
 }
 
-.window-app.app.journal-page-content blockquote p {
+.window-app.app.journal-sheet .window-content .editor-content .journal-page-content blockquote p {
     text-indent: -1ch;
     margin: 1px 0px 0px -6px;
 }
