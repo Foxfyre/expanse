@@ -1,0 +1,11 @@
+{{log focuses}}
+{{#each focuses as |focus key|}}
+
+{{#ifCond focus.ability '==' ability.label }}
+<li class="focus-cap item" data-item-id="{{focus._id}}" data-item-type="focus"><span>{{focus.name}}</span> <span class="item-controls flexrow spec-controls">
+        <a class="item-control item-delete" title='{{localize "ITEM.DeleteItem"}}'><i
+                class="fas fa-trash"></i></a>
+        </span>
+</li>
+{{/ifCond}}
+{{/each}}

@@ -1,5 +1,6 @@
 import { diceRollType } from "./rolling/dice-rolling.js";
-import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
+import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js";
+import { migrateFocus } from "./focusMigration.js";
 
 export class ExpanseActorSheet extends ActorSheet {
 
@@ -34,7 +35,9 @@ export class ExpanseActorSheet extends ActorSheet {
         //let sheetData = {};
 
         sheetData.system = sheetData.data.system;
-
+        console.log(sheetData);
+        /* LOOK AT PROCESSING THE FOCUS STUFF HERE FIRST OR MAYBE IN SHEETdDATA.SYSTEMS*/
+        migrateFocus(this.actor);
         const actorData = sheetData.actor;
 
         sheetData.dtypes = ["String", "Number", "Boolean"];
@@ -45,6 +48,8 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.weapon = actorData.items.filter(i => i.type === "weapon");
         sheetData.armor = actorData.items.filter(i => i.type === "armor");
         sheetData.shield = actorData.items.filter(i => i.type === "shield");
+        sheetData.focuses = actorData.items.filter(i => i.type === "focus");
+        //console.log(sheetData.focus);
         sheetData.conditions = actorData.system.conditions;
         sheetData.level = actorData.system.attributes.level;
         sheetData.attributes = actorData.system.attributes;
@@ -56,6 +61,13 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.items.sort((a, b) => {
             return a.name.localeCompare(b.name);
         });
+
+        for (let [f, v] of Object.entries(sheetData.focuses)) {
+            v.system.name = v.name;
+            this.actor.updateEmbeddedDocuments("Item", [v])
+        }
+
+        //sheetData.abilities = migrateFocus(this.actor);
 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
@@ -134,7 +146,7 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
         //return data;
-        //console.log(sheetData)
+        console.log(sheetData)
         return sheetData;
     }
 
@@ -740,7 +752,7 @@ export class ExpanseActorSheet extends ActorSheet {
                 condModWarning = ``;
             }
 
-            if(armorPenalty > 0) {
+            if (armorPenalty > 0) {
                 armorPenaltyWarning = `<i>Your armor is restrictive, you receive a -${armorPenalty} modifier to your roll</i> <br>`;
             } else {
                 armorPenaltyWarning = ``;
@@ -861,4 +873,5 @@ export class ExpanseActorSheet extends ActorSheet {
         })
         return ic;
     }
+
 }

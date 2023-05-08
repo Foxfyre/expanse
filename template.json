@@ -14,7 +14,8 @@
                 "profession": "",
                 "drive": "",
                 "income": 0,
-                "equipment": ""
+                "equipment": "",
+                "fUpdated": false
             },
             "attributes": {
                 "speed": {
@@ -82,57 +83,57 @@
             },
             "abilities": {
                 "accuracy": {
+                    "label": "accuracy",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "communication": {
+                    "label": "communication",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "constitution": {
+                    "label": "constitution",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "dexterity": {
+                    "label": "dexterity",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false,
                     "usePenalty": false
                 },
                 "fighting": {
+                    "label": "fighting",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "intelligence": {
+                    "label": "intelligence",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "perception": {
+                    "label": "perception",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "strength": {
+                    "label": "strength",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 },
                 "willpower": {
+                    "label": "willpower",
                     "rating": 0,
-                    "focus": "",
                     "useFocus": false,
                     "useFocusPlus": false
                 }
@@ -334,7 +335,8 @@
             "stunt",
             "weapon",
             "armor",
-            "shield"
+            "shield",
+            "focus"
         ],
         "talent": {
             "description": "",
@@ -406,6 +408,11 @@
             "bonus": 0,
             "cost": 0,
             "equip": false,
+            "description": ""
+        },
+        "focus": {
+            "name": "",
+            "attribute": "",
             "description": ""
         }
     }

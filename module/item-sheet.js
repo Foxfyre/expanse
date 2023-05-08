@@ -28,6 +28,9 @@ export class ExpanseItemSheet extends ItemSheet {
                 this.options.width = this.position.width = "480";
                 this.options.height = this.position.height = "305";
                 break;
+            case "focus":
+                this.options.width = this.position.width = "400";
+                this.options.height = this.position.height = "200";
             default:
                 break;
         };
@@ -56,7 +59,7 @@ export class ExpanseItemSheet extends ItemSheet {
         const itemData = super.getData(options);
         itemData.system = itemData.item._source.system;
         //let itemData = {}
-
+        console.log(itemData);
         itemData.name = itemData.data.name;
         itemData.img = itemData.data.img;
         itemData.type = itemData.data.type;
@@ -136,7 +139,7 @@ export class ExpanseItemSheet extends ItemSheet {
                     itemData.data.quality = data.data.data.quality;
                     itemData.data.dieFaces = data.data.data.dieFaces;
                 }*/
-        //console.log(itemData);
+        console.log(itemData);
         return itemData;
     }
 

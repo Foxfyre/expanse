@@ -147,6 +147,9 @@ Hooks.on("ready", async () => {
     <b>Standard Rolling</b>On the character and NPC sheets, the following image indicates rollable buttons. On the NPC sheet, the attribute name is the rollable trigger. 
     <br><br><img src="systems/expanse/ui/earth-5.png" width="25px" height="25px"><br>
     <b>Modified Rolls</b>If you need to modify a roll, whether by adding a modifier or more dice (damage rolls only), hold SHIFT and click the rollable button.<br><br>
+    <h2>Version 1.0.3 Update!</h2>
+    <p>In this update, Focuses have been converted to Items, so you can now drag and drop focuses. If you have a character sheet with focuses from before this update, the system should automatically convert them.<br><br>
+    As always, make sure to back up your world before making updates.</p>
     <h2>Feedback</h2>
     In an effort to improve, we're always open to feedback. 
     <ul>

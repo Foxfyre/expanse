@@ -1,0 +1,46 @@
+<form class="{{cssClass}} item" autocomplete="off">
+
+    <header class="sheet-header">
+    </header>
+
+    <section class="sheet-body">
+
+        <div class="focuses" data-group="primary" data-tab="stunts">
+
+            <div class="focuses-box">
+                <div class="focuses-header-box">
+                    <div class="focuses-header-block">
+                        <span>
+                            <input type="text" name="item.name" value="{{item.name}}" data-dtype="String" />
+                        </span>
+                    </div>
+
+                    <div class="focus-header">
+                        <span class="focuses-box-stunt-name">Attribute</span>
+                    </div>
+                </div>
+
+                <div class="item focuses-section" draggable="false" data-item-id="{{item.id}}">
+                    <div class="focuses-section-name">
+                        <select type="text" name="system.ability" value="{{system.ability}}" data-dtype="String">
+                            {{#select system.ability}}
+                            <option value="accuracy">Accuracy</option>
+                            <option value="communication">Communication</option>
+                            <option value="constitution">Constitution</option>
+                            <option value="dexterity">Dexterity</option>
+                            <option value="fighting">Fighting</option>
+                            <option value="intelligence">Intelligence</option>
+                            <option value="perception">Perception</option>
+                            <option value="strength">Strength</option>
+                            <option value="willpower">Willpower</option>
+                            {{/select}}
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+</form>
