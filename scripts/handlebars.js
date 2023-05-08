@@ -10,7 +10,7 @@ function preloadHandlebarsTemplates() {
         "systems/expanse/templates/sheet/sections/player-abilities.html",
         "systems/expanse/templates/sheet/sections/player-equipment.html",
         "systems/expanse/templates/sheet/sections/player-biography.html",
-        "systems/expanse/templates/sheet/sections/player-notes.html"
+        "systems/expanse/templates/sheet/sections/player-notes.html",
     ];
     return loadTemplates(templatePaths);
 }

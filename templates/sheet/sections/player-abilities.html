@@ -1,11 +1,9 @@
 {{#each abilities as |ability key|}}
-
 <div class="age-abilities">
 
     <div class="ability-field">
 
         <div class="ability-name">
-
             <span>{{localize (concat "EXPANSE." key) }}</span>
 
             {{#ifCond key '==' 'dexterity'}}
@@ -28,9 +26,22 @@
             </div>
 
         </div>
+        <!--<input class="age-focus" type="text" name="system.abilities.{{key}}.focus" value="{{ability.focus}}"
+            data-dtype="String" />-->
+        <ul class="age-focus">
+            {{#each ../focuses as |focus key|}}
+            {{#ifCond focus.system.ability '==' ability.label }}
+            <li class="focus-cap item" data-item-id="{{focus._id}}" data-item-type="focus"><span>{{focus.name}}</span>
+                <span class="item-controls flexrow spec-controls">
+                    <a class="item-control item-delete" title='{{localize "ITEM.DeleteItem"}}'><i
+                            class="fas fa-trash"></i></a>
+                </span>
+            </li>
+            {{/ifCond}}
+            {{/each}}
 
-        <input class="age-focus" type="text" name="system.abilities.{{key}}.focus" value="{{ability.focus}}"
-            data-dtype="String" />
+        </ul>
+
 
     </div>
 
