@@ -5,9 +5,9 @@
   "version": "1.1.0",
   "authors": [
     {
-      "name": "ieuanmeredith",
-      "email": "ieuanmeredith2204@gmail.com",
-      "discord": "ieuanmeredith#2204",
+      "name": "Foxfyre",
+      "email": "Foxfyre2204@gmail.com",
+      "discord": "Foxfyre#2204",
       "flags": {}
     },
     {
@@ -51,7 +51,7 @@
   "media": [
     {
       "type": "cover",
-      "url": "https://github.com/ieuanmeredith/expanse/blob/48754e8d372787dc421144561a92d8590410bac7/ui/expanse-cover.jpg",
+      "url": "https://github.com/Foxfyre/expanse/blob/48754e8d372787dc421144561a92d8590410bac7/ui/expanse-cover.jpg",
       "loop": false,
       "flags": {}
     }
