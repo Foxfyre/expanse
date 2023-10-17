@@ -669,14 +669,6 @@ input[type=checkbox] {
     text-transform: uppercase;
 }
 
-.sheet .focus-header-box {
-
-}
-
-.sheet .focus-header-block {
-
-}
-
 .sheet .focuses-header-box {
     display: flex;
     flex-direction: row;
