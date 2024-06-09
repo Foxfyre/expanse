@@ -18,7 +18,8 @@ import { TheExpanseProtogenLight } from "./dice-so-nice/expanse-protogen-light-d
 Hooks.once("init", async function () {
   console.log(`Initializing A Template`);
 
-  //CONFIG.debug.hooks = true;
+  // CONFIG.debug.hooks = true;
+
   // Define custom Entity classes
   CONFIG.Actor.documentClass = ExpanseActor;
   CONFIG.Item.documentClass = ExpanseItem;
@@ -54,40 +55,6 @@ Hooks.once("init", async function () {
   });
 
   initializeHandlebars();
-
-  Handlebars.registerHelper('concat', function () {
-    let arg = Array.prototype.slice.call(arguments, 0);
-    arg.pop();
-    return arg.join('');
-  })
-
-  Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-    switch (operator) {
-      case '==':
-        return (v1 == v2) ? options.fn(this) : options.inverse(this);
-      case '===':
-        return (v1 === v2) ? options.fn(this) : options.inverse(this);
-      case '!=':
-        return (v1 != v2) ? options.fn(this) : options.inverse(this);
-      case '!==':
-        return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-      case '<':
-        return (v1 < v2) ? options.fn(this) : options.inverse(this);
-      case '<=':
-        return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-      case '>':
-        return (v1 > v2) ? options.fn(this) : options.inverse(this);
-      case '>=':
-        return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-      case "&&":
-        return (v1 && v2) ? options.fn(this) : options.inverse(this);
-      case "||":
-        return (v1 || v2) ? options.fn(this) : options.inverse(this);
-      default:
-        return options.inverse(this);
-    }
-
-  });
 });
 
 
@@ -144,13 +111,13 @@ Hooks.on("ready", async () => {
     <p>Green Ronin Publishing is proud to present the official Foundry VTT system for <i>The Expanse RPG</i>! <br><br>
     <h2> Make sure you back up all data when updating to a new version </h2><br>
     <h2>How to use</h2>
-    <b>Standard Rolling</b>On the character and NPC sheets, the following image indicates rollable buttons. On the NPC sheet, the attribute name is the rollable trigger. 
+    <b>Standard Rolling</b>On the character and NPC sheets, the following image indicates rollable buttons. On the NPC sheet, the attribute name is the rollable trigger.
     <br><br><img src="systems/expanse/ui/earth-5.png" width="25px" height="25px"><br>
     <b>Modified Rolls</b>If you need to modify a roll, whether by adding a modifier or more dice (damage rolls only), hold SHIFT and click the rollable button.<br><br>
     <h2>Version 1.2.0 Update!</h2>
     <br>
     <h2>Feedback</h2>
-    In an effort to improve, we're always open to feedback. 
+    In an effort to improve, we're always open to feedback.
     <ul>
     <li>You can use the <a href="https://github.com/Foxfyre/expanse/issues">Issues tab</a> on GitHub to report bugs</li>
     <li>Join us on the <a href="https://discord.gg/MJQQd6H">GRAAD Discord</a></li>

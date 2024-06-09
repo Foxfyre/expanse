@@ -11,7 +11,6 @@ export class ExpanseActor extends Actor {
   }
 
   _preCreate(data) {
-    // data = this.data;
     const path = "systems/expanse/ui/item-img/"
     if (data.type === "ship" && data.img === "icons/svg/mystery-man.svg") {
       data.update({ img: `${path}actor-ship.png` })
@@ -20,7 +19,7 @@ export class ExpanseActor extends Actor {
     let createData = {};
 
     if (!data.token) {
-      mergeObject(createData,
+      foundry.utils.mergeObject(createData,
         {
           "token.bar1": { "attribute": "attributes.fortune" },                       // Default Bar 1 to Fortune
           "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,    // Default display name to be on owner hover
@@ -47,9 +46,6 @@ export class ExpanseActor extends Actor {
 
   prepareData() {
     const actorData = this.system;
-    //console.log(this.items);
-    //console.log(actorData)
-    //console.log(this.type)
 
     if (this.type === "character") {
       actorData.attributes.armor.modified = 0;

@@ -5,8 +5,9 @@ import { migrateFocus } from "./focusMigration.js";
 export class ExpanseActorSheet extends ActorSheet {
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "talents"],
+            width: 730,
             height: 750,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "abilities" }],
             dragDrop: [
@@ -29,13 +30,11 @@ export class ExpanseActorSheet extends ActorSheet {
         return this.actorData.system;
     }
 
-    getData() {
+    async getData() {
         const sheetData = super.getData();
-        //data.dtypes = ["String", "Number", "Boolean"];
-        //let sheetData = {};
 
         sheetData.system = sheetData.data.system;
-        console.log(sheetData);
+
         /* LOOK AT PROCESSING THE FOCUS STUFF HERE FIRST OR MAYBE IN SHEETdDATA.SYSTEMS*/
         migrateFocus(this.actor);
         const actorData = sheetData.actor;
@@ -49,7 +48,6 @@ export class ExpanseActorSheet extends ActorSheet {
         sheetData.armor = actorData.items.filter(i => i.type === "armor");
         sheetData.shield = actorData.items.filter(i => i.type === "shield");
         sheetData.focuses = actorData.items.filter(i => i.type === "focus");
-        //console.log(sheetData.focus);
         sheetData.conditions = actorData.system.conditions;
         sheetData.level = actorData.system.attributes.level;
         sheetData.attributes = actorData.system.attributes;
@@ -67,11 +65,8 @@ export class ExpanseActorSheet extends ActorSheet {
             this.actor.updateEmbeddedDocuments("Item", [v])
         }
 
-        //sheetData.abilities = migrateFocus(this.actor);
-
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
-                //const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
                 let modifierStat = v.system.modifier
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.system.usefocus;
@@ -122,16 +117,15 @@ export class ExpanseActorSheet extends ActorSheet {
                 }
                 v.system.tohitabil = modType;
                 v.system.attack += totalFocusBonus;
-                //v._id = v._id;
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
 
-        sheetData.enrichment = this._enrichBio();
+        sheetData.enrichment = await this._enrichBio();
 
-        // Go through the Degrees of Talents and record the highest talent to display on the character sheet. 
+        // Go through the Degrees of Talents and record the highest talent to display on the character sheet.
         for (let [k, v] of Object.entries(sheetData.talent)) {
-            const talent = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
+            const talent = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", v.id));
             let highest = "";
             for (let [s, t] of Object.entries(v.system.ranks)) {
                 if (t.label === "novice" && t.active === true) {
@@ -145,25 +139,23 @@ export class ExpanseActorSheet extends ActorSheet {
             talent.system.highest = highest;
             this.actor.updateEmbeddedDocuments("Item", [talent]);
         }
-        //return data;
-        console.log(sheetData)
         return sheetData;
     }
 
-    _enrichBio() {
+    async _enrichBio() {
         let enrichment = {};
-        enrichment[`system.bio.notes`] = TextEditor.enrichHTML(this.actor.system.bio.notes, { async: false, relativeTo: this.actor });
-        enrichment[`system.bio.appearance`] = TextEditor.enrichHTML(this.actor.system.bio.appearance, { async: false, relativeTo: this.actor });
-        enrichment[`system.bio.relationships`] = TextEditor.enrichHTML(this.actor.system.bio.relationships, { async: false, relativeTo: this.actor });
-        enrichment[`system.bio.goals`] = TextEditor.enrichHTML(this.actor.system.bio.goals, { async: false, relativeTo: this.actor });
-        return expandObject(enrichment);
+        enrichment[`system.bio.notes`] = await TextEditor.enrichHTML(this.actor.system.bio.notes, { relativeTo: this.actor });
+        enrichment[`system.bio.appearance`] = await TextEditor.enrichHTML(this.actor.system.bio.appearance, { relativeTo: this.actor });
+        enrichment[`system.bio.relationships`] = await TextEditor.enrichHTML(this.actor.system.bio.relationships, { relativeTo: this.actor });
+        enrichment[`system.bio.goals`] = await TextEditor.enrichHTML(this.actor.system.bio.goals, { relativeTo: this.actor });
+        return foundry.utils.expandObject(enrichment);
     }
 
     activateListeners(html) {
         super.activateListeners(html);
         let tabs = html.find('tabs');
         let initial = this._sheetTab;
-        new TabsV2(tabs, {
+        new Tabs(tabs, {
             initial: initial,
             callback: clicked => this._sheetTab = clicked.data("tab")
         });
@@ -205,7 +197,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const items = this.actor.items;
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const shield = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const shield = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             items.map(x => {
                 if ((x.type === "shield")) {
                     if (x.id === itemId) {
@@ -236,7 +228,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const items = this.actor.items;
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const armor = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const armor = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             items.map(x => {
                 if ((x.type === "armor")) {
                     if (x.id === itemId) {
@@ -266,7 +258,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const data = super.getData()
             const items = data.items;
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const weapon = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
                     weapon.system.usefocus = !weapon.system.usefocus;
@@ -279,7 +271,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const data = super.getData()
             const items = data.items;
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const weapon = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
 
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
@@ -296,7 +288,7 @@ export class ExpanseActorSheet extends ActorSheet {
             const items = data.items;
             const actorData = data.actor;
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const weapon = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
 
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId && actorData.system.attributes.stuntpoints.modified >= 2) {
@@ -329,7 +321,7 @@ export class ExpanseActorSheet extends ActorSheet {
         return this.actor.createEmbeddedDocuments("Item", [itemData], { renderSheet: true });
     }
 
-    _onAttack(event) {
+    async _onAttack(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
@@ -371,7 +363,8 @@ export class ExpanseActorSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
+            let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`);
+            await toHitRoll.evaluate();
             let useFocus = itemUsed.system.usefocus ? 2 : 0;
             if (itemUsed.system.usefocus === true && itemUsed.system.usefocusplus === true) {
                 useFocusPlus = 1
@@ -430,16 +423,16 @@ export class ExpanseActorSheet extends ActorSheet {
                     resultsSum += testData;
                     let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
                     rollCard = `
-                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                         ${chatMod}
                         ${chatAddMod}
                         ${chatFocus}
-                        ${condModWarning} 
+                        ${condModWarning}
                         <b>Ability Test Results:</b> ${resultsSum} <br> <br>
                         ${chatStunts}
-                    `
+                    `;
+
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         roll: toHitRoll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
@@ -450,15 +443,14 @@ export class ExpanseActorSheet extends ActorSheet {
 
             } else {
                 rollCard = `
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                 ${chatMod}
                 ${chatFocus}
-                ${condModWarning} 
-                <b>Ability Test Results:</b> ${resultsSum} <br> 
-                ${chatStunts}`
+                ${condModWarning}
+                <b>Ability Test Results:</b> ${resultsSum} <br>
+                ${chatStunts}`;
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: toHitRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -470,7 +462,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
     }
 
-    _onDamage(e) {
+    async _onDamage(e) {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
@@ -499,7 +491,9 @@ export class ExpanseActorSheet extends ActorSheet {
         let diceImageArray = "";
 
         if (!e.shiftKey) {
-            let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+            let damageRoll = new Roll(`${diceFormula}d${d2}`);
+            await damageRoll.evaluate();
+
             let damageOutput = damageD3 ? Math.ceil(damageRoll.total / 2) : damageRoll.total;
             let totalDamage = damageOutput + bonusDamage;
             let resultRoll = damageRoll.terms[0].results.map(i => i.result);
@@ -520,7 +514,6 @@ export class ExpanseActorSheet extends ActorSheet {
             `
 
             ChatMessage.create({
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 roll: damageRoll,
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
@@ -558,7 +551,6 @@ export class ExpanseActorSheet extends ActorSheet {
             `
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: damageRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -570,7 +562,7 @@ export class ExpanseActorSheet extends ActorSheet {
 
     }
 
-    _IncomeRoll(e) {
+    async _IncomeRoll(e) {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
@@ -590,7 +582,8 @@ export class ExpanseActorSheet extends ActorSheet {
 
         if (income === null) { income = 0; };
 
-        let incomeRoll = new Roll(`3d${d2}`).roll({ async: false });
+        let incomeRoll = new Roll(`3d${d2}`);
+        await incomeRoll.evaluate();
 
         let incomeResult = Number(incomeRoll.total + income);
 
@@ -621,7 +614,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 if ((income + 4) >= ic && ic !== "") { // Auto Success
                     rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${autoSuccess}`
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
@@ -632,7 +624,6 @@ export class ExpanseActorSheet extends ActorSheet {
                     if (ic >= (income + 10)) { // Depletion - Set automation to automatically deplete
                         rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeDeplete}`
                         ChatMessage.create({
-                            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                             flavor: label,
                             roll: incomeRoll,
@@ -642,7 +633,6 @@ export class ExpanseActorSheet extends ActorSheet {
                     } else {
                         rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeSuccess}`
                         ChatMessage.create({
-                            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                             flavor: label,
                             roll: incomeRoll,
@@ -653,7 +643,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 } else if (incomeResult < ic && ic !== "") { // Failed Result
                     rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}${incomeFail}`
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
@@ -663,7 +652,6 @@ export class ExpanseActorSheet extends ActorSheet {
                 } else if (ic === "") {
                     rollCard = `${chatDice}${chatCost}${chatIncome}${chatResult}`
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
                         roll: incomeRoll,
@@ -675,7 +663,6 @@ export class ExpanseActorSheet extends ActorSheet {
         } else {
             rollCard = `${chatDice}${chatIncome}${chatResult}`
             ChatMessage.create({
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
                 roll: incomeRoll,
@@ -685,7 +672,7 @@ export class ExpanseActorSheet extends ActorSheet {
         }
     }
 
-    _onRoll(event) {
+    async _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
@@ -722,7 +709,9 @@ export class ExpanseActorSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system).roll({ async: false });
+            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system);
+            await roll.evaluate();
+
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             if (roll.data.abilities[dataset.label].usefocus === true && roll.data.abilities[dataset.label].usefocusplus === true) {
                 useFocusPlus = 1
@@ -791,17 +780,16 @@ export class ExpanseActorSheet extends ActorSheet {
                     resultsSum += testData;
                     let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
                     rollCard = `
-                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                         ${chatMod}
                         ${chatAddMod}
                         ${chatFocus}
-                        ${condModWarning} 
+                        ${condModWarning}
                         ${armorPenaltyWarning}
-                        <b>Ability Test Results:</b> ${resultsSum} <br> 
+                        <b>Ability Test Results:</b> ${resultsSum} <br>
                         ${chatStunts}
                     `
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         roll: roll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
@@ -812,16 +800,15 @@ export class ExpanseActorSheet extends ActorSheet {
 
             } else {
                 rollCard = `
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                 ${chatMod}
                 ${chatFocus}
-                ${condModWarning} 
-                ${armorPenaltyWarning} 
-                <b>Ability Test Results:</b> ${resultsSum} <br> 
+                ${condModWarning}
+                ${armorPenaltyWarning}
+                <b>Ability Test Results:</b> ${resultsSum} <br>
                 ${chatStunts}`
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: roll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,

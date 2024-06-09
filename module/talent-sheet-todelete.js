@@ -1,7 +1,7 @@
 export class ExpanseTalentSheet extends ItemSheet {
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "npc", "item", "talents"],
             width: 480,
             height: 450,
@@ -26,7 +26,7 @@ export class ExpanseTalentSheet extends ItemSheet {
         super.activateListeners(html);
         let tabs = html.find('tabs');
         let initial = this._sheetTab;
-        new TabsV2(tabs, {
+        new Tabs(tabs, {
             initial: initial,
             callback: clicked => this._sheetTab = clicked.data("tab")
         });
@@ -55,7 +55,7 @@ export class ExpanseTalentSheet extends ItemSheet {
             const items = actorData.items;
 
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const weapon = duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId));
+            const weapon = foundry.utils.duplicate(this.actor.getEmbeddedEntity("OwnedItem", itemId));
 
             // If targeting same armor, cycle on off (Needs refactoring; else if redundant);
             for (let [k, v] of Object.entries(items)) {
@@ -96,10 +96,10 @@ export class ExpanseTalentSheet extends ItemSheet {
         let rollCard = {};
 
         let toHitRoll = new Roll(`3D6 + @foc + @abm`, { foc: useFocus, abm: abilityMod });
-        toHitRoll.evaluate();
+        toHitRoll.evaluateSync();
         [die1, die2, die3] = toHitRoll.terms[0].results.map(i => i.result);
         let toHit = Number(toHitRoll.total);
-        
+
         if (die1 == die2 || die1 == die3 || die2 == die3) {
             stuntPoints = `<b>${die3} Stunt Points have been generated!</b></br>`;
         };
@@ -111,14 +111,14 @@ export class ExpanseTalentSheet extends ItemSheet {
         let attackBonus = itemUsed.data.attack;
 
         let damageRoll = new Roll(`${diceFormula} + @ab`, { ab: attackBonus });
-        damageRoll.evaluate();
+        damageRoll.evaluateSync();
         let damageOnHit = damageRoll.total;
 
         this.TargetNumber().then(target => {
             tn = Number(target);
             const toHitSuccess = `Your Attack roll of ${toHit} <b>SUCCEEDS</b> against a Target Number of ${tn}.</br>`;
             const toHitFail = `Your Attack roll of ${toHit} with the ${itemUsed.data.name} <b>FAILS</b> against a Target Number of ${tn}.</br>`;
-            const damageTotal = `Your attack with the ${itemUsed.data.name} does ${damageOnHit} points of damage.</br> 
+            const damageTotal = `Your attack with the ${itemUsed.data.name} does ${damageOnHit} points of damage.</br>
                 Subtract the enemies Toughness and Armor for total damage received`;
             if (toHit >= tn) {
                 rollCard = toHitSuccess + stuntPoints + damageTotal
@@ -160,14 +160,14 @@ export class ExpanseTalentSheet extends ItemSheet {
             let resultsSum = die1 + die2 + die3 + useFocus + abilityMod;
 
             if (die1 == die2 || die1 == die3 || die2 == die3) {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
+                rollCard = `
+              <b>Dice Roll:</b> ${results} <br>
               <b>Ability Test Results:</b> ${resultsSum} <br>
               <b>${die3} Stunt Points have been generated!</b>
               `
             } else {
-                rollCard = ` 
-              <b>Dice Roll:</b> ${results} <br> 
+                rollCard = `
+              <b>Dice Roll:</b> ${results} <br>
               <b>Ability Test Results:</b> ${resultsSum}
               `
             }
@@ -177,12 +177,7 @@ export class ExpanseTalentSheet extends ItemSheet {
                 flavor: label,
                 content: rollCard
             });
-            /*let label = dataset.label ? `Rolling ${dataset.label}` : '';*/
-            /*roll.toMessage({
-              speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-              flavor: label,
-              rollCard
-            });*/
+
         }
     }
 
