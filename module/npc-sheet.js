@@ -4,7 +4,7 @@ import { RollModifier, RollDamageModifier } from "./rolling/modifiers.js"
 export class ExpanseNPCSheet extends ActorSheet {
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["sheet", "actor", "npc"],
             width: 600,
             height: 450,
@@ -19,14 +19,11 @@ export class ExpanseNPCSheet extends ActorSheet {
         return `systems/expanse/templates/sheet/${type}-sheet.html`;
     }
 
-    getData() {
+    async getData() {
         const sheetData = super.getData();
-        //data.dtypes = ["String", "Number", "Boolean"];
-        //let sheetData = {};
 
         sheetData.system = sheetData.data.system;
         const actorData = sheetData.actor;
-        console.log(sheetData);
         sheetData.dtypes = ["String", "Number", "Boolean"];
         sheetData.name = actorData.name;
         sheetData.stunts = actorData.items.filter(i => i.type === "stunt");
@@ -40,6 +37,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         sheetData.attributes = actorData.system.attributes;
         sheetData.abilities = actorData.system.abilities;
         sheetData.bio = actorData.system.bio;
+
         //temp fix. new actors shouldnt need this
         sheetData.info = actorData.system.info;
         sheetData.img = actorData.system.img;
@@ -55,11 +53,11 @@ export class ExpanseNPCSheet extends ActorSheet {
             return a.name.localeCompare(b.name);
         });
 
-        sheetData.enrichment = this._enrichBio();
+        sheetData.enrichment = await this._enrichBio();
 
         for (let [k, v] of Object.entries(sheetData.weapon)) {
             if (v.type === "weapon") {
-                const weapon = duplicate(this.actor.getEmbeddedDocument("Item", v.id));
+                const weapon = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", v.id));
                 let modifierStat = v.system.modifier
                 let bonusDamage = 0; // get stat from actorData
                 let useFocus = v.system.usefocus;
@@ -108,24 +106,24 @@ export class ExpanseNPCSheet extends ActorSheet {
                 }
                 v.system.tohitabil = modType;
                 v.system.attack += focusBonus;
-                //v._id = v._id;
+
                 this.actor.updateEmbeddedDocuments("Item", [v])
             }
         }
         return sheetData;
     }
 
-    _enrichBio() {
+    async _enrichBio() {
         let enrichment = {};
-        enrichment[`system.notes`] = TextEditor.enrichHTML(this.actor.system.notes, { async: false, relativeTo: this.actor });
-        return expandObject(enrichment);
+        enrichment[`system.notes`] = await TextEditor.enrichHTML(this.actor.system.notes, { relativeTo: this.actor });
+        return foundry.utils.expandObject(enrichment);
     }
 
     activateListeners(html) {
         super.activateListeners(html);
         let tabs = html.find('tabs');
         let initial = this._sheetTab;
-        new TabsV2(tabs, {
+        new Tabs(tabs, {
             initial: initial,
             callback: clicked => this._sheetTab = clicked.data("tab")
         });
@@ -151,7 +149,7 @@ export class ExpanseNPCSheet extends ActorSheet {
             const data = super.getData()
             const items = data.items;
             let itemId = e.currentTarget.getAttribute("data-item-id");
-            const weapon = duplicate(this.actor.getEmbeddedDocument("Item", itemId));
+            const weapon = foundry.utils.duplicate(this.actor.getEmbeddedDocument("Item", itemId));
             for (let [k, v] of Object.entries(items)) {
                 if (v.type === "weapon" && v._id === itemId) {
                     weapon.system.usefocus = !weapon.system.usefocus;
@@ -166,8 +164,8 @@ export class ExpanseNPCSheet extends ActorSheet {
 
         html.find('.npc-damage').click(this._onNPCDamage.bind(this));
     }
- 
-    _onNPCAttack(event) {
+
+    async _onNPCAttack(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
@@ -200,7 +198,8 @@ export class ExpanseNPCSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`).roll({ async: false });
+            let toHitRoll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.itemAbil}`);
+            await toHitRoll.evaluate();
             let useFocus = itemUsed.system.usefocus ? 2 : 0;
             let useFocusPlus = itemUsed.system.usefocusplus ? 1 : 0;
             let abilityMod = actorData.system.abilities[dataset.itemAbil].rating;
@@ -237,7 +236,7 @@ export class ExpanseNPCSheet extends ActorSheet {
                     resultsSum += testData;
                     let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
                     rollCard = `
-                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                         ${chatMod}
                         ${chatAddMod}
                         ${chatFocus}
@@ -245,7 +244,6 @@ export class ExpanseNPCSheet extends ActorSheet {
                         ${chatStunts}
                     `
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         roll: toHitRoll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
@@ -255,14 +253,13 @@ export class ExpanseNPCSheet extends ActorSheet {
 
             } else {
                 rollCard = `
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                 ${chatMod}
                 ${chatFocus}
-                <b>Ability Test Results:</b> ${resultsSum} <br> 
+                <b>Ability Test Results:</b> ${resultsSum} <br>
                 ${chatStunts}`
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: toHitRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -273,7 +270,7 @@ export class ExpanseNPCSheet extends ActorSheet {
         }
     }
 
-    _onNPCDamage(e) {
+    async _onNPCDamage(e) {
         e.preventDefault();
         const element = e.currentTarget;
         const dataset = element.dataset;
@@ -302,13 +299,13 @@ export class ExpanseNPCSheet extends ActorSheet {
         let diceImageArray = "";
 
         if (!e.shiftKey) {
-            let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+            let damageRoll = new Roll(`${diceFormula}d${d2}`);
+            await damageRoll.evaluate();
+
             let damageOutput = damageD3 ? Math.ceil(damageRoll.total/2) : damageRoll.total;
             let totalDamage = damageOutput + bonusDamage;
 
-
-
-            let resultRoll = damageRoll.terms[0].results.map(i => i.result);       
+            let resultRoll = damageRoll.terms[0].results.map(i => i.result);
             for (let i = 0; i < resultRoll.length; i++) {
                 diceImageArray += `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${resultRoll[i]}-${diceData.style}.png" /> `
             }
@@ -324,10 +321,9 @@ export class ExpanseNPCSheet extends ActorSheet {
                 ${chatDamage}
                 ${chatBonusDamage}
                 ${chatDamageTotal}
-            `
+            `;
 
             ChatMessage.create({
-                type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                 roll: damageRoll,
                 speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                 flavor: label,
@@ -335,11 +331,13 @@ export class ExpanseNPCSheet extends ActorSheet {
             });
 
         } else {
-            RollDamageModifier().then(r => {
+            RollDamageModifier().then(async r => {
                 let testData = r;
                 diceFormula += testData[0];
                 const reducer = (previousValue, currentValue) => previousValue + currentValue;
-                let damageRoll = new Roll(`${diceFormula}d${d2}`).roll({ async: false });
+                let damageRoll = new Roll(`${diceFormula}d${d2}`);
+                await damageRoll.evaluate();
+
                 let damageOutput = damageD3 ? damageRoll.terms[0].results.map(i => Math.ceil(i.result / 2)) : damageRoll.terms[0].results.map(i => (i.result));
                 let cDmg = damageOutput.reduce(reducer);
                 let totalDamage = cDmg + bonusDamage + testData[1];
@@ -364,7 +362,6 @@ export class ExpanseNPCSheet extends ActorSheet {
             `
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: damageRoll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,
@@ -375,7 +372,7 @@ export class ExpanseNPCSheet extends ActorSheet {
 
     }
 
-    _onRoll(event) {
+    async _onRoll(event) {
         event.preventDefault();
         const element = event.currentTarget;
         const dataset = element.dataset;
@@ -402,30 +399,16 @@ export class ExpanseNPCSheet extends ActorSheet {
                 d1 = 6;
             }
 
-            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system).roll({ async: false });
+            let roll = new Roll(`2d${d2} + 1d${d1} + @abilities.${dataset.label}.rating`, this.actor.system);
+            await roll.evaluate();
+
             let useFocus = roll.data.abilities[dataset.label].useFocus ? 2 : 0;
             let useFocusPlus = roll.data.abilities[dataset.label].useFocusPlus ? 1 : 0;
             let abilityMod = roll.data.abilities[dataset.label].rating;
             [die1, die2] = roll.terms[0].results.map(i => i.result);
             [die3] = roll.terms[2].results.map(i => i.result);
 
-            /*if (roll.data.conditions.wounded.active === true) {
-                condMod = -2;
-                condModName = "wounded";
-            } else if ((roll.data.conditions.injured.active === true) && (roll.data.conditions.wounded.active === false)) {
-                condMod = -1;
-                condModName = "injured";
-            } else {
-                condMod = 0;
-            }*/
-
             let label = useFocus ? `<b> Rolling ${dataset.label} with focus </b>` : `Rolling ${dataset.label}`;
-
-            /*if (condMod < 0) {
-                condModWarning = `<i>You are <b>${condModName}</b> and receive a ${condMod} modifier to your roll</i> <br>`;
-            } else {
-                condModWarning = ``;
-            }*/
 
             const dieImage = `<img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die1}-${diceData.style}.png" />
             <img height="75px" width="75px" src="systems/expanse/ui/dice/${diceData.faction}/chat/${diceData.faction}-${die2}-${diceData.style}.png" />
@@ -447,10 +430,6 @@ export class ExpanseNPCSheet extends ActorSheet {
             let chatStunts = "";
             if (die1 == die2 || die1 == die3 || die2 == die3) {
                 chatStunts = `<b>${die3} Stunt Points have been generated!</b>`;
-                /*let spData = actorData.system.attributes.stuntpoints;
-                spData.modified = die3;
-                spData.thisround = true;
-                this.actor.update({ data: { attributes: data.actor.system.attributes } });*/
             }
 
             if (event.shiftKey) {
@@ -460,15 +439,15 @@ export class ExpanseNPCSheet extends ActorSheet {
                     resultsSum += testData;
                     let chatAddMod = `<b>Additional Modifier</b>: ${testData}</br>`
                     rollCard = `
-                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                        <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                         ${chatMod}
                         ${chatAddMod}
                         ${chatFocus}
-                        <b>Ability Test Results:</b> ${resultsSum} <br> 
+                        <b>Ability Test Results:</b> ${resultsSum} <br>
                         ${chatStunts}
-                    `
+                    `;
+
                     ChatMessage.create({
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         roll: roll,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                         flavor: label,
@@ -478,14 +457,13 @@ export class ExpanseNPCSheet extends ActorSheet {
 
             } else {
                 rollCard = `
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br> 
+                <div style="display: flex; flex-direction: row; justify-content: space-around;">${dieImage}</div><br>
                 ${chatMod}
                 ${chatFocus}
-                <b>Ability Test Results:</b> ${resultsSum} <br> 
+                <b>Ability Test Results:</b> ${resultsSum} <br>
                 ${chatStunts}`
 
                 ChatMessage.create({
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     roll: roll,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     flavor: label,

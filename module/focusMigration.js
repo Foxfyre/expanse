@@ -1,16 +1,7 @@
 export function migrateFocus(actor) {
-    /*system.items.forEach((v, i) => {
-        //console.log(v);
-        let itemId = v._id;
-        if (v.type === "focus") {
-            system.deleteEmbeddedDocuments("Item", [itemId]);
-        }
-    })*/
     let focuses = [];
-    console.log(actor);
-    console.log(actor.system.info.fUpdated);
+
     if (actor.system.info.fUpdated === false) {
-        console.log(actor)
         for (let [k, v] of Object.entries(actor.system.abilities)) {
             // skip if focus field is array or empty string
             if (v.focus === undefined) { continue }
@@ -46,13 +37,9 @@ export function migrateFocus(actor) {
                 // assign ability used in focus
                 data.system.ability = abilityType;
                 focuses.push(data);
-                // TODO make sure this writes in as a string. 
-                //v.focus = focusArray.join(",");
+                // TODO make sure this writes in as a string.
             }
-            console.log(focuses);
-            console.log(v);
         }
-        //system.system.info.fUpdated = true;
 
         actor.createEmbeddedDocuments("Item", focuses, { renderSheet: false });
 

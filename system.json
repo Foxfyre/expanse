@@ -53,7 +53,6 @@
       "path": "lang/pt-BR.json",
       "flags": {}
     }
-    
   ],
   "media": [
     {
@@ -63,6 +62,10 @@
       "flags": {}
     }
   ],
+  "grid": {
+    "distance": 1,
+    "unit": "m"
+  },
   "gridDistance": 1,
   "gridUnits": "m",
   "primaryTokenAttribute": "attributes.fortune",
@@ -72,8 +75,7 @@
   "download": "https://github.com/Foxfyre/expanse/releases/download/1.2.0/expanse.zip",
   "license": "LICENSE.txt",
   "compatibility": {
-    "minimum": "10",
-    "verified": "11.313",
-    "maximum": "11"
+    "minimum": "11",
+    "verified": "12.327"
   }
 }

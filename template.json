@@ -331,12 +331,12 @@
     },
     "Item": {
         "types": [
-            "talent",
-            "stunt",
-            "weapon",
             "armor",
+            "focus",
             "shield",
-            "focus"
+            "stunt",
+            "talent",
+            "weapon"
         ],
         "talent": {
             "description": "",

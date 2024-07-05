@@ -10,7 +10,6 @@ export class ExpanseItem extends Item {
     }
 
     _preCreate(data) {
-        //const data = this.system;
         const path = "systems/expanse/ui/item-img/"
         if (this.type === "armor") {
             this.updateSource({ img: `${path}item-armor.png` })
@@ -47,7 +46,7 @@ export class ExpanseItem extends Item {
         if (this.type === "talent" && this.system.specialization === true) {
             this.updateSource({ img: `${path}talent-book.png` })
         }
-        
+
         if (this.type === "talent" && this.system.specialization === false) {
             this.updateSource({ img: `${path}talent-tablet.png` })
         }
