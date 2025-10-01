@@ -5,26 +5,26 @@
 
         <div class="ability-name">
             <span>{{localize (concat "EXPANSE." key) }}</span>
-
-            {{#ifCond key '==' 'dexterity'}}
-            <div class="ability-penalty-box">
-                <span>Penalty</span>
-                <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.usePenalty" {{checked
-                    ability.usePenalty}}>
-            </div>
-            {{/ifCond}}
-
-            <div class="ability-focus-box">
-                <span>{{localize "EXPANSE.Focus" }} +2</span>
-                <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocus" {{checked
-                    ability.useFocus}}>
-                {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
-                <span>+1</span>
-                <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocusPlus" {{checked
-                    ability.useFocusPlus}}>
+            <div class="ability-modifiers">
+                {{#ifCond key '==' 'dexterity'}}
+                <div class="ability-penalty-box">
+                    <span>Penalty</span>
+                    <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.usePenalty" {{checked
+                        ability.usePenalty}}>
+                </div>
                 {{/ifCond}}
-            </div>
 
+                <div class="ability-focus-box">
+                    <span>{{localize "EXPANSE.Focus" }}&nbsp+2</span>
+                    <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocus" {{checked
+                        ability.useFocus}}>
+                    {{#ifCond ability.useFocus '&&' ../attributes.level.bonus}}
+                    <span>+1</span>
+                    <input type="checkbox" class="expanse-checkbox" name="system.abilities.{{key}}.useFocusPlus" {{checked
+                        ability.useFocusPlus}}>
+                    {{/ifCond}}
+                </div>
+            </div>
         </div>
         <!--<input class="age-focus" type="text" name="system.abilities.{{key}}.focus" value="{{ability.focus}}"
             data-dtype="String" />-->

@@ -247,7 +247,6 @@ blockquote {
 
 /* New CSS */
 
-
 .sheet.item .sheet-header,
 .sheet.actor .sheet-header {
     --overflow: hidden;
@@ -424,7 +423,7 @@ blockquote {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 50px;
+    height: 55px;
     width: calc(48% - 2px);
     margin: 0px 5px 10px 5px;
     padding: 0;
@@ -460,13 +459,17 @@ blockquote {
     width: 15px;
 }
 
+.ability-modifiers{
+    display: flex;
+    flex-direction: row;
+}
+
 .ability-penalty-box {
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    padding: 0px 0px 0px 50px;
 }
 
 .ability-penalty-box > span {
@@ -478,9 +481,9 @@ blockquote {
 .ability-focus-box {
     display: flex;
     flex-direction: row;
-    width: 50%;
     align-items: center;
     justify-content: flex-end;
+    margin-left: 5px;
 }
 
 .ability-focus-box>span {
@@ -1745,7 +1748,7 @@ body {
 
 .themed.theme-dark .ui-control {
     --control-active-border-color: #088afc;
-    --control-hover-border-color: #5b9cd5;
+    --control-hover-border-color: #5b9cd5;  
 }
 
 #logo {

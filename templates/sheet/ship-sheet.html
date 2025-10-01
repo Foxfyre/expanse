@@ -28,36 +28,74 @@
             </div>
 
             <div class="ship-row">
-                <div class="ship-senhulcre">
-                    <div class="ship-input">
-
-                        <label for="system.sensors" class="info-label">{{localize "EXPANSE.Sensors" }}</label>
-                        <input class="info-input" type="text" name="system.sensors" value="{{actor.system.sensors}}"
-                            data-dtype="String" />
+                <div class="ship-input ship-senhulcre">
+                    <label for="system.crewCount" class="info-label">{{localize "EXPANSE.Crew" }}</label>
+                    <input class="info-input" type="text" name="system.crewCount" value="{{actor.system.crewCount}}"
+                        data-dtype="String" />
+                </div>
+                <div class="ship-input ship-senhulcre">
+                    <label for="system.sensors" class="info-label">{{localize "EXPANSE.Sensors" }}</label>
+                    <input class="info-input" type="number" name="system.sensors" value="{{actor.system.sensors}}" data-dtype="Number" />
                     </div>
-                    <div class="ship-input">
-                        <label for="system.hull" class="info-label">{{localize "EXPANSE.Hull" }}</label>
-                        <input class="info-input" type="text" name="system.hull" value="{{actor.system.hull}}"
-                            data-dtype="String" />
-                    </div>
-                    <div class="ship-input">
-                        <label for="system.crew" class="info-label">{{localize "EXPANSE.Crew" }}</label>
-                        <input class="info-input" type="text" name="system.crew" value="{{actor.system.crew}}"
-
-                            data-dtype="String" />
+                 <div class="ship-input ship-senhulcre ship-hull">
+                    <label for="system.hull" class="info-label">{{localize "EXPANSE.Hull" }}</label>
+                    <input class="info-input" type="text" name="system.hull" value="{{actor.system.hull}}" data-dtype="String" placeholder="2d6"/>
+                    <div class="ability-btn rollable ship-hull-roll-button" data-roll="{{actor.system.hull}}" data-label="hull-roll" title="{{localize "EXPANSE.ShipHullRoll" }}">
                     </div>
                 </div>
+            </div>
+            <div class="ship-row">
                 <div class="ship-weapons">
                     <label class="info-label">{{localize "EXPANSE.Weapons" }}</label>
                     <div class="weapon-inputs">
-                        <input class="info-input" type="text" name="system.weapon1" value="{{actor.system.weapon1}}"
-                            data-dtype="String" />
-                        <input class="info-input" type="text" name="system.weapon2" value="{{actor.system.weapon2}}"
-                            data-dtype="String" />
-                        <input class="info-input" type="text" name="system.weapon3" value="{{actor.system.weapon3}}"
-                            data-dtype="String" />
-                        <input class="info-input" type="text" name="system.weapon4" value="{{actor.system.weapon4}}"
-                            data-dtype="String" />
+                        <div class="ship-column ship-weapon-type">
+                            <div class="box-header">
+                                <span class="weapon-type-header-title">{{localize "EXPANSE.WeaponType" }}</span>
+                            </div>
+                                <input class="info-input" type="text" name="system.weapon1.type" value="{{actor.system.weapon1.type}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon2.type" value="{{actor.system.weapon2.type}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon3.type" value="{{actor.system.weapon3.type}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon4.type" value="{{actor.system.weapon4.type}}"
+                                data-dtype="String" />
+                        </div>
+                        <div class="ship-column ship-weapon-description">
+                            <div class="box-header">
+                                <span class="weapon-type-header-title">{{localize "EXPANSE.WeaponDescription" }}</span>
+                            </div>
+                                <input class="info-input" type="text" name="system.weapon1.description" value="{{actor.system.weapon1.description}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon2.description" value="{{actor.system.weapon2.description}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon3.description" value="{{actor.system.weapon3.description}}"
+                                data-dtype="String" />
+                            <input class="info-input" type="text" name="system.weapon4.description" value="{{actor.system.weapon4.description}}"
+                                data-dtype="String" />
+                        </div>
+                        <div class="ship-column ship-weapon-damage">
+                            <div class="box-header">
+                                <span class="weapon-dmg-header-title">{{localize "EXPANSE.WeaponDamage" }}</span>
+                            </div>
+                            <input class="info-input" type="text" name="system.weapon1.damage" value="{{actor.system.weapon1.damage}}"
+                            data-dtype="String" placeholder="2d6"/>
+                        <input class="info-input" type="text" name="system.weapon2.damage" value="{{actor.system.weapon2.damage}}"
+                            data-dtype="String" placeholder="2d6"/>
+                        <input class="info-input" type="text" name="system.weapon3.damage" value="{{actor.system.weapon3.damage}}"
+                            data-dtype="String" placeholder="2d6"/>
+                        <input class="info-input" type="text" name="system.weapon4.damage" value="{{actor.system.weapon4.damage}}"
+                            data-dtype="String" placeholder="2d6"/>
+                        </div>
+                        <div class="ship-column ship-weapon-damage-roll">
+                            <div class="box-header">
+                                <span class="weapon-dmg-header-title"></span>
+                            </div>
+                            <div class="ability-btn rollable ship-weapon-damage-roll-button" data-weapon="weapon1" data-roll="{{actor.system.weapon1.damage}}" data-label="weapon-roll" title="{{localize "EXPANSE.DamageRoll" }}"></div>
+                            <div class="ability-btn rollable ship-weapon-damage-roll-button" data-weapon="weapon2" data-roll="{{actor.system.weapon2.damage}}" data-label="weapon-roll" title="{{localize "EXPANSE.DamageRoll" }}"></div>
+                            <div class="ability-btn rollable ship-weapon-damage-roll-button" data-weapon="weapon3" data-roll="{{actor.system.weapon3.damage}}" data-label="weapon-roll" title="{{localize "EXPANSE.DamageRoll" }}"></div>
+                            <div class="ability-btn rollable ship-weapon-damage-roll-button" data-weapon="weapon4" data-roll="{{actor.system.weapon4.damage}}" data-label="weapon-roll" title="{{localize "EXPANSE.DamageRoll" }}"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,148 +126,109 @@
 
             <div class="crew-box">
                 <div class="box-header">
-                    <span class="stunt-header-title">{{localize "EXPANSE.CrewRole" }}</span>
-                    <span class="stunt-header-title">{{localize "EXPANSE.Stat" }}</span>
-                    <span class="stunt-header-effect">{{localize "EXPANSE.Modifier" }}</span>
-                    <span class="stunt-header-blank">{{localize "EXPANSE.CrewMember" }}</span>
+                    <span class="crew-header-name">{{localize "EXPANSE.CrewMember" }}</span>
+                    <span class="crew-header-role">{{localize "EXPANSE.CrewRole" }}</span>
+                    <span class="crew-header-stat">{{localize "EXPANSE.Stat" }}</span>
+                    <span class="crew-header-mod">{{localize "EXPANSE.Modifier" }}</span>
+                    <span class="crew-header-focus">{{localize "EXPANSE.Focus" }}</span>
+                    <span class="crew-header-roll"></span>
                 </div>
+                {{#each actor.system.crew as |crew key|}}
                 <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew1.role" data-dtype="String">
-                            {{#select actor.system.crew1.role}}
-                            <option value="captain" selected>{{localize "EXPANSE.ship.captain" }}</option>
-                            <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
-                            <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
-                            <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
-                            <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
-                            {{/select}}
-                        </select>
-                    </div>
-                    <input class="ship-crewstat" type="text" name="system.crew1.stat"
-                        value="{{actor.system.crew1.stat}}" />
+                    <input class="ship-crew-name" type="text" name="system.crew.{{key}}.name"
+                    value="{{name}}" />
 
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew1.modValue"
-                        value="{{actor.system.crew1.modValue}}" />
-
-                    <input class="ship-crewname" type="text" name="system.crew1.name"
-                        value="{{actor.system.crew1.name}}" />
-                </div>
-
-                <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew2.role" data-dtype="String">
-                            {{#select actor.system.crew2.role}}
-                            <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
-                            <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
-                            <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
-                            <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
-                            <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
-                            {{/select}}
-                        </select>
-                    </div>
-                    <input class="ship-crewstat" type="text" name="system.crew2.stat"
-                        value="{{actor.system.crew2.stat}}" />
-
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew2.modValue"
-                        value="{{actor.system.crew2.modValue}}" />
-
-                    <input class="ship-crewname" type="text" name="system.crew2.name"
-                        value="{{actor.system.crew2.name}}" />
-                </div>
-
-                <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew3.role" data-dtype="String">
-                            {{#select actor.system.crew3.role}}
-                            <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
-                            <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
-                            <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
-                            <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
-                            <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
-                            {{/select}}
-                        </select>
-                    </div>
-                    <input class="ship-crewstat" type="text" name="system.crew3.stat"
-                        value="{{actor.system.crew3.stat}}" />
-
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew3.modValue"
-                        value="{{actor.system.crew3.modValue}}" />
-
-                    <input class="ship-crewname" type="text" name="system.crew3.name"
-                        value="{{actor.system.crew3.name}}" />
-                </div>
-
-                <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew4.role" data-dtype="String">
-                            {{#select actor.system.crew4.role}}
-                            <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
-                            <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
-                            <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
-                            <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
-                            <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
-                            {{/select}}
-                        </select>
-                    </div>
-                    <input class="ship-crewstat" type="text" name="system.crew4.stat"
-                        value="{{actor.system.crew4.stat}}" />
-
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew4.modValue"
-                        value="{{actor.system.crew4.modValue}}" />
-
-                    <input class="ship-crewname" type="text" name="system.crew4.name"
-                        value="{{actor.system.crew4.name}}" />
-                </div>
-
-                <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew5.role" data-dtype="String">
-                            {{#select actor.system.crew5.role}}
-                            <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
-                            <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
-                            <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
-                            <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
-                            <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
-                            {{/select}}
-                        </select>
-                    </div>
-                    <input class="ship-crewstat" type="text" name="system.crew5.stat"
-                        value="{{actor.system.crew5.stat}}" />
-
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew5.modValue"
-                        value="{{actor.system.crew5.modValue}}" />
-
-                    <input class="ship-crewname" type="text" name="system.crew5.name"
-                        value="{{actor.system.crew5.name}}" />
-                </div>
-
-                <div class="ship-member">
-                    <div class="ship-crewrole">
-                        <select type="text" name="system.crew6.role" data-dtype="String">
-                            {{#select actor.system.crew6.role}}
-                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
+                    <div class="ship-crew-role">
+                        <select class="crew-type-selector" type="text" name="system.crew.{{key}}.role" data-crew="{{key}}" data-dtype="String">
+                            {{#select role}}
+                            <option value="" selected></option>
                             <option value="captain">{{localize "EXPANSE.ship.captain" }}</option>
                             <option value="pilot">{{localize "EXPANSE.ship.pilot" }}</option>
                             <option value="sensors">{{localize "EXPANSE.ship.sensors" }}</option>
                             <option value="gunnary">{{localize "EXPANSE.ship.gunnary" }}</option>
                             <option value="engineer">{{localize "EXPANSE.ship.engineer" }}</option>
+                            <option value="other">{{localize "EXPANSE.ship.other" }}</option>
                             {{/select}}
                         </select>
                     </div>
-                    <input class="ship-crewstat" type="text" name="system.crew6.stat"
-                        value="{{actor.system.crew6.stat}}" />
+                    <input class="ship-crew-stat" type="text" name="system.crew.{{key}}.stat"
+                        value="{{stat}}" />
 
-                    <input class="ship-crewmod" type="number" placeholder="0" name="system.crew6.modValue"
-                        value="{{actor.system.crew6.modValue}}" />
+                    <input class="ship-crew-mod" type="number" placeholder=0 name="system.crew.{{key}}.modValue"
+                        value="{{modValue}}" data-dtype="Number"/>
 
-                    <input class="ship-crewname" type="text" name="system.crew6.name"
-                        value="{{actor.system.crew6.name}}" />
+                    <input class="ship-crew-focus" type="checkbox" name="system.crew.{{key}}.focus" {{checked focus}}>
+
+                    <div class="ability-btn crew-roll ship-crew-roll-button crew-header-roll" data-crew="{{key}}" data-roll="3d6" data-label="crew-roll" title="{{buttonTitle}}"></div>
                 </div>
+                {{/each}}
+            </div>
+
+            <div class="combat-box">
+                <div class="box-header">
+                    <span>{{localize "EXPANSE.ShipCombat" }}</span>
+                </div>
+                <div class="ship-row ship-combat-row">
+                    <div class="ship-command ship-input">
+                        <label for="system.combat.commandPoints" class="info-label">{{localize "EXPANSE.CommandPoints" }}</label>
+                        <input class="info-input" type="number" name="system.combat.commandPoints" value="{{actor.system.combat.commandPoints}}" data-dtype="Number" />
+                    </div>
+                    <div class="ship-electronic ship-input">
+                        <label for="system.combat.electronicPoints" class="info-label">{{localize "EXPANSE.ElectronicPoints" }}</label>
+                        <input class="info-input" type="number" name="system.combat.electronicPoints" value="{{actor.system.combat.electronicPoints}}" data-dtype="Number" />
+                    </div>
+                    <div class="ship-engineer ship-input">
+                        <label for="system.combat.engineerPoints" class="info-label">{{localize "EXPANSE.EngineerPoints" }}</label>
+                        <input class="info-input" type="number" name="system.combat.engineerPoints" value="{{actor.system.combat.engineerPoints}}" data-dtype="Number" />
+                    </div>
+                    <div class="ship-defense-btn defense-roll" data-roll="3d6" data-label="defense-roll">{{localize "EXPANSE.ShipDefense"}}</div>
+                </div>    
+            </div>
+
+            <div class="ship-losses">
+                <div class="box-header">
+                    <span>{{localize "EXPANSE.Losses.header" }}</span>
+                </div>
+                <div class="ship-losses-row">
+                    <div class="ship-column">
+                        <div class="box-header losses-header">
+                            <span>{{localize "EXPANSE.Losses.simplelosses" }}</span>
+                        </div>
+                        {{#each conditions as |condition key|}}
+                        <div class="ship-row ship-input losses-checkbox" title="{{localize (concat "EXPANSE.Losses.tooltip." key) }}">
+                            <label class="info-label" for="{{key}}">{{localize (concat "EXPANSE.Losses." key) }}</label>
+                            <div name="{{key}}" class="losses-checkbox-group">
+                                {{#each condition as |loss key|}}
+                                <input class="info-input" type="checkbox" id="condition" {{loss.selected}}>
+                                {{/each}}
+                            </div>
+                        </div> 
+                        {{/each}}
+                        <div class="box-header losses-header">
+                            <span>{{localize "EXPANSE.Losses.seriouslosses" }}</span>
+                        </div>
+                        {{#each actor.system.seriouslosses as |loss key|}}
+                        <div class="ship-row ship-input losses-checkbox">
+                            <label class="info-label" for="system.seriouslosses.{{key}}" class="info-label" title="{{localize (concat "EXPANSE.Losses.tooltip." key) }}">{{localize (concat "EXPANSE.Losses." key) }}</label>
+                            <input class="info-input" name="system.seriouslosses.{{key}}.value" type="checkbox" {{checked value}} />
+                        </div>
+                        {{/each}}
+                    </div> 
+                    <div class="ship-losses-button-column">
+                        <div class="ship-row rowReversed">
+                            <div class="ship-losses-btn simple-loss" data-roll="1d6" data-label="single-loss">{{localize "EXPANSE.Losses.ApplySingleLoss"}}</div>
+                        </div>
+                        <div class="ship-row rowReversed">
+                            <div class="ship-losses-btn simple-loss" data-roll="2d6" data-label="double-loss">{{localize "EXPANSE.Losses.ApplyDoubleLoss"}}</div>
+                        </div>
+                        <div class="ship-row rowReversed">
+                            <div class="ship-losses-btn serious-loss" data-roll="2d6" data-label="serious-loss">{{localize "EXPANSE.Losses.ApplySeriousLoss"}}</div>
+                        </div>
+                        <div class="ship-row rowReversed">
+                            <div class="ship-losses-btn reset-loss" data-label="reset-loss">{{localize "EXPANSE.Losses.ResetLosses"}}</div>
+                        </div>
+                    </div>  
+                </div> 
             </div>
 
         </div>

@@ -62,8 +62,93 @@
     white-space: nowrap;
     padding: 5px;
 }
-  
-.ship .ship-row input[type=text] {
+
+.crew-box .box-header {
+    justify-content: space-between;
+}
+
+.ship .crew-header-name,
+.ship .crew-header-role,
+.ship .crew-header-stat,
+.ship .crew-header-focus,
+.ship .crew-header-roll {
+    width: 23%;
+}
+
+.ship .crew-header-roll {
+    width: 25px;
+}
+
+.ship .ship-crew-name,
+.ship .ship-crew-role,
+.ship .ship-crew-stat,
+.ship .ship-crew-mod,
+.ship .ship-crew-focus {
+    width: 23%;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    background-color: #f3f3f3;
+}
+
+.ship .crew-header-name,
+.ship .ship-crew-name {
+    width: 28%;
+}
+
+.ship .crew-header-stat,
+.ship .ship-crew-stat {
+    width: 35%;
+    text-align: left;
+}
+
+.ship .ship-crew-name {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.ship .crew-header-mod,
+.ship .ship-crew-mod,
+.ship .crew-header-focus,
+.ship .ship-crew-focus {
+    width: 5%;
+}
+
+.ship .ship-crew-role {
+    background-color: transparent;
+}
+
+.ship .crew-header-role,
+.ship .ship-crew-role {
+    width: 17%;
+}
+
+.ship .ship-crew-role > select {
+    width: 100%;
+    height: 25px;
+    background-color: #f3f3f3;
+}
+
+.losses-header {
+    margin: 5px 0px;
+}
+
+.losses-checkbox input[type=checkbox]{
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+}
+
+.test-failure {
+    color: red;
+}
+
+.losses-checkbox input[type=checkbox]:checked{
+    accent-color: red;
+}
+.ship-losses input[type=number],  
+.ship .ship-row input[type=text],
+.ship .ship-row input[type=number] {
     font-weight: bold;
     text-align: start;
     border: none;
@@ -73,31 +158,140 @@
     border-bottom-right-radius: 10px;
 }
 
-.ship .ship-senhulcre {
+.ship-losses input[type=number] {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.ship-losses-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+} 
+
+.ship-column {
+    width: 60%;
+}
+
+.ship-losses-button-column {
+    width: 40%;
+}
+
+.ship-combat-row{
+    margin-top: 5px;
+}
+
+.ship-combat-row input[type=number] {
+    width: 50px;
+    text-align: center !important;
+}
+
+.losses-checkbox-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.rowReversed {
+    flex-direction: row-reverse !important;
+}
+
+.ship-defense-btn,
+.ship-losses-btn {
+    padding: 2px 5px 2px 5px;
+    background-image: linear-gradient(to bottom, #e4e4e4, #f7f7f7);
+    border: 1px solid #afafaf;
+    border-radius: 3px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.reset-loss {
+    color: red;
+}
+
+.LossConditions {
+    height: 100%;
+}
+
+.lossSelector {
     display: flex;
     flex-direction: column;
+    align-items: flex-end;
+    border: none;
+}
+
+.ship .ship-senhulcre {
+    width: calc(33.3% - 3px);
+    display: flex;
     justify-content: space-between;
-    width: 26%;
-    height: 100px;
+}
+
+.ship-hull input[type=text]{
+    width: calc(100% - 68px);
+}
+
+.ship-weapon-damage-roll-button,
+.ship-crew-roll-button,
+.ship-hull-roll-button {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    background-image: url("../ui/earth-5.png");
+    background-size: cover;
+    background-repeat: none;
+    background-position: center;
+    cursor: pointer;
+}
+
+.ship-crew-roll-button,
+.ship-weapon-damage-roll-button {
+    width: 25px;
+    height: 25px;
+}
+
+.ship-crew-roll-button {
+    margin: 0;
 }
 
 .ship .ship-weapons {
     display: flex;
     flex-direction: row;
-    padding-left: 5px;
     width: 100%;
-    height: 100px;
+    height: 123px;
 }
 
 .ship .weapon-inputs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 }
 
-.ship .weapon-inputs > input[type=text] {
+.ship .weapon-inputs .ship-column > input[type=text] {
     height: 25px;
-    margin-bottom: 2px;
+}
+
+.ship-weapon-type,
+.ship-weapon-description,
+.ship-weapon-damage,
+.ship-weapon-damage-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 16%;
+}
+
+.ship-weapon-damage-roll {
+    width: 6%;
+}
+.ship-weapon-type {
+    width: 30%;
+}
+
+.ship-weapon-description {
+    width: 50%;
 }
 
 .ship .ship-notes-box {
@@ -128,7 +322,7 @@
     padding: 5px;
 }
 
-.ship .crew-box {
+.ship .crew-box .ship-losses{
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -140,34 +334,14 @@
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin: 5px 0;
+    align-items: center;
 }
 
-.ship .ship-crewrole {
+.chat-dice-box {
     display: flex;
-    width: 23%;
-    background-color: transparent;
-    justify-content: center;
-}
-
-.ship .ship-crewstat {
-    display: flex;
-    width: 23%;
-    border: none;
-    background-color: rgba(0, 0, 0, .05);
-}
-
-.ship .ship-crewmod {
-    display: flex;
-    width: 23%;
-    border: none;
-    background-color: rgba(0, 0, 0, .05);
-}
-
-.ship .ship-crewname {
-    display: flex;
-    width: 23%;
-    border: none;
-    background-color: rgba(0, 0, 0, .05);
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }

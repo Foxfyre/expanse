@@ -1,4 +1,4 @@
-export class TheExpanseEarthLight extends Die {
+export class TheExpanseEarthLight extends foundry.dice.terms.Die {
     constructor(termData) {
         termData.faces = 6;
         super(termData);

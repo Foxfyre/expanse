@@ -41,6 +41,7 @@
     color: whitesmoke;
 }
 
+.sheet .focuses-header-block input[type=text],
 .armors .armors-header-block input[type=text] {
     font-size: 100%;
     line-height: 100%;

@@ -11,6 +11,7 @@
             <span class="weapon-name">{{localize "EXPANSE.Name" }}</span>
             <span>{{localize "EXPANSE.Damage" }}</span>
             <span>{{localize "EXPANSE.AttackBonus" }}</span>
+            <span>{{localize "EXPANSE.Range" }}</span>
             <span>{{localize "EXPANSE.MaxRange" }}</span>
             <span>{{localize "EXPANSE.Focus" }}</span>
             <span>{{localize "EXPANSE.Hit" }}</span>
@@ -29,7 +30,7 @@
                     {{weapon.system.damage}}D{{weapon.system.dieFaces}}
                     {{#if weapon.system.hasBonusDamage}}
                     {{#ifCond weapon.system.bonusDamage '>' '0'}}+{{/ifCond}}
-                    {{#ifCond weapon.system.bonusDamage '<' '0' }}{{/ifCond}} {{weapon.system.bonusDamage}} {{/if}}
+                    {{#ifCond weapon.system.bonusDamage '<' '0' }}{{/ifCond}} {{weapon.system.bonusDamage}} {{/if}}        
                 </div>
                 <!-- route bonus through prepData pick up bonus used in mod + if relavant focus is checked-->
                 <div class="weapon-list-item">

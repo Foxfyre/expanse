@@ -1,0 +1,47 @@
+<form class="{{cssClass}} damage-modifier-sheet" autocomplete="off">
+
+  <div class="modifier-box">
+
+    <div class="modifier-header-box">
+      <div class="modifier-header-block">
+        <span>{{localize (concat "EXPANSE.LossConditions" count) }}</span>
+      </div>
+    </div>
+
+    <div class="modifier-block">
+      <div class="modifier-sections LossConditions">
+        <div class="modifier-section">
+              <fieldset name="fieldset" class="lossSelector">
+                {{#each conditions as |condition key|}}
+                  <div name="{{key}}">
+                    <label for="condition">{{localize (concat "EXPANSE.Losses." key) }}</label>
+                    {{#each condition as |loss key|}}
+                    <input type="checkbox" id="condition"  {{loss.active}} {{loss.selected}}>
+                    {{/each}}
+                  </div> 
+                {{/each}} 
+              </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+<script>
+  textContainer = document.querySelectorAll('.app.window-app.dialog');
+  length = textContainer.length;
+
+  for (i = 0; i < length; i++) {
+    if (textContainer[i].children[1].children[0].children[0].className.includes("damage-modifier-sheet")) {
+      new_red = textContainer[i].id;
+
+      if (document.getElementById(new_red).className.includes("damage-modifier-sheet-dialog")) {
+        continue;
+      }
+      else {
+        document.getElementById(new_red).className += " damage-modifier-sheet-dialog";
+      }
+    } else { }
+  }
+</script>

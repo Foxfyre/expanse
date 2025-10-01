@@ -276,9 +276,9 @@
             "name": "",
             "type": "",
             "drive": "",
-            "sensors": "",
+            "sensors": 0,
             "hull": "",
-            "crew": "",
+            "crewCount": "",
             "quality": "",
             "flaw": "",
             "description": "",
@@ -287,45 +287,106 @@
                 "1": "",
                 "2": ""
             },
-            "weapon1": "",
-            "weapon2": "",
-            "weapon3": "",
-            "weapon4": "",
-            "crew1": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "weapon1": {
+                "type": "",
+                "description": "",
+                "damage": ""
             },
-            "crew2": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "weapon2": {
+                "type": "",
+                "description": "",
+                "damage": ""
             },
-            "crew3": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "weapon3": {
+                "type": "",
+                "description": "",
+                "damage": ""
             },
-            "crew4": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "weapon4": {
+                "type": "",
+                "description": "",
+                "damage": ""
             },
-            "crew5": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "crew": {
+                "crew1": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                },
+                "crew2": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                },
+                "crew3": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                },
+                "crew4": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                },
+                "crew5": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                },
+                "crew6": {
+                    "role": "",
+                    "stat": "",
+                    "modValue": 0,
+                    "focus": false,
+                    "buttonTitle": "",
+                    "name": ""
+                }
             },
-            "crew6": {
-                "role": "",
-                "stat": "",
-                "modValue": 0,
-                "name": ""
+            "losses":{
+                "collateral": {
+                    "value": 0,
+                    "max": 6
+                },
+                "hull": {
+                    "value": 0,
+                    "max": 6
+                },
+                "maneuverability": {
+                    "value": 0,
+                    "max": 6
+                },
+                "sensors": {
+                    "value": 0,
+                    "max": 6
+                },
+                "weapons": {
+                    "value": 0,
+                    "max": 6
+                }
+            },
+            "seriouslosses":{
+                "reactoroffline": false,
+                "weaponoffline": false
+            },
+            "combat":{
+                "commandPoints": 0,
+                "electronicPoints": 0,
+                "engineerPoints": 0
             }
         }
     },
